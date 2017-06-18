@@ -42,13 +42,7 @@ public final class VectorOf3<T> implements Vector<T>
 			case 0: return new VectorOf3(value, this.element02, this.element03);
 			case 1: return new VectorOf3(this.element01, value, this.element03);
 			case 2: return new VectorOf3(this.element01, this.element02, value);
-			case 3:
-			{
-				//
-				// create a new vector hiearchy
-				//
-				return new VectorTrie(1, this, new VectorOf1(value));
-			}
+			case 3: return new VectorOf4(this.element01, this.element02, this.element03, value);
 		}
 		throw new IndexOutOfBoundsException();
 	}
