@@ -7,7 +7,7 @@ import com.lumpofcode.math.IntegerMath;
  */
 public final class VectorTrie<T> implements Vector<T>
 {
-	public static final int VECTOR_TRIE_SIZE = 5;
+	public static final int VECTOR_TRIE_SIZE = 16;
 	
 	private final int level;        // zero if leaf node, 1 is first level trie, 2 is second level trie, etc.
 	private final int childSize;    // size of each child node
@@ -18,6 +18,17 @@ public final class VectorTrie<T> implements Vector<T>
 	private final Vector<T> vector03;
 	private final Vector<T> vector04;
 	private final Vector<T> vector05;
+	private final Vector<T> vector06;
+	private final Vector<T> vector07;
+	private final Vector<T> vector08;
+	private final Vector<T> vector09;
+	private final Vector<T> vector10;
+	private final Vector<T> vector11;
+	private final Vector<T> vector12;
+	private final Vector<T> vector13;
+	private final Vector<T> vector14;
+	private final Vector<T> vector15;
+	private final Vector<T> vector16;
 	
 	public VectorTrie(final int level, final Vector<T> vector01, final Vector<T> vector02)
 	{
@@ -26,42 +37,38 @@ public final class VectorTrie<T> implements Vector<T>
 			vector02,
 			Vectors.empty,
 			Vectors.empty,
-			Vectors.empty);
-	}
-	
-	public VectorTrie(final int level,
-	                  final Vector<T> vector01,
-	                  final Vector<T> vector02,
-	                  final Vector<T> vector03)
-	{
-		this(level,
-			vector01,
-			vector02,
-			vector03,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
+			Vectors.empty,
 			Vectors.empty,
 			Vectors.empty);
 	}
 	
-	public VectorTrie(final int level,
-	                  final Vector<T> vector01,
-	                  final Vector<T> vector02,
-	                  final Vector<T> vector03,
-	                  final Vector<T> vector04)
-	{
-		this(level,
-			vector01,
-			vector02,
-			vector03,
-			vector04,
-			Vectors.empty);
-	}
 	
 	public VectorTrie(final int level,
 	                  final Vector<T> vector01,
 	                  final Vector<T> vector02,
 	                  final Vector<T> vector03,
 	                  final Vector<T> vector04,
-	                  final Vector<T> vector05)
+	                  final Vector<T> vector05,
+	                  final Vector<T> vector06,
+	                  final Vector<T> vector07,
+	                  final Vector<T> vector08,
+	                  final Vector<T> vector09,
+	                  final Vector<T> vector10,
+	                  final Vector<T> vector11,
+	                  final Vector<T> vector12,
+	                  final Vector<T> vector13,
+	                  final Vector<T> vector14,
+	                  final Vector<T> vector15,
+	                  final Vector<T> vector16)
 	{
 		this.level = level;
 		this.vector01 = vector01;
@@ -69,13 +76,35 @@ public final class VectorTrie<T> implements Vector<T>
 		this.vector03 = vector03;
 		this.vector04 = vector04;
 		this.vector05 = vector05;
+		this.vector06 = vector06;
+		this.vector07 = vector07;
+		this.vector08 = vector08;
+		this.vector09 = vector09;
+		this.vector10 = vector10;
+		this.vector11 = vector11;
+		this.vector12 = vector12;
+		this.vector13 = vector13;
+		this.vector14 = vector14;
+		this.vector15 = vector15;
+		this.vector16 = vector16;
 		
 		this.childSize = IntegerMath.power(VECTOR_TRIE_SIZE, level);
 		this.size =  vector01.size()
 			+ vector02.size()
 			+ vector03.size()
 			+ vector04.size()
-			+ vector05.size();
+			+ vector05.size()
+			+ vector06.size()
+			+ vector07.size()
+			+ vector08.size()
+			+ vector09.size()
+			+ vector10.size()
+			+ vector11.size()
+			+ vector12.size()
+			+ vector13.size()
+			+ vector14.size()
+			+ vector15.size()
+			+ vector16.size();
 	}
 	
 	@Override
@@ -95,7 +124,18 @@ public final class VectorTrie<T> implements Vector<T>
 			case 1: return vector02.get(index % childSize);
 			case 2: return vector03.get(index % childSize);
 			case 3: return vector04.get(index % childSize);
-			default: return vector05.get(index % childSize);
+			case 4: return vector05.get(index % childSize);
+			case 5: return vector06.get(index % childSize);
+			case 6: return vector07.get(index % childSize);
+			case 7: return vector08.get(index % childSize);
+			case 8: return vector09.get(index % childSize);
+			case 9: return vector10.get(index % childSize);
+			case 10: return vector11.get(index % childSize);
+			case 11: return vector12.get(index % childSize);
+			case 12: return vector13.get(index % childSize);
+			case 13: return vector14.get(index % childSize);
+			case 14: return vector15.get(index % childSize);
+			default: return vector16.get(index % childSize);
 		}
 	}
 	
@@ -106,11 +146,22 @@ public final class VectorTrie<T> implements Vector<T>
 		
 		switch(index / childSize)
 		{
-			case 0: return new VectorTrie(level, vector01.set(index % childSize, value), vector02, vector03, vector04, vector05);
-			case 1: return new VectorTrie(level, vector01, vector02.set(index % childSize, value), vector03, vector04, vector05);
-			case 2: return new VectorTrie(level, vector01, vector02, vector03.set(index % childSize, value), vector04, vector05);
-			case 3: return new VectorTrie(level, vector01, vector02, vector03, vector04.set(index % childSize, value), vector05);
-			case 4: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05.set(index % childSize, value));
+			case 0: return new VectorTrie(level, vector01.set(index % childSize, value), vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 1: return new VectorTrie(level, vector01, vector02.set(index % childSize, value), vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 2: return new VectorTrie(level, vector01, vector02, vector03.set(index % childSize, value), vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 3: return new VectorTrie(level, vector01, vector02, vector03, vector04.set(index % childSize, value), vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 4: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05.set(index % childSize, value), vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 5: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06.set(index % childSize, value), vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 6: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07.set(index % childSize, value), vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 7: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08.set(index % childSize, value), vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 8: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09.set(index % childSize, value), vector10, vector11, vector12, vector13, vector14, vector15, vector16);
+			case 9: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10.set(index % childSize, value), vector11, vector12, vector13, vector14, vector15, vector16);
+			case 10: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11.set(index % childSize, value), vector12, vector13, vector14, vector15, vector16);
+			case 11: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12.set(index % childSize, value), vector13, vector14, vector15, vector16);
+			case 12: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13.set(index % childSize, value), vector14, vector15, vector16);
+			case 13: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14.set(index % childSize, value), vector15, vector16);
+			case 14: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15.set(index % childSize, value), vector16);
+			case 15: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16.set(index % childSize, value));
 			default:
 				//
 				// create a new level in the vector trie hierarchy
@@ -118,8 +169,7 @@ public final class VectorTrie<T> implements Vector<T>
 				return new VectorTrie(
 						level + 1,
 						this,
-						new VectorOf1(value),
-						Vectors.empty);
+						new VectorOf1(value));
 		}
 	}
 
@@ -136,6 +186,17 @@ public final class VectorTrie<T> implements Vector<T>
 			.append(vector03.toString())
 			.append(vector04.toString())
 			.append(vector05.toString())
+			.append(vector06.toString())
+			.append(vector07.toString())
+			.append(vector08.toString())
+			.append(vector09.toString())
+			.append(vector10.toString())
+			.append(vector11.toString())
+			.append(vector12.toString())
+			.append(vector13.toString())
+			.append(vector14.toString())
+			.append(vector15.toString())
+			.append(vector16.toString())
 			.append(']');
 		
 		return builder.toString();

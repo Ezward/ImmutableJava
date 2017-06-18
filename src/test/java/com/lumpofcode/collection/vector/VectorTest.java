@@ -237,16 +237,177 @@ public class VectorTest
 		assertVector(vectorOf6, 6);
 	}
 	
+	@Test
+	public void VectorOf6Test()
+	{
+		final Vector<Integer> vectorOf6 = new VectorOf6(0, 1, 2, 3, 4, 5);
+		assertVector(vectorOf6, 6);
+		assertBounds(vectorOf6, 6);
+		
+		final Vector<Integer> vectorOf7 = vectorOf6.set(6, 6);
+		assertVector(vectorOf7, 7);
+	}
+	
+	@Test
+	public void VectorOf7Test()
+	{
+		final Vector<Integer> vectorOf7 = new VectorOf7(0, 1, 2, 3, 4, 5, 6);
+		assertVector(vectorOf7, 7);
+		assertBounds(vectorOf7, 7);
+		
+		final Vector<Integer> vectorOf8 = vectorOf7.set(7, 7);
+		assertVector(vectorOf8, 8);
+	}
+	
+	@Test
+	public void VectorOf8Test()
+	{
+		final Vector<Integer> vectorOf8 = new VectorOf8(0, 1, 2, 3, 4, 5, 6, 7);
+		assertVector(vectorOf8, 8);
+		assertBounds(vectorOf8, 8);
+		
+		final Vector<Integer> vectorOf9 = vectorOf8.set(8, 8);
+		assertVector(vectorOf9, 9);
+	}
+	
+	@Test
+	public void VectorOf9Test()
+	{
+		final Vector<Integer> vectorOf9 =
+			new VectorOf9(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8);
+		assertVector(vectorOf9, 9);
+		assertBounds(vectorOf9, 9);
+		
+		final Vector<Integer> vectorOf10 = vectorOf9.set(9, 9);
+		assertVector(vectorOf10, 10);
+	}
+	
+	@Test
+	public void VectorOf10Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf10(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9);
+		assertVector(vector, 10);
+		assertBounds(vector, 10);
+		
+		final Vector<Integer> nextVector = vector.set(10, 10);
+		assertVector(nextVector, 11);
+	}
+	
+	@Test
+	public void VectorOf11Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf11(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10);
+		assertVector(vector, 11);
+		assertBounds(vector, 11);
+		
+		final Vector<Integer> nextVector = vector.set(11, 11);
+		assertVector(nextVector, 12);
+	}
+	
+	@Test
+	public void VectorOf12Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf12(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10, 11);
+		assertVector(vector, 12);
+		assertBounds(vector, 12);
+		
+		final Vector<Integer> nextVector = vector.set(12, 12);
+		assertVector(nextVector, 13);
+	}
+	
+	@Test
+	public void VectorOf13Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf13(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10, 11, 12);
+		assertVector(vector, 13);
+		assertBounds(vector, 13);
+		
+		final Vector<Integer> nextVector = vector.set(13, 13);
+		assertVector(nextVector, 14);
+	}
+	
+	@Test
+	public void VectorOf14Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf14(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10, 11, 12, 13);
+		assertVector(vector, 14);
+		assertBounds(vector, 14);
+		
+		final Vector<Integer> nextVector = vector.set(14, 14);
+		assertVector(nextVector, 15);
+	}
+	
+	@Test
+	public void VectorOf15Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf15(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10, 11, 12, 13, 14);
+		assertVector(vector, 15);
+		assertBounds(vector, 15);
+		
+		final Vector<Integer> nextVector = vector.set(15, 15);
+		assertVector(nextVector, 16);
+	}
+	
+	@Test
+	public void VectorOf16Test()
+	{
+		final Vector<Integer> vector =
+			new VectorOf16(
+				0, 1, 2, 3, 4, 5, 6, 7,
+				8, 9, 10, 11, 12, 13, 14, 15);
+		assertVector(vector, 16);
+		assertBounds(vector, 16);
+		
+		final Vector<Integer> nextVector = vector.set(16, 16);
+		assertVector(nextVector, 17);
+	}
+	
 	
 	@Test
 	public void VectorTrieTest()
 	{
 		Vector<Integer> vector = Vectors.empty;
-		for(int i = 0; i < 100; i += 1)
+		final int n = Integer.MAX_VALUE;
+		for(int i = 0; i < n; i += 1)
 		{
+			final long loopStart = System.currentTimeMillis();
 			assertVector(vector, i);
+			final long loopDuration = System.currentTimeMillis() - loopStart;
 			
+			final long start = System.currentTimeMillis();
 			vector = vector.set(vector.size(), vector.size());
+			final long duration = System.currentTimeMillis() - start;
+			
+			if(0 == (i % 1000))
+			{
+				System.out.print(i);                // length of vector
+				System.out.print(':');
+				System.out.print(loopDuration);   // time to loop through vector
+				System.out.print(':');
+				System.out.println(duration);       // time to add one element to end of vector
+			}
+			
+			
 		}
 		
 	}
@@ -293,8 +454,8 @@ public class VectorTest
 	
 	private void assertVector(final Vector<Integer> vector, final int size)
 	{
-		System.out.println(vector.toString());
-		System.out.println("-------------------------");
+		//System.out.println(vector.toString());
+		//System.out.println("-------------------------");
 		
 		assertTrue(size == vector.size());
 		for(int j = 0; j < vector.size(); j += 1)
