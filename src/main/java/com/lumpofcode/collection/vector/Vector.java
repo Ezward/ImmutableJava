@@ -8,4 +8,5 @@ public interface Vector<T>
 	int size();
 	T get(final int index);
 	Vector<T> set(final int index, final T value);
+	Vector<T> push(final T value);
 }

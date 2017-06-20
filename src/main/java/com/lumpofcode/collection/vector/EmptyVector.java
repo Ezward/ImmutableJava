@@ -1,9 +1,11 @@
 package com.lumpofcode.collection.vector;
 
+import java.util.Iterator;
+
 /**
  * Created by emurphy on 6/16/17.
  */
-public class EmptyVector<T> implements Vector<T>
+class EmptyVector<T> implements Vector<T>, Iterable<T>
 {
 	@Override
 	public int size()
@@ -20,8 +22,14 @@ public class EmptyVector<T> implements Vector<T>
 	@Override
 	public Vector<T> set(int index, T value)
 	{
-		if(0 == index) return new VectorOf1(value);
+		if(0 == index) return push(value);
 		throw new IndexOutOfBoundsException();
+	}
+	
+	@Override
+	public Vector<T> push(T value)
+	{
+		return Vectors.asVector(value);
 	}
 	
 	@Override
@@ -30,4 +38,9 @@ public class EmptyVector<T> implements Vector<T>
 		return "[]";
 	}
 	
+	@Override
+	public Iterator<T> iterator()
+	{
+		return new VectorIterator<T>(this);
+	}
 }

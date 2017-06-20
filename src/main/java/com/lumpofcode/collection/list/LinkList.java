@@ -2,6 +2,7 @@ package com.lumpofcode.collection.list;
 
 import com.lumpofcode.annotation.NotNull;
 
+import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -15,7 +16,7 @@ import java.util.function.Predicate;
  * Created by emurphy on 4/20/15.
  *
  */
-public final class LinkList<T>
+public final class LinkList<T> implements Iterable<T>
 {
     public final T head;            // non-null value of this node
     public final LinkList<T> tail;  // the rest of the list
@@ -58,7 +59,13 @@ public final class LinkList<T>
         this.head = null;
         this.tail = null;
     }
-
+    
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new LinkListIterator(this);
+    }
+    
     /**
      * Determine if the list is empty.
      *

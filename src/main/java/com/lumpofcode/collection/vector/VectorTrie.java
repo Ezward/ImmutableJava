@@ -2,12 +2,14 @@ package com.lumpofcode.collection.vector;
 
 import com.lumpofcode.math.IntegerMath;
 
+import java.util.Iterator;
+
 /**
  * Created by emurphy on 6/17/17.
  */
-public final class VectorTrie<T> implements Vector<T>
+final class VectorTrie<T> implements Vector<T>, Iterable<T>
 {
-	public static final int VECTOR_TRIE_SIZE = 16;
+	private static final int VECTOR_NODE_SIZE = 16;
 	
 	private final int level;        // zero if leaf node, 1 is first level trie, 2 is second level trie, etc.
 	private final int childSize;    // size of each child node
@@ -88,7 +90,7 @@ public final class VectorTrie<T> implements Vector<T>
 		this.vector15 = vector15;
 		this.vector16 = vector16;
 		
-		this.childSize = IntegerMath.power(VECTOR_TRIE_SIZE, level);
+		this.childSize = IntegerMath.power(VECTOR_NODE_SIZE, level);
 		this.size =  vector01.size()
 			+ vector02.size()
 			+ vector03.size()
@@ -162,17 +164,21 @@ public final class VectorTrie<T> implements Vector<T>
 			case 13: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14.set(index % childSize, value), vector15, vector16);
 			case 14: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15.set(index % childSize, value), vector16);
 			case 15: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16.set(index % childSize, value));
-			default:
-				//
-				// create a new level in the vector trie hierarchy
-				//
-				return new VectorTrie(
-						level + 1,
-						this,
-						new VectorOf1(value));
+			default: return push(value);
 		}
 	}
-
+	
+	@Override
+	public Vector<T> push(T value)
+	{
+		//
+		// create a new level in the vector trie hierarchy
+		//
+		return new VectorTrie(
+			level + 1,
+			this,
+			Vectors.asVector(value));
+	}
 	
 	@Override
 	public String toString()
@@ -202,4 +208,10 @@ public final class VectorTrie<T> implements Vector<T>
 		return builder.toString();
 	}
 	
+	
+	@Override
+	public Iterator<T> iterator()
+	{
+		return new VectorIterator<T>(this);
+	}
 }

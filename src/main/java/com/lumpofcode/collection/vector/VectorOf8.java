@@ -1,9 +1,11 @@
 package com.lumpofcode.collection.vector;
 
+import java.util.Iterator;
+
 /**
  * Created by emurphy on 6/17/17.
  */
-public final class VectorOf8<T> implements Vector<T>
+public final class VectorOf8<T> implements Vector<T>, Iterable<T>
 {
 	private final T element01;
 	private final T element02;
@@ -62,11 +64,17 @@ public final class VectorOf8<T> implements Vector<T>
 			case 5: return new VectorOf8(element01, element02, element03, element04, element05, value, element07, element08);
 			case 6: return new VectorOf8(element01, element02, element03, element04, element05, element06, value, element08);
 			case 7: return new VectorOf8(element01, element02, element03, element04, element05, element06, element07, value);
-			case 8: return new VectorOf9(element01, element02, element03, element04, element05, element06, element07, element08, value);
+			case 8: return push(value);
 		}
 		throw new IndexOutOfBoundsException();
 	}
 	
+	@Override
+	public Vector<T> push(T value)
+	{
+		return new VectorOf9(element01, element02, element03, element04, element05, element06, element07, element08, value);
+	}
+
 	@Override
 	public String toString()
 	{
@@ -79,5 +87,11 @@ public final class VectorOf8<T> implements Vector<T>
 			+ element06.toString() + ", "
 			+ element07.toString() + ", "
 			+ element08.toString() + "]";
+	}
+	
+	@Override
+	public Iterator<T> iterator()
+	{
+		return new VectorIterator<T>(this);
 	}
 }
