@@ -65,7 +65,7 @@ public class VectorTest
 	@Test
 	public void VectorOf1Test()
 	{
-		final Vector<Integer> vectorOf1 = new VectorOf1(0);
+		final Vector<Integer> vectorOf1 = Vectors.asVector(0);
 		assertTrue(null != vectorOf1);
 		assertTrue(1 == vectorOf1.size());
 		assertTrue(0 == vectorOf1.get(0));
@@ -118,7 +118,7 @@ public class VectorTest
 	@Test
 	public void VectorOf2Test()
 	{
-		final Vector<Integer> vectorOf2 = new VectorOf2(0, 1);
+		final Vector<Integer> vectorOf2 = Vectors.asVector(0, 1);
 		assertTrue(null != vectorOf2);
 		assertTrue(2 == vectorOf2.size());
 		assertTrue(0 == vectorOf2.get(0));
@@ -173,7 +173,7 @@ public class VectorTest
 	@Test
 	public void VectorOf3Test()
 	{
-		final Vector<Integer> vectorOf3 = new VectorOf3(0, 1, 2);
+		final Vector<Integer> vectorOf3 = Vectors.asVector(0, 1, 2);
 		assertTrue(null != vectorOf3);
 		assertTrue(3 == vectorOf3.size());
 		assertTrue(0 == vectorOf3.get(0));
@@ -230,7 +230,7 @@ public class VectorTest
 	@Test
 	public void VectorOf4Test()
 	{
-		final Vector<Integer> vectorOf4 = new VectorOf4(0, 1, 2, 3);
+		final Vector<Integer> vectorOf4 = Vectors.asVector(0, 1, 2, 3);
 		assertVector(vectorOf4, 4);
 		assertBounds(vectorOf4, 4);
 		
@@ -245,7 +245,7 @@ public class VectorTest
 	@Test
 	public void VectorOf5Test()
 	{
-		final Vector<Integer> vectorOf5 = new VectorOf5(0, 1, 2, 3, 4);
+		final Vector<Integer> vectorOf5 = Vectors.asVector(0, 1, 2, 3, 4);
 		assertVector(vectorOf5, 5);
 		assertBounds(vectorOf5, 5);
 		
@@ -260,7 +260,7 @@ public class VectorTest
 	@Test
 	public void VectorOf6Test()
 	{
-		final Vector<Integer> vectorOf6 = new VectorOf6(0, 1, 2, 3, 4, 5);
+		final Vector<Integer> vectorOf6 = Vectors.asVector(0, 1, 2, 3, 4, 5);
 		assertVector(vectorOf6, 6);
 		assertBounds(vectorOf6, 6);
 		
@@ -275,7 +275,7 @@ public class VectorTest
 	@Test
 	public void VectorOf7Test()
 	{
-		final Vector<Integer> vectorOf7 = new VectorOf7(0, 1, 2, 3, 4, 5, 6);
+		final Vector<Integer> vectorOf7 = Vectors.asVector(0, 1, 2, 3, 4, 5, 6);
 		assertVector(vectorOf7, 7);
 		assertBounds(vectorOf7, 7);
 		
@@ -290,7 +290,7 @@ public class VectorTest
 	@Test
 	public void VectorOf8Test()
 	{
-		final Vector<Integer> vectorOf8 = new VectorOf8(0, 1, 2, 3, 4, 5, 6, 7);
+		final Vector<Integer> vectorOf8 = Vectors.asVector(0, 1, 2, 3, 4, 5, 6, 7);
 		assertVector(vectorOf8, 8);
 		assertBounds(vectorOf8, 8);
 		
@@ -306,7 +306,7 @@ public class VectorTest
 	public void VectorOf9Test()
 	{
 		final Vector<Integer> vectorOf9 =
-			new VectorOf9(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8);
 		assertVector(vectorOf9, 9);
@@ -324,7 +324,7 @@ public class VectorTest
 	public void VectorOf10Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf10(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9);
 		assertVector(vector, 10);
@@ -342,7 +342,7 @@ public class VectorTest
 	public void VectorOf11Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf11(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10);
 		assertVector(vector, 11);
@@ -360,7 +360,7 @@ public class VectorTest
 	public void VectorOf12Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf12(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11);
 		assertVector(vector, 12);
@@ -378,7 +378,7 @@ public class VectorTest
 	public void VectorOf13Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf13(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12);
 		assertVector(vector, 13);
@@ -396,7 +396,7 @@ public class VectorTest
 	public void VectorOf14Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf14(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13);
 		assertVector(vector, 14);
@@ -414,7 +414,7 @@ public class VectorTest
 	public void VectorOf15Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf15(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13, 14);
 		assertVector(vector, 15);
@@ -432,7 +432,7 @@ public class VectorTest
 	public void VectorOf16Test()
 	{
 		final Vector<Integer> vector =
-			new VectorOf16(
+			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13, 14, 15);
 		assertVector(vector, 16);

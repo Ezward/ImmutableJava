@@ -118,6 +118,52 @@ public final class VectorTemplate
 		builder.endBlock();
 		
 		//
+		// pushAll() method
+		//
+		builder.line("public Vector<T> pushAll(final Vector<T> vector)");
+		builder.beginBlock();
+		builder.line("Vector<T> result = this;");
+		builder.line("for(T element : vector)");
+		builder.beginBlock();
+		builder.line("result = result.push(element);");
+		builder.endBlock();
+		builder.line("return result;");
+		builder.endBlock();
+		
+		//
+		// map() method
+		//
+		builder.line("public <R> Vector<R> map(Function<? super T, ? extends R> mapper)");
+		builder.beginBlock();
+		{
+			builder.startLine("return new VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
+			builder.startArgs();
+			for (int i = 0; i < size; i += 1)
+			{
+				builder.arg("mapper.apply(element{{i}})".replace("{{i}}", String.valueOf(i)));
+			}
+			builder.endArgs();
+			builder.endLine(";");
+		}
+		builder.endBlock();
+		
+		//
+		// flatmap() method
+		//
+		builder.line("public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)");
+		builder.beginBlock();
+		{
+			builder.line("Vector<R> result = mapper.apply(element0);");
+			for(int i = 1; i < size; i += 1)
+			{
+				builder.line("result = result.pushAll(mapper.apply(element{{i}}));".replace("{{i}}", String.valueOf(i)));
+			}
+			builder.line("return result;");
+		}
+		builder.endBlock();
+		
+		
+		//
 		// toString() method
 		//
 		builder.beginBlock("public String toString()");

@@ -3,11 +3,12 @@ package com.lumpofcode.collection.vector;
 import com.lumpofcode.math.IntegerMath;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * Created by emurphy on 6/17/17.
  */
-final class VectorTrie<T> implements Vector<T>, Iterable<T>
+final class VectorTrie<T> implements Vector<T>
 {
 	private static final int VECTOR_NODE_SIZE = 16;
 	
@@ -116,6 +117,12 @@ final class VectorTrie<T> implements Vector<T>, Iterable<T>
 	}
 	
 	@Override
+	public boolean isEmpty()
+	{
+		return false;
+	}
+	
+	@Override
 	public T get(int index)
 	{
 		if((index < 0) || (index >= size())) throw new IndexOutOfBoundsException();
@@ -141,6 +148,13 @@ final class VectorTrie<T> implements Vector<T>, Iterable<T>
 		}
 	}
 	
+	/**
+	 * Set a value at the given index
+	 *
+	 * @param index
+	 * @param value
+	 * @return
+	 */
 	@Override
 	public Vector<T> set(int index, T value)
 	{
@@ -164,20 +178,71 @@ final class VectorTrie<T> implements Vector<T>, Iterable<T>
 			case 13: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14.set(index % childSize, value), vector15, vector16);
 			case 14: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15.set(index % childSize, value), vector16);
 			case 15: return new VectorTrie(level, vector01, vector02, vector03, vector04, vector05, vector06, vector07, vector08, vector09, vector10, vector11, vector12, vector13, vector14, vector15, vector16.set(index % childSize, value));
-			default: return push(value);
+			// we are surpassing the capacity of this trie, so add a level to the hierarchy
+			default: return new VectorTrie(level + 1,this, Vectors.asVector(value));
 		}
 	}
 	
 	@Override
 	public Vector<T> push(T value)
 	{
-		//
-		// create a new level in the vector trie hierarchy
-		//
-		return new VectorTrie(
-			level + 1,
-			this,
-			Vectors.asVector(value));
+		// add element after last current element
+		return this.set(this.size(), value);
+	}
+	
+	@Override
+	public Vector<T> pushAll(Vector<T> vector)
+	{
+		Vector<T> result = this;
+		for(T element : vector)
+		{
+			result = result.push(element);
+		}
+		return result;
+	}
+	
+	@Override
+	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
+	{
+		return new VectorTrie<R>(
+			level,
+			vector01.map(mapper),
+			vector02.map(mapper),
+			vector03.map(mapper),
+			vector04.map(mapper),
+			vector05.map(mapper),
+			vector06.map(mapper),
+			vector07.map(mapper),
+			vector08.map(mapper),
+			vector09.map(mapper),
+			vector10.map(mapper),
+			vector11.map(mapper),
+			vector12.map(mapper),
+			vector13.map(mapper),
+			vector14.map(mapper),
+			vector15.map(mapper),
+			vector16.map(mapper));
+	}
+	
+	@Override
+	public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
+	{
+		Vector<R> result = vector01.flatmap(mapper);
+		result = result.pushAll(vector02.flatmap(mapper));
+		result = result.pushAll(vector03.flatmap(mapper));
+		result = result.pushAll(vector04.flatmap(mapper));
+		result = result.pushAll(vector05.flatmap(mapper));
+		result = result.pushAll(vector06.flatmap(mapper));
+		result = result.pushAll(vector07.flatmap(mapper));
+		result = result.pushAll(vector08.flatmap(mapper));
+		result = result.pushAll(vector09.flatmap(mapper));
+		result = result.pushAll(vector10.flatmap(mapper));
+		result = result.pushAll(vector11.flatmap(mapper));
+		result = result.pushAll(vector12.flatmap(mapper));
+		result = result.pushAll(vector13.flatmap(mapper));
+		result = result.pushAll(vector14.flatmap(mapper));
+		result = result.pushAll(vector15.flatmap(mapper));
+		return result.pushAll(vector16.flatmap(mapper));
 	}
 	
 	@Override

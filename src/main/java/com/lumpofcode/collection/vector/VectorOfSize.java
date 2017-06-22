@@ -1,6 +1,7 @@
 package com.lumpofcode.collection.vector;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * Vector of up to length 16.
@@ -84,6 +85,12 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 	public int size()
 	{
 		return size;
+	}
+	
+	@Override
+	public boolean isEmpty()
+	{
+		return false;
 	}
 	
 	@Override
@@ -173,6 +180,48 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 			case 15: return new VectorOfSize(size + 1, element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, element12, element13, element14, element15, value);
 			default: return new VectorTrie<T>(1, this, Vectors.asVector(value));
 		}
+	}
+	
+	public Vector<T> pushAll(final Vector<T> vector)
+	{
+		Vector<T> result = this;
+		for(T element : vector)
+		{
+			result = result.push(element);
+		}
+		return result;
+	}
+	
+	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
+	{
+		return new VectorOfSize<R>(
+			size,
+			mapper.apply(element01),
+			mapper.apply(element02),
+			mapper.apply(element03),
+			mapper.apply(element04),
+			mapper.apply(element05),
+			mapper.apply(element06),
+			mapper.apply(element07),
+			mapper.apply(element08),
+			mapper.apply(element09),
+			mapper.apply(element10),
+			mapper.apply(element11),
+			mapper.apply(element12),
+			mapper.apply(element13),
+			mapper.apply(element14),
+			mapper.apply(element15),
+			mapper.apply(element16));
+	}
+	
+	public	<R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
+	{
+		Vector<R> result = Vectors.empty;
+		for(T element : this)
+		{
+			result = result.pushAll(mapper.apply(element));
+		}
+		return result;
 	}
 	
 	@Override

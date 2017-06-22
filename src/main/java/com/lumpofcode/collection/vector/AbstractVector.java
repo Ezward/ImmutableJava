@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Created by emurphy on 6/17/17.
  */
-public abstract class AbstractVector<T> implements Vector<T>, Iterable<T>
+public abstract class AbstractVector<T> implements Vector<T>
 {
 	abstract public int size();
 	abstract public T get(int index);
