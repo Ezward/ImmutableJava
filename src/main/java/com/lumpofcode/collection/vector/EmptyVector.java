@@ -4,6 +4,10 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 /**
+ * An empty vector.
+ * This is an internal data structure.
+ * Don't construct this directly, use the Vectors.empty singleton.
+ *
  * Created by emurphy on 6/16/17.
  */
 class EmptyVector<T> implements Vector<T>
@@ -37,6 +41,14 @@ class EmptyVector<T> implements Vector<T>
 	public Vector<T> push(T value)
 	{
 		return Vectors.asVector(value);
+	}
+	
+	public Vector<T> push(final T e1, final T e2, final T e3, final T e4,
+	                      final T e5, final T e6, final T e7, final T e8,
+	                      final T e9, final T e10, final T e11, final T e12,
+	                      final T e13, final T e14, final T e15, final T e16)
+	{
+		return Vectors.asVector(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16);
 	}
 	
 	public Vector<T> pushAll(Vector<T> values)

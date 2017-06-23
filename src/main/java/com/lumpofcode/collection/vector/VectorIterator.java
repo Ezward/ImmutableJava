@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * Iterator for the elements of the given vector.
+ *
  * Created by emurphy on 6/17/17.
  */
 public class VectorIterator<T> implements Iterator<T>

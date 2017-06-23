@@ -6,7 +6,7 @@ import java.util.function.Function;
 /**
  * Vector of up to length 16.
  *
- * This is an internal data structure.
+ * This is an internal data structure; don't construct this directly.
  * Use Vectors.of() factory method to construct vectors from elements.
  *
  * Created by emurphy on 6/18/17.
@@ -182,6 +182,69 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 		}
 	}
 	
+	// TODO : add unit test
+	@Override
+	public Vector<T> push(T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8,
+	                      T e9, T e10, T e11, T e12, T e13, T e14, T e15, T e16)
+	{
+		//
+		// efficiently distribute these elements into child nodes of a VectorTrie
+		//
+		switch(size)
+		{
+			case 0: return Vectors.asVector(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16);
+			case 1: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15),
+				Vectors.asVector(e16));
+			case 2: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14),
+				Vectors.asVector(e15, e16));
+			case 3: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13),
+				Vectors.asVector(e14, e15, e16));
+			case 4: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12),
+				Vectors.asVector(e13, e14, e15, e16));
+			case 5: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11),
+				Vectors.asVector(e12, e13, e14, e15, e16));
+			case 6: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10),
+				Vectors.asVector(e11, e12, e13, e14, e15, e16));
+			case 7: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, e1, e2, e3, e4, e5, e6, e7, e8, e9),
+				Vectors.asVector(e10, e11, e12, e13, e14, e15, e16));
+			case 8: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, e1, e2, e3, e4, e5, e6, e7, e8),
+				Vectors.asVector(e9, e10, e11, e12, e13, e14, e15, e16));
+			case 9: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, e1, e2, e3, e4, e5, e6, e7),
+				Vectors.asVector(e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 10: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, e1, e2, e3, e4, e5, e6),
+				Vectors.asVector(e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 11: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, e1, e2, e3, e4, e5),
+				Vectors.asVector(e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 12: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, element12, e1, e2, e3, e4),
+				Vectors.asVector(e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 13: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, element12, element13, e1, e2, e3),
+				Vectors.asVector(e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 14: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, element12, element13, element14, e1, e2),
+				Vectors.asVector(e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			case 15: return new VectorTrie<T>(1,
+				Vectors.asVector(element01, element02, element03, element04, element05, element06, element07, element08, element09, element10, element11, element12, element13, element14, element15, e1),
+				Vectors.asVector(e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			default: return new VectorTrie<T>(1,
+				this,
+				Vectors.asVector(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+		}
+	}
+	
+	
 	public Vector<T> pushAll(final Vector<T> vector)
 	{
 		Vector<T> result = this;
@@ -192,6 +255,7 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 		return result;
 	}
 	
+	// TODO : add unit test
 	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
 	{
 		return new VectorOfSize<R>(
@@ -214,6 +278,7 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 			mapper.apply(element16));
 	}
 	
+	// TODO : add unit test
 	public	<R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
 	{
 		Vector<R> result = Vectors.empty;
@@ -227,7 +292,7 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 	@Override
 	public String toString()
 	{
-		final StringBuilder builder = new StringBuilder('[');
+		final StringBuilder builder = new StringBuilder().append('[');
 		if(size >= 1)
 		{
 			builder.append(element01);
