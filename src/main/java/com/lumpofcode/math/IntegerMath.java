@@ -20,4 +20,14 @@ public final class IntegerMath
 		return v;
 	}
 	
+	public static int max(final int i, final int j)
+	{
+		return (i > j) ? i : j;
+	}
+	
+	public static int min(final int i, final int j)
+	{
+		return (i < j) ? i : j;
+	}
+	
 }

@@ -87,10 +87,10 @@ public interface Vector<T> extends Iterable<T>
 	 * Append all elements in the given vector
 	 * to this vector, in order.
 	 *
-	 * @param vector with elements to append
-	 * @return
+	 * @param iterable with elements to append
+	 * @return a new vector with the Iterable's elements appended.
 	 */
-	Vector<T> pushAll(@NotNull final Vector<T> vector);
+	Vector<T> pushAll(@NotNull final Iterable<T> iterable);
 	
 	/**
 	 * Map the values in the vector using the mapper function

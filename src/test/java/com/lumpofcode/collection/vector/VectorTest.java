@@ -1,5 +1,7 @@
 package com.lumpofcode.collection.vector;
 
+import com.lumpofcode.range.IntegerRange;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -60,22 +62,29 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(0), 1);
+		
+		// push 16
+		assertVector(vector.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 16);
+		
+		// map
+		assert(vector.map(e -> e + 1).isEmpty());
 	}
 	
 	@Test
 	public void VectorOf1Test()
 	{
-		final Vector<Integer> vectorOf1 = Vectors.asVector(0);
-		assertTrue(null != vectorOf1);
-		assertTrue(1 == vectorOf1.size());
-		assertTrue(0 == vectorOf1.get(0));
+		final Vector<Integer> vector = Vectors.asVector(0);
+		assertTrue(null != vector);
+		assertTrue(!vector.isEmpty());
+		assertTrue(1 == vector.size());
+		assertTrue(0 == vector.get(0));
 		
 		//
 		// get out of bounds throws
 		//
 		try
 		{
-			vectorOf1.get(1);
+			vector.get(1);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -92,7 +101,7 @@ public class VectorTest
 		//
 		try
 		{
-			vectorOf1.set(2, 2);
+			vector.set(2, 2);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -105,31 +114,36 @@ public class VectorTest
 		}
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf2 = vectorOf1.set(1, 1);
+		final Vector<Integer> vectorOf2 = vector.set(1, 1);
 		assertTrue(null != vectorOf2);
+		assertTrue(!vector.isEmpty());
 		assertTrue(2 == vectorOf2.size());
 		assertTrue(0 == vectorOf2.get(0));
 		assertTrue(1 == vectorOf2.get(1));
 		
 		// explicit push
-		assertVector(vectorOf1.push(1), 2);
+		assertVector(vector.push(1), 2);
+		
+		// push 16
+		assertVector(vector.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), 17);
+		
 	}
 	
 	@Test
 	public void VectorOf2Test()
 	{
-		final Vector<Integer> vectorOf2 = Vectors.asVector(0, 1);
-		assertTrue(null != vectorOf2);
-		assertTrue(2 == vectorOf2.size());
-		assertTrue(0 == vectorOf2.get(0));
-		assertTrue(1 == vectorOf2.get(1));
+		final Vector<Integer> vector = Vectors.asVector(0, 1);
+		assertTrue(null != vector);
+		assertTrue(2 == vector.size());
+		assertTrue(0 == vector.get(0));
+		assertTrue(1 == vector.get(1));
 		
 		//
 		// get out of bounds throws
 		//
 		try
 		{
-			vectorOf2.get(2);
+			vector.get(2);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -146,7 +160,7 @@ public class VectorTest
 		//
 		try
 		{
-			vectorOf2.set(3, 3);
+			vector.set(3, 3);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -159,7 +173,7 @@ public class VectorTest
 		}
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf3 = vectorOf2.set(2, 2);
+		final Vector<Integer> vectorOf3 = vector.set(2, 2);
 		assertTrue(null != vectorOf3);
 		assertTrue(3 == vectorOf3.size());
 		assertTrue(0 == vectorOf3.get(0));
@@ -167,25 +181,28 @@ public class VectorTest
 		assertTrue(2 == vectorOf3.get(2));
 		
 		// explicit push
-		assertVector(vectorOf2.push(2), 3);
+		assertVector(vector.push(2), 3);
+		
+		// push 16
+		assertVector(vector.push(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), 18);
 	}
 	
 	@Test
 	public void VectorOf3Test()
 	{
-		final Vector<Integer> vectorOf3 = Vectors.asVector(0, 1, 2);
-		assertTrue(null != vectorOf3);
-		assertTrue(3 == vectorOf3.size());
-		assertTrue(0 == vectorOf3.get(0));
-		assertTrue(1 == vectorOf3.get(1));
-		assertTrue(2 == vectorOf3.get(2));
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2);
+		assertTrue(null != vector);
+		assertTrue(3 == vector.size());
+		assertTrue(0 == vector.get(0));
+		assertTrue(1 == vector.get(1));
+		assertTrue(2 == vector.get(2));
 		
 		//
 		// get out of bounds throws
 		//
 		try
 		{
-			vectorOf3.get(3);
+			vector.get(3);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -202,7 +219,7 @@ public class VectorTest
 		//
 		try
 		{
-			vectorOf3.set(4, 4);
+			vector.set(4, 4);
 			fail("should have throw IndexOutOfBoundsException");
 		}
 		catch(IndexOutOfBoundsException e)
@@ -215,7 +232,7 @@ public class VectorTest
 		}
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf4 = vectorOf3.set(3, 3);
+		final Vector<Integer> vectorOf4 = vector.set(3, 3);
 		assertTrue(null != vectorOf4);
 		assertTrue(4 == vectorOf4.size());
 		assertTrue(0 == vectorOf4.get(0));
@@ -224,100 +241,121 @@ public class VectorTest
 		assertTrue(3 == vectorOf4.get(3));
 		
 		// explicit push
-		assertVector(vectorOf3.push(3), 4);
+		assertVector(vector.push(3), 4);
+		
+		// push 16
+		assertVector(vector.push(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), 19);
 	}
 	
 	@Test
 	public void VectorOf4Test()
 	{
-		final Vector<Integer> vectorOf4 = Vectors.asVector(0, 1, 2, 3);
-		assertVector(vectorOf4, 4);
-		assertBounds(vectorOf4, 4);
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3);
+		assertVector(vector, 4);
+		assertBounds(vector, 4);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf5 = vectorOf4.set(4, 4);
+		final Vector<Integer> vectorOf5 = vector.set(4, 4);
 		assertVector(vectorOf5, 5);
 		
 		// explicit push
-		assertVector(vectorOf4.push(4), 5);
+		assertVector(vector.push(4), 5);
+		
+		// push 16
+		assertVector(vector.push(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), 20);
 	}
 	
 	@Test
 	public void VectorOf5Test()
 	{
-		final Vector<Integer> vectorOf5 = Vectors.asVector(0, 1, 2, 3, 4);
-		assertVector(vectorOf5, 5);
-		assertBounds(vectorOf5, 5);
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4);
+		assertVector(vector, 5);
+		assertBounds(vector, 5);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf6 = vectorOf5.set(5, 5);
+		final Vector<Integer> vectorOf6 = vector.set(5, 5);
 		assertVector(vectorOf6, 6);
 		
 		// explicit push
-		assertVector(vectorOf5.push(5), 6);
+		assertVector(vector.push(5), 6);
+		
+		// push 16
+		assertVector(vector.push(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20), 21);
 	}
 	
 	@Test
 	public void VectorOf6Test()
 	{
-		final Vector<Integer> vectorOf6 = Vectors.asVector(0, 1, 2, 3, 4, 5);
-		assertVector(vectorOf6, 6);
-		assertBounds(vectorOf6, 6);
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5);
+		assertVector(vector, 6);
+		assertBounds(vector, 6);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf7 = vectorOf6.set(6, 6);
+		final Vector<Integer> vectorOf7 = vector.set(6, 6);
 		assertVector(vectorOf7, 7);
 		
 		// explicit push
-		assertVector(vectorOf6.push(6), 7);
+		assertVector(vector.push(6), 7);
+		
+		// push 16
+		assertVector(vector.push(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21), 22);
 	}
 	
 	@Test
 	public void VectorOf7Test()
 	{
-		final Vector<Integer> vectorOf7 = Vectors.asVector(0, 1, 2, 3, 4, 5, 6);
-		assertVector(vectorOf7, 7);
-		assertBounds(vectorOf7, 7);
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5, 6);
+		assertVector(vector, 7);
+		assertBounds(vector, 7);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf8 = vectorOf7.set(7, 7);
+		final Vector<Integer> vectorOf8 = vector.set(7, 7);
 		assertVector(vectorOf8, 8);
 		
 		// explicit push
-		assertVector(vectorOf7.push(7), 8);
+		assertVector(vector.push(7), 8);
+		
+		// push 16
+		assertVector(vector.push(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22), 23);
 	}
 	
 	@Test
 	public void VectorOf8Test()
 	{
-		final Vector<Integer> vectorOf8 = Vectors.asVector(0, 1, 2, 3, 4, 5, 6, 7);
-		assertVector(vectorOf8, 8);
-		assertBounds(vectorOf8, 8);
+		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5, 6, 7);
+		assertVector(vector, 8);
+		assertBounds(vector, 8);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf9 = vectorOf8.set(8, 8);
+		final Vector<Integer> vectorOf9 = vector.set(8, 8);
 		assertVector(vectorOf9, 9);
 		
 		// explicit push
-		assertVector(vectorOf8.push(8), 9);
+		assertVector(vector.push(8), 9);
+		
+		// push 16
+		assertVector(vector.push(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23), 24);
 	}
 	
 	@Test
 	public void VectorOf9Test()
 	{
-		final Vector<Integer> vectorOf9 =
+		final Vector<Integer> vector =
 			Vectors.asVector(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8);
-		assertVector(vectorOf9, 9);
-		assertBounds(vectorOf9, 9);
+		assertVector(vector, 9);
+		assertBounds(vector, 9);
 		
 		// setting one past capacity does an implicit push
-		final Vector<Integer> vectorOf10 = vectorOf9.set(9, 9);
+		final Vector<Integer> vectorOf10 = vector.set(9, 9);
 		assertVector(vectorOf10, 10);
 		
 		// explicit push
-		assertVector(vectorOf9.push(9), 10);
+		assertVector(vector.push(9), 10);
+		
+		// push 16
+		assertVector(vector.push(9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24), 25);
 	}
 	
 	@Test
@@ -336,6 +374,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(10), 11);
+		
+		// push 16
+		assertVector(vector.push(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), 26);
 	}
 	
 	@Test
@@ -354,6 +395,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(11), 12);
+		
+		// push 16
+		assertVector(vector.push(11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26), 27);
 	}
 	
 	@Test
@@ -372,6 +416,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(12), 13);
+		
+		// push 16
+		assertVector(vector.push(12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27), 28);
 	}
 	
 	@Test
@@ -390,6 +437,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(13), 14);
+		
+		// push 16
+		assertVector(vector.push(13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28), 29);
 	}
 	
 	@Test
@@ -408,6 +458,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(14), 15);
+		
+		// push 16
+		assertVector(vector.push(14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29), 30);
 	}
 	
 	@Test
@@ -426,6 +479,9 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(15), 16);
+		
+		// push 16
+		assertVector(vector.push(15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30), 31);
 	}
 	
 	@Test
@@ -444,41 +500,127 @@ public class VectorTest
 		
 		// explicit push
 		assertVector(vector.push(16), 17);
+		
+		// push 16
+		assertVector(vector.push(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 32);
 	}
 	
 	
 	@Test
 	public void VectorTrieTest()
 	{
+		//
+		// build a vector of 16000 elements one element at a time
+		// and verify the vector on each step
+		//
 		Vector<Integer> vector = Vectors.empty;
-		final int n = 10000;
+		final int n = 16000;
 		for(int i = 0; i < n; i += 1)
 		{
-			final long loopStart = System.currentTimeMillis();
 			assertVector(vector, i);
-			final long loopDuration = System.currentTimeMillis() - loopStart;
-			
-			final long start = System.currentTimeMillis();
 			vector = vector.set(vector.size(), vector.size());
-			final long duration = System.currentTimeMillis() - start;
-			
-			if(0 == (i % 1000))
+		}
+		assertVector(vector, n);
+	}
+	
+	@Test
+	public void push16AlignedTest()
+	{
+		//
+		// starting with empty, built a vector of 16000 elements, 16 elements at a time
+		// and verify the vector after each grop fo 16 elements is added.
+		//
+		Vector<Integer> vector = Vectors.empty;
+		final int n = 16000;
+		for(int i = 0; i < n; i += 16)
+		{
+			assertVector(vector, i);
+			vector = vector.push(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
+		}
+		assertVector(vector, n);
+		
+	}
+	
+	@Test
+	public void push16UnalignedTest()
+	{
+		//
+		// starting with empty, built a vector unaligned vectors, then add 16000 elements, 16 elements at a time
+		// and verify the vector after each group fo 16 elements is added.
+		//
+		for(int j = 1; j <= 15; j += 1)
+		{
+			final int n = 16000 + j;
+			Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, j));
+			for (int i = j; i < n; i += 16)
 			{
-				System.out.print(i);                // length of vector
-				System.out.print(':');
-				System.out.print(loopDuration);   // time to loop through vector
-				System.out.print(':');
-				System.out.println(duration);       // time to add one element to end of vector
+				assertVector(vector, i);
+				vector = vector.push(i + 0, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9, i + 10, i + 11, i + 12, i + 13, i + 14, i + 15);
 			}
-			
-			
+			assertVector(vector, n);
 		}
 		
 	}
 	
+	@Test
+	public void mapTest()
+	{
+		
+	}
+	
+	@Test
+	public void push1Time()
+	{
+		final long start = System.currentTimeMillis();
+		Vector<Integer> vector = Vectors.empty;
+		final int n = 1600000;
+		for(int i = 0; i < n; i += 1)
+		{
+			vector = vector.push(i);
+		}
+		final long duration = System.currentTimeMillis() - start;
+		
+		final long loopStart = System.currentTimeMillis();
+		assertVector(vector, n);
+		final long loopDuration = System.currentTimeMillis() - loopStart;
+		
+		System.out.print(n);                // length of vector
+		System.out.print(':');
+		System.out.print(duration);         // time to add elements to end of vector
+		System.out.print(':');
+		System.out.println(loopDuration);   // time to loop through vector
+	}
+	
+	@Test
+	public void push16Time()
+	{
+		//
+		// starting with empty
+		//
+		final long start = System.currentTimeMillis();
+		Vector<Integer> vector = Vectors.empty;
+		final int n = 1600000;
+		for(int i = 0; i < n; i += 16)
+		{
+			vector = vector.push(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
+		}
+		final long duration = System.currentTimeMillis() - start;
+		
+		final long loopStart = System.currentTimeMillis();
+		assertVector(vector, n);
+		final long loopDuration = System.currentTimeMillis() - loopStart;
+		
+		System.out.print(n);                // length of vector
+		System.out.print(':');
+		System.out.print(duration);         // time to add elements to end of vector
+		System.out.print(':');
+		System.out.println(loopDuration);   // time to loop through vector
+	}
+	
 	private void assertBounds(final Vector<Integer> vector, final int size)
 	{
-		assertTrue(size == vector.size());
+		assertTrue("size should be " + size, size == vector.size());
+		assertTrue("should only be empty if size is zero", (0 == size) == vector.isEmpty());
 
 		//
 		// get out of bounds throws
@@ -521,11 +663,18 @@ public class VectorTest
 		//System.out.println(vector.toString());
 		//System.out.println("-------------------------");
 		
-		assertTrue(size == vector.size());
-		for(int j = 0; j < vector.size(); j += 1)
+		assertBounds(vector, size);
+
+		int j = 0;
+		for(Integer element : vector)
 		{
-			assertTrue(j == vector.get(j));
+			assertTrue(j + "th element should be " + j, element == vector.get(j));
+			
+			j += 1;
 		}
+		
+		assertTrue("size should be " + j, j == vector.size());
+		assertTrue("j should be " + size, j == size);
 	}
 	
 }

@@ -245,14 +245,9 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 	}
 	
 	
-	public Vector<T> pushAll(final Vector<T> vector)
+	public Vector<T> pushAll(final Iterable<T> iterable)
 	{
-		Vector<T> result = this;
-		for(T element : vector)
-		{
-			result = result.push(element);
-		}
-		return result;
+		return Vectors.pushAll(this, iterable);
 	}
 	
 	// TODO : add unit test
@@ -281,12 +276,7 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 	// TODO : add unit test
 	public	<R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
 	{
-		Vector<R> result = Vectors.empty;
-		for(T element : this)
-		{
-			result = result.pushAll(mapper.apply(element));
-		}
-		return result;
+		return Vectors.flatmap(this, mapper);
 	}
 	
 	@Override

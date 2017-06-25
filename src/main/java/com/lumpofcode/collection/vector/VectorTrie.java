@@ -190,20 +190,28 @@ final class VectorTrie<T> implements Vector<T>
 		final int childCapacity = childSize - childCount;   // remaining capacity of vector containing last element
 		
 		//
-		// determine if we can just add this to the child, or if we need to split it between childred
+		// determine if we can just add this to the child, or if we need to split it between children
 		//
 		if(childCapacity >= 16)
 		{
+			if(childIndex < VECTOR_NODE_SIZE)
+			{
+				//
+				// there is room for these elements in the child,
+				// push to the child, then rebuild the trie with the updated child
+				//
+				return setChild(childIndex, getChild(childIndex).push(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			}
+			
 			//
-			// there is room for these element in the child,
-			// push to the child, then rebuild the trie with the updated child
+			// no room in this level of the hierarchy, so create another level
 			//
-			return setChild(childIndex, getChild(childIndex).push(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			return new VectorTrie<T>(this.level + 1, this, Vectors.asVector(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
 		}
 		else
 		{
 			//
-			// there is no room in the child, which means these
+			// there is not enough room in the child for 16 elements, which means these
 			// new elements will need to be split between children.
 			// Use a loop to push each element.  It is inefficient, but handles situation
 			// where a new child or new level in the hierarchy is required
@@ -230,15 +238,12 @@ final class VectorTrie<T> implements Vector<T>
 	
 	
 	@Override
-	public Vector<T> pushAll(Vector<T> vector)
+	public Vector<T> pushAll(final Iterable<T> iterable)
 	{
-		Vector<T> result = this;
-		for(T element : vector)
-		{
-			result = result.push(element);
-		}
-		return result;
+		return Vectors.pushAll(this, iterable);
 	}
+	
+	
 	
 	@Override
 	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
