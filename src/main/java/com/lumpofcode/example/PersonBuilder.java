@@ -1,7 +1,8 @@
-package com.lumpofcode;
+package com.lumpofcode.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.lumpofcode.date.DateOfBirth;
 
 /**
  * Fluent Builder for Person instances

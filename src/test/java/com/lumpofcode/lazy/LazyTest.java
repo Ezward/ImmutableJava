@@ -1,4 +1,6 @@
-package com.lumpofcode;
+package com.lumpofcode.lazy;
+
+import com.lumpofcode.lazy.Lazy;
 
 import java.util.function.Supplier;
 

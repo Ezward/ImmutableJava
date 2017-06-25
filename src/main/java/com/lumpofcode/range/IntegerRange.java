@@ -1,11 +1,14 @@
 package com.lumpofcode.range;
 
+import com.lumpofcode.annotation.Immutable;
+
 import java.util.Iterator;
 
 /**
  * Created by emurphy on 6/25/17.
  */
-public class IntegerRange implements Iterable<Integer>
+@Immutable
+public final class IntegerRange implements Iterable<Integer>
 {
 	private final int start;
 	private final int count;

@@ -1,6 +1,8 @@
-package com.lumpofcode;
+package com.lumpofcode.example;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.lumpofcode.annotation.Immutable;
+import com.lumpofcode.date.DateOfBirth;
 
 /**
  * Data class is final with all private final fields.
@@ -10,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  *
  * Created by emurphy on 6/9/17.
  */
+@Immutable
 @JsonDeserialize(builder = PersonBuilder.class)
 public final class Person
 {

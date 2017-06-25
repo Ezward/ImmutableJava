@@ -1,4 +1,6 @@
-package com.lumpofcode;
+package com.lumpofcode.example;
+
+import com.lumpofcode.annotation.Immutable;
 
 /**
  * Created by emurphy on 6/16/17.
@@ -15,6 +17,7 @@ public final class Foo
 	 * Implementation is completely private
 	 *
 	 */
+	@Immutable
 	private static final class DataImpl implements Data
 	{
 		private final String name;

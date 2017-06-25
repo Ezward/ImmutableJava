@@ -1,15 +1,14 @@
-package com.lumpofcode;
+package com.lumpofcode.example;
 
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.lumpofcode.date.DateOfBirth;
+import com.lumpofcode.example.Person;
+import com.lumpofcode.example.PersonBuilder;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

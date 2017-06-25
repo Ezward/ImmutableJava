@@ -1,4 +1,6 @@
-package com.lumpofcode;
+package com.lumpofcode.lazy;
+
+import com.lumpofcode.lazy.Once;
 
 import org.junit.Test;
 

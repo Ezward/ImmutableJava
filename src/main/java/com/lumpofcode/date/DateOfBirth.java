@@ -1,8 +1,10 @@
-package com.lumpofcode;
+package com.lumpofcode.date;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lumpofcode.annotation.Immutable;
+import com.lumpofcode.lazy.Once;
 
 /**
  * Effectively immutable year/month/day class.
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * Created by emurphy on 6/9/17.
  */
+@Immutable
 public final class DateOfBirth
 {
 	private final int year;

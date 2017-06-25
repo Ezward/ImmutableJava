@@ -1,4 +1,6 @@
-package com.lumpofcode;
+package com.lumpofcode.date;
+
+import com.lumpofcode.date.Dates;
 
 import org.junit.Test;
 

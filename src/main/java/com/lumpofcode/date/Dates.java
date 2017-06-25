@@ -1,4 +1,4 @@
-package com.lumpofcode;
+package com.lumpofcode.date;
 
 /**
  * Created by emurphy on 6/9/17.
