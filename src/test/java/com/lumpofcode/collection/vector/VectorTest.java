@@ -565,7 +565,24 @@ public class VectorTest
 	@Test
 	public void mapTest()
 	{
-		
+		final int n = 16000;
+		Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, n));
+		Vector<Integer> mappedVector = vector.map(e -> e + 1);
+		assertVector(mappedVector, n, 1);
+	}
+	
+	@Test
+	public void flatmapTest()
+	{
+		//
+		// create a vector like 0, 5, 10, 15 ...
+		// flatmap with function that takes value and makes vector (v, v+1, v+2, v+3, v+4)
+		// which should produce a flattened vector from 0 to 5 * n
+		//
+		final int n = 16000;
+		Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, n, 5));
+		Vector<Integer> mappedVector = vector.flatmap(e -> Vectors.asVector(e, e+1, e+2, e+3, e+4));
+		assertVector(mappedVector, n * 5);
 	}
 	
 	@Test
@@ -660,15 +677,20 @@ public class VectorTest
 	
 	private void assertVector(final Vector<Integer> vector, final int size)
 	{
+		assertVector(vector, size, 0);
+	}
+	private void assertVector(final Vector<Integer> vector, final int size, final int offset)
+	{
 		//System.out.println(vector.toString());
 		//System.out.println("-------------------------");
 		
 		assertBounds(vector, size);
 
 		int j = 0;
-		for(Integer element : vector)
+		for(Integer value : vector)
 		{
-			assertTrue(j + "th element should be " + j, element == vector.get(j));
+			assertTrue(j + "th element should match the iteration", value == vector.get(j));
+			assertTrue(j + "th element should be " + j + offset, value == (j + offset));
 			
 			j += 1;
 		}
