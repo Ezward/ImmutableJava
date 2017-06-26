@@ -68,6 +68,9 @@ public class VectorTest
 		
 		// map
 		assert(vector.map(e -> e + 1).isEmpty());
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assert(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)).isEmpty());
 	}
 	
 	@Test
@@ -127,6 +130,12 @@ public class VectorTest
 		// push 16
 		assertVector(vector.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), 17);
 		
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 1, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 1 * 2);
 	}
 	
 	@Test
@@ -185,6 +194,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), 18);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 2, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 2 * 2);
 	}
 	
 	@Test
@@ -245,6 +260,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), 19);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 3, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 3 * 2);
 	}
 	
 	@Test
@@ -263,6 +284,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), 20);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 4, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 4 * 2);
 	}
 	
 	@Test
@@ -281,6 +308,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20), 21);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 5, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 5 * 2);
 	}
 	
 	@Test
@@ -299,6 +332,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21), 22);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 6, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 6 * 2);
 	}
 	
 	@Test
@@ -317,6 +356,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22), 23);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 7, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 7 * 2);
 	}
 	
 	@Test
@@ -335,6 +380,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23), 24);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 8, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 8 * 2);
 	}
 	
 	@Test
@@ -356,6 +407,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24), 25);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 9, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 9 * 2);
 	}
 	
 	@Test
@@ -377,6 +434,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), 26);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 10, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 10 * 2);
 	}
 	
 	@Test
@@ -398,6 +461,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26), 27);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 11, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 11 * 2);
 	}
 	
 	@Test
@@ -419,6 +488,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27), 28);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 12, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 12 * 2);
 	}
 	
 	@Test
@@ -440,6 +515,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28), 29);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 13, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 13 * 2);
 	}
 	
 	@Test
@@ -461,6 +542,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29), 30);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 14, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 14 * 2);
 	}
 	
 	@Test
@@ -482,6 +569,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30), 31);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 15, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 15 * 2);
 	}
 	
 	@Test
@@ -503,6 +596,12 @@ public class VectorTest
 		
 		// push 16
 		assertVector(vector.push(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 32);
+		
+		// map
+		assertVector(vector.map(e -> e + 1), 16, 1);
+		
+		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 16 * 2);
 	}
 	
 	

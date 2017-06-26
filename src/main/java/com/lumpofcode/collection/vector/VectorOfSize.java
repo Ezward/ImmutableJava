@@ -250,27 +250,26 @@ final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 		return Vectors.pushAll(this, iterable);
 	}
 	
-	// TODO : add unit test
 	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
 	{
 		return new VectorOfSize<R>(
 			size,
-			mapper.apply(element01),
-			mapper.apply(element02),
-			mapper.apply(element03),
-			mapper.apply(element04),
-			mapper.apply(element05),
-			mapper.apply(element06),
-			mapper.apply(element07),
-			mapper.apply(element08),
-			mapper.apply(element09),
-			mapper.apply(element10),
-			mapper.apply(element11),
-			mapper.apply(element12),
-			mapper.apply(element13),
-			mapper.apply(element14),
-			mapper.apply(element15),
-			mapper.apply(element16));
+			(size >= 1) ? mapper.apply(element01) : null,
+			(size >= 2) ? mapper.apply(element02) : null,
+			(size >= 3) ? mapper.apply(element03) : null,
+			(size >= 4) ? mapper.apply(element04) : null,
+			(size >= 5) ? mapper.apply(element05) : null,
+			(size >= 6) ? mapper.apply(element06) : null,
+			(size >= 7) ? mapper.apply(element07) : null,
+			(size >= 8) ? mapper.apply(element08) : null,
+			(size >= 9) ? mapper.apply(element09) : null,
+			(size >= 10) ? mapper.apply(element10) : null,
+			(size >= 11) ? mapper.apply(element11) : null,
+			(size >= 12) ? mapper.apply(element12) : null,
+			(size >= 13) ? mapper.apply(element13) : null,
+			(size >= 14) ? mapper.apply(element14) : null,
+			(size >= 15) ? mapper.apply(element15) : null,
+			(16 == size) ? mapper.apply(element16) : null);
 	}
 	
 	// TODO : add unit test
