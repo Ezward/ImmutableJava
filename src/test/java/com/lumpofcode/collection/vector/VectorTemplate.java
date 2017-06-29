@@ -1,6 +1,7 @@
 
 package com.lumpofcode.collection.vector;
 
+import java.io.IOException;
 import java.io.Writer;
 
 /**
@@ -10,15 +11,22 @@ public final class VectorTemplate
 {
 	/**
 	 * Generate java source for a vector class of a given size.
+	 * This will write to the given writer.
 	 *
-	 * @param size
-	 * @return
+	 * To create a string, supply a new StringWriter(),
+	 * the when generate finishes, get the string from
+	 * the writer.
+	 *
+	 * @param writer a Writer that gets the vector source.
+	 * @param size the size of the vector 1..Vectors.VECTOR_NODE_SIZE
 	 */
-	public String generate(final int size)
+	public void generate(final Writer writer, final int size)
 	{
-		final VectorBuilder build = new VectorBuilder();
+		final VectorBuilder build = new VectorBuilder(writer);
 		
-		
+		//
+		// package and imports
+		//
 		build.line("package com.lumpofcode.collection.vector;").endLine();
 		build.line("import java.util.Iterator;").endLine();
 		
@@ -218,45 +226,23 @@ public final class VectorTemplate
 			//
 		}
 		build.endBlock();
-		
-		return build.toString();
-		
 	}
 	
 	
 	private static class VectorBuilder
 	{
-		private final StringBuilder builder;
+		private final Writer builder;
 		private int blockFrame = 0; // for balancing block open and close
 		private int listFrame = 0;  // for balancing list open and close
-		
-		/**
-		 * construct with new empty builder
-		 *
-		 */
-		public VectorBuilder()
-		{
-			this(new StringBuilder());
-		}
 		
 		/**
 		 * Construct with given builders (allows appending or prepending)
 		 *
 		 * @param builder
 		 */
-		public VectorBuilder(final StringBuilder builder)
+		public VectorBuilder(final Writer builder)
 		{
 			this.builder = builder;
-		}
-		
-		/**
-		 * emit the built text
-		 *
-		 * @return the current text in the builder
-		 */
-		public String toString()
-		{
-			return builder.toString();
 		}
 		
 		//
@@ -264,7 +250,27 @@ public final class VectorTemplate
 		//
 		public VectorBuilder emit(final String string)
 		{
-			builder.append(string);
+			try
+			{
+				builder.write(string);
+			}
+			catch (IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			
+			return this;
+		}
+		public VectorBuilder emit(final char c)
+		{
+			try
+			{
+				builder.write(c);
+			}
+			catch (IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 			
 			return this;
 		}
@@ -288,8 +294,7 @@ public final class VectorTemplate
 		
 		public VectorBuilder endLine()
 		{
-			builder.append('\n');
-			return this;
+			return emit('\n');
 		}
 		public VectorBuilder endLine(final String string)
 		{
@@ -301,15 +306,14 @@ public final class VectorTemplate
 		//
 		public VectorBuilder tab()
 		{
-			builder.append('\t');
-			return this;
+			return emit('\t');
 		}
 		
 		public VectorBuilder tabs(final int count)
 		{
 			for(int i = 0; i < count; i += 1)
 			{
-				builder.append('\t');
+				emit('\t');
 			}
 			
 			return this;
