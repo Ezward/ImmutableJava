@@ -14,7 +14,7 @@ import java.util.function.Function;
  *
  * Created by emurphy on 6/17/17.
  */
-final class VectorTrie<T> implements Vector<T>
+public final class VectorTrie<T> implements Vector<T>
 {
 	private static final int VECTOR_NODE_SIZE = 16;
 	

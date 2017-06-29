@@ -3,7 +3,6 @@ package com.lumpofcode.collection.tuple;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lumpofcode.date.DateOfBirth;
-import com.lumpofcode.example.Person;
 
 import java.io.IOException;
 
@@ -39,19 +38,19 @@ public class TupleTest
 	@Test
 	public void jsonTuple3Test() throws IOException
 	{
-		final Tuple3<Integer, String, DateOfBirth> person = new Tuple3<>(1, "foobar", new DateOfBirth(2000, 12, 25));
+		final Tuple3<Integer, String, DateOfBirth> tuple = new Tuple3<>(1, "foobar", new DateOfBirth(2000, 12, 25));
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
-		final String json = objectMapper.writeValueAsString(person);
+		final String json = objectMapper.writeValueAsString(tuple);
 		System.out.println(json);
 		
 		//
 		// NOTE: to deserialize a generic type, like TupleN, a TypeReference must be provided to the mapper
 		//
-		final Tuple3<Integer, String, DateOfBirth> clonePerson = objectMapper.readValue(json, new TypeReference<Tuple3<Integer, String, DateOfBirth>>(){});
+		final Tuple3<Integer, String, DateOfBirth> cloneTuple = objectMapper.readValue(json, new TypeReference<Tuple3<Integer, String, DateOfBirth>>(){});
 		
-		assertFalse("These are distinct instances.", person == clonePerson);
-		assertEquals("These are equivalent instances.", person, clonePerson);
+		assertFalse("These are distinct instances.", tuple == cloneTuple);
+		assertEquals("These are equivalent instances.", tuple, cloneTuple);
 	}
 }

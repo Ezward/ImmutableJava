@@ -10,7 +10,7 @@ import java.util.function.Function;
  *
  * Created by emurphy on 6/23/17.
  */
-public class VectorView<T> implements Vector<T>
+public final class VectorView<T> implements Vector<T>
 {
 	private final Vector<T> vector;
 	private final int fromIndex;

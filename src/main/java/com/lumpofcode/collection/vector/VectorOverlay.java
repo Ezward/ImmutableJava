@@ -9,7 +9,7 @@ import java.util.function.Function;
 /**
  * Created by emurphy on 6/23/17.
  */
-public class VectorOverlay<T> implements Vector<T>
+public final class VectorOverlay<T> implements Vector<T>
 {
 	private final Vector<T> vector;
 	private final int fromIndex;

@@ -11,7 +11,7 @@ import java.util.function.Function;
  *
  * Created by emurphy on 6/18/17.
  */
-final class VectorOfSize<T> implements Vector<T>, Iterable<T>
+public final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 {
 	private final int size;
 	
