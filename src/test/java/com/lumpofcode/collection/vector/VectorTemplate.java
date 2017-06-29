@@ -1,197 +1,225 @@
 
 package com.lumpofcode.collection.vector;
 
-import java.util.LinkedList;
+import java.io.Writer;
 
+/**
+ * Class to generate java source file for a Vector class of a given size.
+ */
 public final class VectorTemplate
 {
+	/**
+	 * Generate java source for a vector class of a given size.
+	 *
+	 * @param size
+	 * @return
+	 */
 	public String generate(final int size)
 	{
-		final VectorBuilder builder = new VectorBuilder();
+		final VectorBuilder build = new VectorBuilder();
 		
 		
-		builder.line("package com.lumpofcode.collection.vector;").endLine();
-		builder.line("import java.util.Iterator;").endLine();
+		build.line("package com.lumpofcode.collection.vector;").endLine();
+		build.line("import java.util.Iterator;").endLine();
 		
 		//
 		// class definition
 		//
-		builder.line("public final class VectorOf{{size}}<T> implements Vector<T>, Iterable<T>".replace("{{size}}", String.valueOf(size)));
-		builder.beginBlock();
-		
-		//
-		// private properties for each element
-		//
-		for(int i = 0; i < size; i += 1)
+		build.line("public final class VectorOf{{size}}<T> implements Vector<T>, Iterable<T>".replace("{{size}}", String.valueOf(size)));
+		build.beginBlock();
 		{
-			builder.line("private final T element{{i}};".replace("{{i}}", String.valueOf(i)));
-		}
-		builder.endLine();
-			
-		//
-		// constructor
-		//
-		builder.startLine("public VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
-		builder.startArgs();
-		if(size > 0)
-		{
-			for (int i = 0; i < size - 1; i += 1)
-			{
-				builder.arg("T element{{i}}".replace("{{i}}", String.valueOf(i)));
-			}
-			builder.arg("T element{{size-1}}".replace("{{size-1}}", String.valueOf(size - 1)));
-		}
-		builder.endArgs();
-		builder.endLine();
-		
-		// constructor body; assign each argument to corresponding property
-		builder.beginBlock();
-		for (int i = 0; i < size; i += 1)
-		{
-			builder.line("this.element{{i}} = element{{i}};".replace("{{i}}", String.valueOf(i)));
-		}
-		builder.endBlock();
-			
-		//
-		// size() method
-		//
-		builder.line("public int size() { return {{size}}; }".replace("{{size}}", String.valueOf(size))).endLine();
-
-		//
-		// get() method
-		//
-		builder.beginBlock("public T get(int index)");
-		builder.beginBlock("switch(index)");
-		for(int i = 0; i < size; i += 1)
-		{
-			builder.line("case {{i}}: return element{{i}};".replace("{{i}}", String.valueOf(i)));
-		}
-		builder.endBlock();
-		builder.line("throw new IndexOutOfBoundsException();");
-		builder.endBlock();
-
-		//
-		// set() method
-		//
-		builder.beginBlock("public Vector<T> set(int index, T value)");
-		builder.beginBlock("switch(index)");
-		for(int i = 0; i < size; i += 1)
-		{
-			builder.startLine("case {{i}}: return new VectorOf{{size}}".replace("{{i}}", String.valueOf(i)).replace("{{size}}", String.valueOf(size)));
-			builder.startArgs();
-			if(size > 0)
-			{
-				// use current values except for the index we are setting
-				builder.arg((0 == i) ? "value" : "element0");
-				for (int j = 1; j < size; j += 1)
-				{
-					builder.arg((i == j) ? "value" : "element{{j}}".replace("{{j}}", String.valueOf(j)));
-				}
-			}
-			builder.endArgs().endLine(";");
-		}
-		builder.line("case {{size}}: return push(value);".replace("{{size}}", String.valueOf(size)));
-		builder.endBlock();
-		
-		builder.line("throw new IndexOutOfBoundsException();");
-		builder.endBlock();
-		
-		//
-		// push() method
-		//
-		builder.beginBlock("public Vector<T> push(T value)");
-		if(size < Vectors.VECTOR_NODE_SIZE)
-		{
-			builder.startLine("return new VectorOf{{size+1}}".replace("{{size+1}}", String.valueOf(size + 1)));
-			builder.startArgs();
-			for(int i = 0; i < size; i += 1)
-			{
-				builder.arg("element{{i}}".replace("{{i}}", String.valueOf(i)));
-			}
-			builder.arg("value");
-			builder.endArgs().endLine(";");
-		}
-		else
-		{
-			builder.line("return new VectorTrie(1, this, new VectorOf1(value));");
-		}
-		builder.endBlock();
-		
-		//
-		// pushAll() method
-		//
-		builder.line("public Vector<T> pushAll(final Vector<T> vector)");
-		builder.beginBlock();
-		builder.line("Vector<T> result = this;");
-		builder.line("for(T element : vector)");
-		builder.beginBlock();
-		builder.line("result = result.push(element);");
-		builder.endBlock();
-		builder.line("return result;");
-		builder.endBlock();
-		
-		//
-		// map() method
-		//
-		builder.line("public <R> Vector<R> map(Function<? super T, ? extends R> mapper)");
-		builder.beginBlock();
-		{
-			builder.startLine("return new VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
-			builder.startArgs();
+			//
+			// private properties for each element
+			//
 			for (int i = 0; i < size; i += 1)
 			{
-				builder.arg("mapper.apply(element{{i}})".replace("{{i}}", String.valueOf(i)));
+				build.line("private final T element{{i}};".replace("{{i}}", String.valueOf(i)));
 			}
-			builder.endArgs();
-			builder.endLine(";");
-		}
-		builder.endBlock();
-		
-		//
-		// flatmap() method
-		//
-		builder.line("public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)");
-		builder.beginBlock();
-		{
-			builder.line("Vector<R> result = mapper.apply(element0);");
-			for(int i = 1; i < size; i += 1)
+			build.endLine();
+			
+			//
+			// constructor
+			//
+			build.startLine("public VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
+			build.startArgs();
+			if (size > 0)
 			{
-				builder.line("result = result.pushAll(mapper.apply(element{{i}}));".replace("{{i}}", String.valueOf(i)));
+				for (int i = 0; i < size - 1; i += 1)
+				{
+					build.arg(i, "T element{{i}}".replace("{{i}}", String.valueOf(i)));
+				}
+				build.arg(size - 1, "T element{{size-1}}".replace("{{size-1}}", String.valueOf(size - 1)));
 			}
-			builder.line("return result;");
-		}
-		builder.endBlock();
-		
-		
-		//
-		// toString() method
-		//
-		builder.beginBlock("public String toString()");
-		builder.startLine("return \"[\" + ");
-		if(size > 0)
-		{
-			for (int i = 0; i < size - 1; i += 1)
+			build.endArgs();
+			build.endLine();
+			
+			// constructor body; assign each argument to corresponding property
+			build.beginBlock();
 			{
-				builder.emit("element{{i}}.toString() + \", \" + ".replace("{{i}}", String.valueOf(i)));
+				for (int i = 0; i < size; i += 1)
+				{
+					build.line("this.element{{i}} = element{{i}};".replace("{{i}}", String.valueOf(i)));
+				}
 			}
-			builder.emit("element{{size-1}}.toString() + ".replace("{{size-1}}", String.valueOf(size - 1)));
+			build.endBlock();
+			
+			//
+			// size() method
+			//
+			build.line("public int size() { return {{size}}; }".replace("{{size}}", String.valueOf(size))).endLine();
+			
+			//
+			// get() method
+			//
+			build.beginBlock("public T get(int index)");
+			{
+				build.beginBlock("switch(index)");
+				{
+					for (int i = 0; i < size; i += 1)
+					{
+						build.line("case {{i}}: return element{{i}};".replace("{{i}}", String.valueOf(i)));
+					}
+					build.endBlock();
+				}
+				build.line("throw new IndexOutOfBoundsException();");
+			}
+			build.endBlock();
+			
+			//
+			// set() method
+			//
+			build.beginBlock("public Vector<T> set(int index, T value)");
+			{
+				build.beginBlock("switch(index)");
+				{
+					for (int i = 0; i < size; i += 1)
+					{
+						build.startLine("case {{i}}: return new VectorOf{{size}}".replace("{{i}}", String.valueOf(i)).replace("{{size}}", String.valueOf(size)));
+						build.startArgs();
+						if (size > 0)
+						{
+							// use current values except for the index we are setting
+							build.arg(0, (0 == i) ? "value" : "element0");
+							for (int j = 1; j < size; j += 1)
+							{
+								build.arg(j, (i == j) ? "value" : "element{{j}}".replace("{{j}}", String.valueOf(j)));
+							}
+						}
+						build.endArgs().endLine(";");
+					}
+					build.line("case {{size}}: return push(value);".replace("{{size}}", String.valueOf(size)));
+				}
+				build.endBlock();
+				
+				build.line("throw new IndexOutOfBoundsException();");
+			}
+			build.endBlock();
+			
+			//
+			// push() method
+			//
+			build.beginBlock("public Vector<T> push(T value)");
+			{
+				if (size < Vectors.VECTOR_NODE_SIZE)
+				{
+					build.startLine("return new VectorOf{{size+1}}".replace("{{size+1}}", String.valueOf(size + 1)));
+					build.startArgs();
+					for (int i = 0; i < size; i += 1)
+					{
+						build.arg(i, "element{{i}}".replace("{{i}}", String.valueOf(i)));
+					}
+					build.arg(size, "value");
+					build.endArgs().endLine(";");
+				}
+				else
+				{
+					build.line("return new VectorTrie(1, this, new VectorOf1(value));");
+				}
+			}
+			build.endBlock();
+			
+			//
+			// pushAll() method
+			//
+			build.line("public Vector<T> pushAll(final Vector<T> vector)");
+			build.beginBlock();
+			{
+				build.line("Vector<T> result = this;");
+				build.line("for(T element : vector)");
+				build.beginBlock();
+				{
+					build.line("result = result.push(element);");
+				}
+				build.endBlock();
+				build.line("return result;");
+			}
+			build.endBlock();
+			
+			//
+			// map() method
+			//
+			build.line("public <R> Vector<R> map(Function<? super T, ? extends R> mapper)");
+			build.beginBlock();
+			{
+				build.startLine("return new VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
+				build.startArgs();
+				for (int i = 0; i < size; i += 1)
+				{
+					build.arg(i, "mapper.apply(element{{i}})".replace("{{i}}", String.valueOf(i)));
+				}
+				build.endArgs();
+				build.endLine(";");
+			}
+			build.endBlock();
+			
+			//
+			// flatmap() method
+			//
+			build.line("public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)");
+			build.beginBlock();
+			{
+				build.line("Vector<R> result = mapper.apply(element0);");
+				for (int i = 1; i < size; i += 1)
+				{
+					build.line("result = result.pushAll(mapper.apply(element{{i}}));".replace("{{i}}", String.valueOf(i)));
+				}
+				build.line("return result;");
+			}
+			build.endBlock();
+			
+			
+			//
+			// toString() method
+			//
+			build.beginBlock("public String toString()");
+			{
+				build.startLine("return ").openList("\"[\" + ");
+				if (size > 0)
+				{
+					for (int i = 0; i < size - 1; i += 1)
+					{
+						build.item(i, "element{{i}}.toString() + ".replace("{{i}}", String.valueOf(i)), "\", \" + ");
+					}
+					build.item(size - 1, "element{{size-1}}.toString() + ".replace("{{size-1}}", String.valueOf(size - 1)), "\", \" + ");
+				}
+				build.closeList("\"]\"").endLine(";\n");
+			}
+			build.endBlock();
+			
+			
+			//
+			// iterator() method
+			//
+			build.line("public Iterator<T> iterator() { return new VectorIterator<T>(this); }");
+			
+			
+			//
+			// close class
+			//
 		}
-		builder.endLine("\"]\";\n");
-		builder.endBlock();
+		build.endBlock();
 		
-
-		//
-		// iterator() method
-		//
-		builder.line("public Iterator<T> iterator() { return new VectorIterator<T>(this); }");
-		
-		
-		//
-		// close class
-		//
-		builder.endBlock();
-		
-		return builder.toString();
+		return build.toString();
 		
 	}
 	
@@ -199,24 +227,41 @@ public final class VectorTemplate
 	private static class VectorBuilder
 	{
 		private final StringBuilder builder;
+		private int blockFrame = 0; // for balancing block open and close
+		private int listFrame = 0;  // for balancing list open and close
 		
-		private int blockCount = 0;
-		private LinkedList<Integer> argFrame = new LinkedList<>();
-		
-		public VectorBuilder(final StringBuilder builder)
-		{
-			this.builder = builder;
-		}
+		/**
+		 * construct with new empty builder
+		 *
+		 */
 		public VectorBuilder()
 		{
 			this(new StringBuilder());
 		}
 		
+		/**
+		 * Construct with given builders (allows appending or prepending)
+		 *
+		 * @param builder
+		 */
+		public VectorBuilder(final StringBuilder builder)
+		{
+			this.builder = builder;
+		}
+		
+		/**
+		 * emit the built text
+		 *
+		 * @return the current text in the builder
+		 */
 		public String toString()
 		{
 			return builder.toString();
 		}
 		
+		//
+		// emit arbitrary text
+		//
 		public VectorBuilder emit(final String string)
 		{
 			builder.append(string);
@@ -224,6 +269,9 @@ public final class VectorTemplate
 			return this;
 		}
 		
+		//
+		// line with proper indentation and new line at end
+		//
 		public VectorBuilder line(final String string)
 		{
 			return startLine().emit(string).endLine();
@@ -231,12 +279,13 @@ public final class VectorTemplate
 		
 		private VectorBuilder startLine()
 		{
-			return tabs(blockCount);
+			return tabs(blockFrame);
 		}
 		private VectorBuilder startLine(final String string)
 		{
 			return startLine().emit(string);
 		}
+		
 		public VectorBuilder endLine()
 		{
 			builder.append('\n');
@@ -247,6 +296,9 @@ public final class VectorTemplate
 			return emit(string).endLine();
 		}
 		
+		//
+		// arbitrary tabs
+		//
 		public VectorBuilder tab()
 		{
 			builder.append('\t');
@@ -263,46 +315,68 @@ public final class VectorTemplate
 			return this;
 		}
 		
+		//
+		// {} block
+		//
 		public VectorBuilder beginBlock(final String string)
 		{
 			return line(string).beginBlock();
 		}
-		
 		public VectorBuilder beginBlock()
 		{
 			line("{");
-			blockCount += 1;
+			blockFrame += 1;
 			return this;
 		}
 		
 		public VectorBuilder endBlock()
 		{
-			if(blockCount <= 0) throw new IllegalStateException();
-			blockCount -= 1;
+			if(blockFrame <= 0) throw new IllegalStateException();
+			blockFrame -= 1;
 			return line("}").endLine();
 		}
 		
+		//
+		// argument list
+		//
 		public VectorBuilder startArgs()
 		{
-			argFrame.addFirst(0);
-			return emit("(");
+			return openList("(");
 		}
-		public VectorBuilder arg(final String arg)
+		public VectorBuilder arg(final int argNumber, final String arg)
 		{
-			if(argFrame.getFirst() > 0)
-			{
-				emit(", ");
-			}
-			argFrame.set(0, argFrame.getFirst() + 1);
-			return emit(arg);
+			return item(argNumber, arg, ", ");
 		}
 		public VectorBuilder endArgs()
 		{
-			if(argFrame.isEmpty()) throw new IllegalStateException();
-			emit(")");
-			argFrame.removeFirst();
+			return closeList(")");
+		}
+		
+		//
+		// bracketed, delimited list
+		//
+		public VectorBuilder openList(final String openBracket)
+		{
+			listFrame += 1;
+			return ((null != openBracket) && !openBracket.isEmpty()) ? emit(openBracket) : this;
+		}
+		public VectorBuilder item(final int argNumber, final String arg, final String delimiter)
+		{
+			// if arg count > 0, then prepend with a comma
+			if(argNumber > 0)
+			{
+				emit(delimiter);
+			}
+			return emit(arg);
+		}
+		public VectorBuilder closeList(final String closeBracket)
+		{
+			if(listFrame <= 0) throw new IllegalStateException();  // more endArgs than startArgs!
+			if((null != closeBracket) && !closeBracket.isEmpty()) emit(closeBracket);
+			listFrame -= 1;
 			return this;
 		}
+		
 	}
 	
 	

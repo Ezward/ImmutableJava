@@ -87,7 +87,8 @@ public final class BinaryTree<T>
 
         // if we are at a Nil node, we did not find the value
         if(this == Nil) return Nil;
-
+        
+        // TODO: this recursive find will not work for deep trees; implement iterator with an internal stack to walk the tree in order
         final int comparison = comparator.compare(value, this.value);
         if(comparison < 0) return this.left.find(value, comparator);
         if(comparison > 0) return this.right.find(value, comparator);
@@ -95,12 +96,14 @@ public final class BinaryTree<T>
     }
 
     /**
-     * Find the value in a sorted order based on the given Comparator.
-     * If it is found, update it.  If not found, insert it.
+     * Insert the value in sorted order.
+     *
+     * If the value already exists, nothing is changed.
+     * If the value is inserted, a new tree is produced.
      *
      * @param value NotNull
      * @param comparator values that compare < 0 insert on left
-     * @return a new tree
+     * @return a new tree if the value was inserted, otherwise this tree
      */
     public BinaryTree<T> insert(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
@@ -174,11 +177,15 @@ public final class BinaryTree<T>
 
     /**
      * Find and update the value based on the given Comparator.
+     *
      * If the value is not found, the tree is not changed.
+     * If the value is found and is the not the same reference as
+     * the existing value, a new tree is created with the given value
+     * replacing the pre-existing value.
      *
      * @param value NotNull
      * @param comparator values that compare < 0 insert on left
-     * @return a new tree
+     * @return a new tree if the value was updated, otherwise this tree
      */
     public BinaryTree<T> update(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
@@ -244,8 +251,8 @@ public final class BinaryTree<T>
      *       happens even if the node that is to be removed
      *       does not exist (actually, that results in worst-case
      *       behavior).  If you wish to avoid the extra memory
-     *       allocations is the value does not exist, then
-     *       do a find() for the value first.
+     *       allocations when the value does not exist,
+     *       then do a find() for the value first.
      *
      * @param value
      * @param comparator
@@ -277,8 +284,8 @@ public final class BinaryTree<T>
      *       happens even if the node that is to be removed
      *       does not exist (actually, that results in worst-case
      *       behavior).  If you wish to avoid the extra memory
-     *       allocations is the value does not exist, then
-     *       do a find() for the value first.
+     *       allocations when the value does not exist,
+     *       then do a find() for the value first.
      *
      * @param value
      * @param comparator
@@ -409,6 +416,7 @@ public final class BinaryTree<T>
      */
     public <R> BinaryTree<R> map(Function<? super T, ? extends R> mapper)
     {
+        // TODO: this recursive version will not support very deep maps; we should write an iterator that maintains a stack and use it to walk the tree
         if(this == Nil) return Nil;
         return new BinaryTree<>(mapper.apply(this.value), left.map(mapper), right.map(mapper));
     }
@@ -425,7 +433,8 @@ public final class BinaryTree<T>
     {
         if(null == that) return false;
         if(this == that) return true; // handles this == Nil and that == Nil
-
+    
+        // TODO: this recursive version will not support very deep maps;  we should write an iterator that maintains a stack and use it to walk the tree
         return this.value.equals(that.value)
                && this.left.isEqual(that.left)
                && this.right.isEqual(that.right);
@@ -459,6 +468,7 @@ public final class BinaryTree<T>
     @Override
     public int hashCode()
     {
+        // TODO: this recursive version will not support very deep maps; we should eagerly calculate hashcode as tree is built
         if(!hashcode.isSet())
         {
             int result = value != null ? value.hashCode() : 0;

@@ -4,19 +4,30 @@ import com.lumpofcode.annotation.NotNull;
 import com.lumpofcode.collection.compare.ComparableComparator;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
-/**
+/***
  * Created by emurphy on 6/28/17.
  */
-public class BinarySearchTree<T>
+public class BinarySearchTree<T extends Comparable>
 {
+	public static final BinarySearchTree Nil = new BinarySearchTree();   // empty tree
+	
 	final BinaryTree<T> tree;
 	final Comparator<T> comparator;
 	
 	/**
-	 * construct and empty binary search tree.
+	 * Construct binary search tree using default comparator
+	 */
+	public BinarySearchTree()
+	{
+		this(new ComparableComparator<>());
+	}
+	
+	/**
+	 * Construct binary search tree with specified comparator
 	 *
-	 * @param comparator the comparator used to compare elements in the tree
+	 * @param comparator
 	 */
 	public BinarySearchTree(@NotNull final Comparator<T> comparator)
 	{
@@ -101,5 +112,10 @@ public class BinarySearchTree<T>
 	{
 		return new BinarySearchTree(tree.removePromoteRight(value, comparator), comparator);
 	}
+	
+	//
+	// TODO: implement iterator
+	// TODO: use iterator to implement map by walking this tree and inserting into mapped tree
+	//
 	
 }
