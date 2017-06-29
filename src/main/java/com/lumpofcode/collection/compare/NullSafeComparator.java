@@ -3,12 +3,15 @@ package com.lumpofcode.collection.compare;
 import java.util.Comparator;
 
 /**
+ * Null safe comparator for comparables.
+ * Null is treated as least value and so sorts last.
+ *
  * Created by emurphy on 10/20/15.
  */
-public class StringComparator implements Comparator<String>
+public class NullSafeComparator<T extends Comparable> implements Comparator<T>
 {
     @Override
-    public int compare(String theValue, String theOtherValue)
+    public int compare(T theValue, T theOtherValue)
     {
         if(null != theValue)
         {
@@ -24,4 +27,5 @@ public class StringComparator implements Comparator<String>
         }
         return 0;
     }
+
 }

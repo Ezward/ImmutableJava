@@ -1,19 +1,14 @@
 package com.lumpofcode.lazy;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * A nullable value that can be set only once.
- *
- * ThreadSafe
- *
- * Created by emurphy on 6/10/17.
+ * Created by emurphy on 6/28/17.
  */
-public final class Once<T>
+public class OnceInteger
 {
-	private AtomicReference<Optional<T>> value = new AtomicReference<>();
+	private AtomicReference<Integer> value = new AtomicReference();
 	
 	/**
 	 * Attempt to set the value.
@@ -26,10 +21,10 @@ public final class Once<T>
 	 * @return the value, which may differ from what was passed
 	 *         if the value had been previously set.
 	 */
-	public T set(final T value)
+	public int set(final int value)
 	{
-		this.value.compareAndSet(null, Optional.ofNullable(value));  // set the value if the current value is null
-		return this.value.get().orElse(null);   // use orElse to allow null to be returned
+		this.value.compareAndSet(null, new Integer(value));  // set the value if the current value is null
+		return this.value.get().intValue();
 	}
 	
 	/**
@@ -56,9 +51,9 @@ public final class Once<T>
 	 * @return the set value
 	 * @throws NoSuchElementException if the value has not been set.
 	 */
-	public T get()
+	public int get()
 	{
 		if(!isSet()) throw new NoSuchElementException("Illegal attempt to access uninitialized Once value.");
-		return this.value.get().orElse(null);
+		return this.value.get().intValue();
 	}
 }

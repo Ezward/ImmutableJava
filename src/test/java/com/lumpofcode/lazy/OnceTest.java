@@ -2,6 +2,8 @@ package com.lumpofcode.lazy;
 
 import com.lumpofcode.lazy.Once;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -26,7 +28,7 @@ public class OnceTest
 			String s = once.get();
 			fail("Once.get() should throw if once is not set.");
 		}
-		catch (IllegalStateException e)
+		catch (NoSuchElementException e)
 		{
 			assertTrue(true);   // success
 		}

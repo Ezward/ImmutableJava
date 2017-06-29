@@ -1,8 +1,8 @@
 package com.lumpofcode.collection.binarytree;
 
-import com.lumpofcode.collection.compare.DescendingComparator;
 import com.lumpofcode.collection.compare.IntegerComparator;
 import com.lumpofcode.collection.compare.IntegerStringComparator;
+import com.lumpofcode.collection.compare.ReverseComparableComparator;
 import com.lumpofcode.collection.list.LinkList;
 
 import java.util.Comparator;
@@ -474,7 +474,7 @@ public class BinaryTreeTest
         // create two identical trees and one mirrored tree.
         //
         final IntegerComparator theComparator = new IntegerComparator();
-        final DescendingComparator theDescendingComparator = new DescendingComparator();
+        final ReverseComparableComparator theDescendingComparator = new ReverseComparableComparator();
         BinaryTree<Integer> theBinaryTree = BinaryTree.Nil;
         BinaryTree<Integer> theOtherBinaryTree = BinaryTree.Nil;
         BinaryTree<Integer> theDescendingTree = BinaryTree.Nil;

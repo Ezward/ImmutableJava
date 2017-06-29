@@ -1,6 +1,8 @@
 package com.lumpofcode.collection.binarytree;
 
 import com.lumpofcode.annotation.NotNull;
+import com.lumpofcode.lazy.Once;
+import com.lumpofcode.lazy.OnceInteger;
 
 import java.util.Comparator;
 import java.util.function.Function;
@@ -12,6 +14,8 @@ import java.util.function.Function;
  */
 public final class BinaryTree<T>
 {
+    private final OnceInteger hashcode = new OnceInteger();
+    
     public final T value;
     public final BinaryTree<T> left;
     public final BinaryTree<T> right;
@@ -20,6 +24,17 @@ public final class BinaryTree<T>
      * Singleton sentinal for leaf node.
      */
     public static final BinaryTree Nil = new BinaryTree();
+    
+    /**
+     * private contructor used to create Nil node singleton.
+     */
+    private BinaryTree()
+    {
+        this.value = null;
+        this.left = null;
+        this.right = null;
+    }
+    
 
     /**
      * Construct a tree with one node.
@@ -35,16 +50,6 @@ public final class BinaryTree<T>
         this.value = value;
         this.left = Nil;
         this.right = Nil;
-    }
-
-    /**
-     * private used to create Nil node singleton.
-     */
-    private BinaryTree()
-    {
-        this.value = null;
-        this.left = null;
-        this.right = null;
     }
 
     /**
@@ -75,7 +80,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return the node with the value or Nil if not found.
      */
-    public BinaryTree<T> find(final @NotNull T value, final @NotNull Comparator comparator)
+    public BinaryTree<T> find(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -97,7 +102,7 @@ public final class BinaryTree<T>
      * @param comparator values that compare < 0 insert on left
      * @return a new tree
      */
-    public BinaryTree<T> insert(final @NotNull T value, final @NotNull Comparator comparator)
+    public BinaryTree<T> insert(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -175,7 +180,7 @@ public final class BinaryTree<T>
      * @param comparator values that compare < 0 insert on left
      * @return a new tree
      */
-    public BinaryTree<T> update(final @NotNull T value, final @NotNull Comparator comparator)
+    public BinaryTree<T> update(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -246,7 +251,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return a new tree with the value removed and left side promoted.
      */
-    public BinaryTree<T> removePromoteLeft(final @NotNull T value, final @NotNull Comparator comparator)
+    public BinaryTree<T> removePromoteLeft(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -279,7 +284,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return a new tree with the value removed and right side promoted.
      */
-    public BinaryTree<T> removePromoteRight(final @NotNull T value, final @NotNull Comparator comparator)
+    public BinaryTree<T> removePromoteRight(final @NotNull T value, final @NotNull Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -454,15 +459,19 @@ public final class BinaryTree<T>
     @Override
     public int hashCode()
     {
-        int result = value != null ? value.hashCode() : 0;
-
-        //
-        // use different scaling factor for right & left
-        // so that a mirrored trees return different hash.
-        //
-        result = 31 * result + (left != null ? left.hashCode() : 0);
-        result = 61 * result + (right != null ? right.hashCode() : 0);
-
-        return result;
+        if(!hashcode.isSet())
+        {
+            int result = value != null ? value.hashCode() : 0;
+    
+            //
+            // use different scaling factor for right & left
+            // so that a mirrored trees return different hash.
+            //
+            result = 31 * result + (left != null ? left.hashCode() : 0);
+            result = 61 * result + (right != null ? right.hashCode() : 0);
+            
+            hashcode.set(result);
+        }
+        return hashcode.get();
     }
 }
