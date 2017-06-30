@@ -3,3 +3,5 @@ build
 .idea
 ImmutableJava.ipr
 ImmutableJava.iws
+/src/generated
+
