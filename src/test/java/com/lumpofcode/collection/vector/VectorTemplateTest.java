@@ -1,6 +1,5 @@
 package com.lumpofcode.collection.vector;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,6 +25,9 @@ public class VectorTemplateTest
 			final String vectorOf = writer.toString();
 			System.out.println(vectorOf);
 		}
+		
+		System.out.println(Integer.MAX_VALUE / 24);
+		System.out.println(Integer.MAX_VALUE % 24);
 		
 	}
 	
