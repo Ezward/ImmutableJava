@@ -14,7 +14,7 @@ import java.util.function.Function;
  */
 public final class Vectors
 {
-	public static final int VECTOR_NODE_SIZE = 16;
+	public static final int VECTOR_NODE_SIZE = 24;
 	
 	/**
 	 * An empty vector as a singleton.
