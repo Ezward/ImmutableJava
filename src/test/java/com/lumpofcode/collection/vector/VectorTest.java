@@ -658,7 +658,6 @@ public class VectorTest
 			}
 			assertVector(vector, n);
 		}
-		
 	}
 	
 	@Test

@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public final class VectorTrie<T> implements Vector<T>
 {
-	private static final int VECTOR_NODE_SIZE = 16;
+	private static final int VECTOR_NODE_SIZE = Vectors.VECTOR_NODE_SIZE;
 	
 	private final int level;        // zero if leaf node, 1 is first level trie, 2 is second level trie, etc.
 	private final int childSize;    // capacity (maximum size) of a child node at this level

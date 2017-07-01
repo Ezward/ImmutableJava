@@ -22,7 +22,8 @@ public final class VectorOverlay<T> implements Vector<T>
 		if(null == vector) throw new IllegalArgumentException();
 		if(null == overlay) throw new IllegalArgumentException();
 		
-		if((fromIndex < overlay.size()) || (fromIndex > vector.size())) throw new IndexOutOfBoundsException();
+		if(fromIndex > vector.size()) throw new IndexOutOfBoundsException();    // past end of vector
+		if(fromIndex < -overlay.size()) throw new IndexOutOfBoundsException();  // in front of start of vector
 		
 		if(fromIndex >= 0)
 		{

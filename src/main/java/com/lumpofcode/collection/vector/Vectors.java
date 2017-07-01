@@ -14,7 +14,7 @@ import java.util.function.Function;
  */
 public final class Vectors
 {
-	public static final int VECTOR_NODE_SIZE = 24;
+	public static final int VECTOR_NODE_SIZE = 16;
 	
 	/**
 	 * An empty vector as a singleton.
@@ -374,7 +374,6 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(Iterable<T> values)
 	{
-		// TODO : add unit test
 		return Vectors.empty.pushAll(values);
 	}
 	

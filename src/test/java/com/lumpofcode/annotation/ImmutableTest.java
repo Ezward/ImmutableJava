@@ -8,16 +8,11 @@ import com.lumpofcode.collection.vector.VectorOfSize;
 import com.lumpofcode.collection.vector.VectorOverlay;
 import com.lumpofcode.collection.vector.VectorTrie;
 import com.lumpofcode.collection.vector.VectorView;
-import com.lumpofcode.collection.vector.Vectors;
 import com.lumpofcode.lazy.Lazy;
 import com.lumpofcode.lazy.Once;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 
