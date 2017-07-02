@@ -1,5 +1,7 @@
 package com.lumpofcode.collection.vector;
 
+import com.lumpofcode.collection.vector.impl.VectorTrie;
+
 import java.util.Iterator;
 import java.util.function.Function;
 

@@ -14,10 +14,10 @@ public class VectorGeneratorApp
 	public static void main(String[] args) throws IOException
 	{
 		final int nodeSize = (args.length > 0) ? Integer.valueOf(args[0]) : 16;
-		final String fileFolder = (args.length > 1) ? args[1] : "./src/main/java/com/lumpofcode/collection/vector/impl/";
+		final String fileFolder = (args.length > 1) ? args[1] : "./src/main/java/com/lumpofcode/collection/vector/";
 		
-		vectorTemplateSystemOut(nodeSize);
-//		vectorTemplateFileWriter(nodeSize, fileFolder);
+//		vectorTemplateSystemOut(nodeSize);
+		vectorTemplateFileWriter(nodeSize, fileFolder);
 	}
 	
 	public static void vectorTemplateSystemOut(final int nodeSize)

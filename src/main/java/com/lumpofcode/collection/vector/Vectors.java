@@ -536,7 +536,16 @@ public final class Vectors
 		return result;
 	}
 	
-
+	
+	/**
+	 * Map the values in the vector using the mapper function
+	 * and return a new vector of mapped elements.
+	 *
+	 * @param vector the vector to operate on
+	 * @param <R> the resulting element type
+	 * @param mapper function that maps a T to an R
+	 * @return Vector of elements of type R
+	 */
 	public static <T, R> Vector<R> map(@NotNull Vector<T> vector, @NotNull Function<? super T, ? extends R> mapper)
 	{
 		//
@@ -567,6 +576,17 @@ public final class Vectors
 		return result;
 	}
 	
+	/**
+	 * Map each element of type T of the vector to
+	 * a Vector of type R, to produce a vector of vectors of type R,
+	 * then flatten (append) that into a vector of type R.
+	 *
+	 * @param vector the vector to operate on
+	 * @param <R> the resulting element type
+	 * @param mapper function that maps a value of type T
+	 *               to a Vector with elements of type R
+	 * @return Vector of elements of type R
+	 */
 	public static <T, R> Vector<R> flatmap(final @NotNull Vector<T> vector, final @NotNull Function<T, Vector<R>> mapper)
 	{
 		Vector<R> result = Vectors.empty;

@@ -1,15 +1,10 @@
 package com.lumpofcode.collection.vector.impl;
 
 import com.lumpofcode.collection.vector.Vector;
-
 import com.lumpofcode.collection.vector.Vectors;
-
-import com.lumpofcode.collection.vector.VectorTrie;
-
 import com.lumpofcode.collection.vector.VectorIterator;
 
 import java.util.Iterator;
-
 import java.util.function.Function;
 
 
