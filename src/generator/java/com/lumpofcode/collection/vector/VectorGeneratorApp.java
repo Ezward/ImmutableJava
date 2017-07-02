@@ -16,24 +16,26 @@ public class VectorGeneratorApp
 		final int nodeSize = (args.length > 0) ? Integer.valueOf(args[0]) : 16;
 		final String fileFolder = (args.length > 1) ? args[1] : "./src/main/java/com/lumpofcode/collection/vector/impl/";
 		
-//		vectorTemplateSystemOut(nodeSize);
-		vectorTemplateFileWriter(nodeSize, fileFolder);
+		vectorTemplateSystemOut(nodeSize);
+//		vectorTemplateFileWriter(nodeSize, fileFolder);
 	}
 	
 	public static void vectorTemplateSystemOut(final int nodeSize)
 	{
 		final VectorTemplate template = new VectorTemplate();
-		final Writer writer = new StringWriter();
 		
 		for(int i = 1; i <= nodeSize; i += 1)
 		{
-			template.generate(writer, i, nodeSize);
+			final Writer writer = new StringWriter();
+			template.generateVector(writer, i, nodeSize);
 			final String vectorOf = writer.toString();
 			System.out.println(vectorOf);
 		}
 		
-		System.out.println(Integer.MAX_VALUE / 24);
-		System.out.println(Integer.MAX_VALUE % 24);
+		final Writer writer = new StringWriter();
+		template.generateVectorTrie(writer, nodeSize);
+		final String vectorTrie = writer.toString();
+		System.out.println(vectorTrie);
 		
 	}
 	
@@ -59,6 +61,18 @@ public class VectorGeneratorApp
 			}
 		}
 		
+		final File implFolder = new File(folder, "impl");
+		if(!implFolder.exists())
+		{
+			if (!implFolder.mkdir())
+			{
+				throw new RuntimeException("Unable to create imple folder for generated sources.");
+			}
+		}
+		
+		//
+		// write the VectorOf## source files in the impl folder
+		//
 		final VectorTemplate template = new VectorTemplate();
 		for(int i = 1; i <= nodeSize; i += 1)
 		{
@@ -66,17 +80,32 @@ public class VectorGeneratorApp
 			// delete existing file and recreate
 			//
 			final String fileName = "VectorOf{{size}}.java".replace("{{size}}", String.valueOf(i));
-			final File file = new File(folder, fileName);
+			final File file = new File(implFolder, fileName);
 			if(file.exists())
 			{
 				file.delete();
 			}
 			
 			final Writer writer = new FileWriter(file.getPath());
-			template.generate(writer, i, nodeSize);
+			template.generateVector(writer, i, nodeSize);
 			writer.flush();
 			writer.close();
 		}
+		
+		//
+		// write the VectorTrie file in the impl folder
+		//
+		final File file = new File(implFolder, "VectorTrie.java");
+		if(file.exists())
+		{
+			file.delete();
+		}
+		
+		final Writer writer = new FileWriter(file.getPath());
+		template.generateVectorTrie(writer, nodeSize);
+		writer.flush();
+		writer.close();
+		
 		
 	}
 	

@@ -567,7 +567,7 @@ public final class Vectors
 		return result;
 	}
 	
-	public static <T, R> Vector<R> flatmap(@NotNull Vector<T> vector, @NotNull Function<T, Vector<R>> mapper)
+	public static <T, R> Vector<R> flatmap(final @NotNull Vector<T> vector, final @NotNull Function<T, Vector<R>> mapper)
 	{
 		Vector<R> result = Vectors.empty;
 		for(T element : vector)
@@ -577,6 +577,29 @@ public final class Vectors
 		return result;
 	}
 	
+	/**
+	 * Format vectors as '[e0, e1, e2...]'
+	 *
+	 * @param vector
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> String toString(final @NotNull Vector<T> vector)
+	{
+		final StringBuilder builder = new StringBuilder();
+		builder.append('[');
+		if(!vector.isEmpty())
+		{
+			builder.append(vector.get(0));
+			for(int i = 1; i < vector.size(); i += 1)
+			{
+				builder.append(", ").append(vector.get(i));
+			}
+		}
+		builder.append(']');
+		
+		return builder.toString();
+	}
 	
 	
 }
