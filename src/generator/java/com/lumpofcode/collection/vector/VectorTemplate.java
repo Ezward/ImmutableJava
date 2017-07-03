@@ -663,10 +663,330 @@ public final class VectorTemplate
 		build.endBlock();
 	}
 	
-	private String vectorOfSize(final int size)
+	/**
+	 * Generate Vectors.java, with factory methods and shared implementations of map, flatmap and toString()
+	 *
+	 * @param writer
+	 * @param nodeSize
+	 */
+	public void generateVectors(final Writer writer, final int nodeSize)
 	{
-		return "VectorOf{{size}}".replace("{{size}}", String.valueOf(size));
+		if(nodeSize <= 0) throw new IllegalArgumentException();
+		
+		final boolean useVectorOfSize = false;
+		
+		final VectorBuilder build = new VectorBuilder(writer);
+		final Macros m = new Macros();
+		
+		//
+		// set up common symbols
+		//
+		m.with("nodesize", nodeSize);
+		m.with("nodesize-1", nodeSize-1);
+		
+		//
+		// package and imports
+		//
+		build.line("package com.lumpofcode.collection.vector;").endLine();
+		
+		build.line("import com.lumpofcode.collection.vector.impl.*;").endLine();
+		build.line("import com.lumpofcode.annotation.NotNull;").endLine();
+		
+		build.line("import java.util.Iterator;");
+		build.line("import java.util.function.Function;").endLine();
+		
+		
+		build.line("/**");
+		build.line("* Methods that create or act on Vectors.");
+		build.line("*");
+		build.line("* Use the Vectors.asVector() functions to construct Vectors.");
+		build.line("*");
+		build.line("* Created by emurphy on 6/16/17.");
+		build.line("*/");
+		build.line("public final class Vectors");
+		build.beginBlock();
+		{
+			build.line(m.apply("public static final int VECTOR_NODE_SIZE = {{nodesize}};")).endLine();
+
+			build.line("/**");
+			build.line(" * An empty vector as a singleton.");
+			build.line(" */");
+			build.line("public static final EmptyVector empty = new EmptyVector();").endLine();
+			
+			//
+			// loop to create all the Vectors.asVector() factory methods from 1..nodeSize
+			//
+			for(int i = 1; i <= nodeSize; i += 1)
+			{
+				m.with("i", i);
+				build.line("/**");
+				build.line(m.apply(" * Factory to construct a Vector with {{i}} elements"));
+				build.line(" *");
+				for(int j = 0; j < i; j += 1)
+				{
+					build.line(m.with("j", j).apply(" * @param e{{j}} the element an index {{j}}"));
+				}
+				build.line(" * @param <T> the type of the element");
+				build.line(m.apply(" * @return a Vector of type T with {{i}} elements"));
+				build.line(" */");
+				build.startLine("public static final <T> Vector<T> asVector").startArgs();
+				for (int j = 0; j < i; j += 1)
+				{
+					m.with("j", j);
+					build.arg(j, m.apply("final T e{{j}}"));
+				}
+				build.endArgs().endLine();
+				
+				build.beginBlock();
+				{
+					if(!useVectorOfSize)
+					{
+						//
+						// using VectorOf## implementation
+						//
+						m.with("i", i);
+						build.startLine(m.apply("return new VectorOf{{i}}<>")).startArgs();
+						for (int j = 0; j < i; j += 1)
+						{
+							m.with("j", j);
+							build.arg(j, m.apply("e{{j}}"));
+						}
+						build.endArgs().endLine(";");
+					}
+					else
+					{
+						//
+						// using VectorOfSize() implementation
+						//
+						m.with("i", i);
+						build.startLine(m.apply("return new VectorOfSize<>")).startArgs();
+						build.arg(0, m.apply("{{i}}"));
+						for (int j = 0; j < i; j += 1)
+						{
+							m.with("j", j);
+							build.arg(j + 1, m.apply("e{{j}}"));
+						}
+						for (int j = i; j < nodeSize; j += 1)
+						{
+							build.arg(j + 1, "null");
+						}
+						build.endArgs().endLine(";");
+					}
+				}
+				build.endBlock();
+			}
+
+			build.line("/**");
+			build.line(" * Construct a vector from an Iterable");
+			build.line(" *");
+			build.line(" * @param values an Iterable that provides ordered values");
+			build.line(" * @param <T>");
+			build.line(" * @return A vector of the elements of the Iterable");
+			build.line(" */");
+			build.line("public static final <T> Vector<T> asVector(Iterable<T> values)");
+			build.beginBlock();
+			{
+				build.line("return Vectors.empty.pushAll(values);");
+			}
+			build.endBlock();
+			
+			
+			build.line("/**");
+			build.line(" * Push all elements in the Iterable into the end of the Vector");
+			build.line(" *");
+			build.line(" * @param vector");
+			build.line(" * @param iterable");
+			build.line(" * @param <T>");
+			build.line(" * @return a new Vector with the Iterable's elements appended.");
+			build.line(" */");
+			build.line("public static final <T> Vector<T> pushAll(final Vector vector, final Iterable<T> iterable)");
+			build.beginBlock();
+			{
+				build.line("//");
+				build.line("// do in chunks of node size for efficiency");
+				build.line("//");
+				
+				build.line("Vector<T> result = vector;");
+				build.line("final Iterator<T> it = iterable.iterator();").endLine();
+				
+				build.line("//");
+				build.line("// get to a node-size-aligned result, so we can start using push-16 for efficiency");
+				build.line("//");
+				build.line("while(((result.size() % VECTOR_NODE_SIZE) != 0) && it.hasNext())");
+				build.beginBlock();
+				{
+					build.line("result = result.push(it.next());");
+				}
+				build.endBlock();
+				
+				build.line("//");
+				build.line("// While we have 16 elements available, collect them and use the more efficient 16 push,");
+				build.line("// otherwise push each element individually");
+				build.line("//");
+				build.line("while(it.hasNext())");
+				build.beginBlock();
+				{
+					//
+					// indented 'if' until we reach node size
+					//
+					for(int i = 0; i < nodeSize - 1; i += 1)
+					{
+						m.with("i", i);
+						build.line(m.apply("final T e{{i}} = it.next();"));
+						build.line("if (it.hasNext())");
+						build.beginBlock();
+					}
+					
+					//
+					// at nodesize - 1, emit a node size push
+					//
+					build.line("//");
+					build.line("// we have enough for a node size push");
+					build.line("//");
+					build.line(m.apply("final T e{{nodesize-1}} = it.next();"));
+					build.startLine("result = result.push").startArgs();
+					for (int j = 0; j < nodeSize; j += 1)
+					{
+						m.with("j", j);
+						build.arg(j, m.apply("e{{j}}"));
+					}
+					build.endArgs().endLine(";");
+					
+					//
+					// close all if statement blocks
+					//
+					for(int i = nodeSize - 1; i > 0; i -= 1)
+					{
+						build.endBlock(false);
+						build.line("else");
+						build.beginBlock();
+						{
+							build.line("//");
+							build.line("// else we don't have enough for a push of node size, so do a series of push of 1");
+							build.line("//");
+							build.startLine("result = result");
+							for(int j = 0; j < i; j += 1)
+							{
+								m.with("j", j);
+								build.emit(m.apply(".push(e{{j}})"));
+							}
+							build.endLine(";");
+						}
+						build.endBlock(false);
+					}
+				}
+				build.endBlock();
+
+				build.line("return result;");
+			}
+			build.endBlock();
+
+
+			build.line("/**");
+			build.line(" * Map the values in the vector using the mapper function");
+			build.line(" * and return a new vector of mapped elements.");
+			build.line(" *");
+			build.line(" * @param vector the vector to operate on");
+			build.line(" * @param <R> the resulting element type");
+			build.line(" * @param mapper function that maps a T to an R");
+			build.line(" * @return Vector of elements of type R");
+			build.line(" */");
+			build.line("public static <T, R> Vector<R> map(final @NotNull Vector<T> vector, final @NotNull Function<? super T, ? extends R> mapper)");
+			build.beginBlock();
+			{
+				build.line("//");
+				build.line("// do in chunks of node size for efficiency");
+				build.line("//");
+				build.line("Vector<R> result = Vectors.empty;");
+				build.line("int index = 0;");
+				build.line("while(index <= (vector.size() - VECTOR_NODE_SIZE))");
+				build.beginBlock();
+				{
+					build.startLine().startArgs("result = result.push");
+					for(int i = 0; i < nodeSize; i += 1)
+					{
+						m.with("tab", (0 == i % 4) ? "\n\t\t\t\t" : "\t");
+						build.arg(i, m.with("i", i).apply("{{tab}}mapper.apply(vector.get(index + {{i}}))"));
+					}
+					build.endArgs().endLine(";");
+					build.line("index += VECTOR_NODE_SIZE;");
+				}
+				build.endBlock();
+				
+				build.line("//");
+				build.line("// handle the rest with simple push");
+				build.line("//");
+				build.line("while(index < vector.size())");
+				build.beginBlock();
+				{
+					build.line("result = result.push(mapper.apply(vector.get(index)));");
+					build.line("index += 1;");
+				}
+				build.endBlock();
+				build.line("return result;");
+			}
+			build.endBlock();
+			
+			build.line("/**");
+			build.line(" * Map each element of type T of the vector to");
+			build.line(" * a Vector of type R, to produce a vector of vectors of type R,");
+			build.line(" * then flatten (append) that into a vector of type R.");
+			build.line(" *");
+			build.line(" * @param vector the vector to operate on");
+			build.line(" * @param <R> the resulting element type");
+			build.line(" * @param mapper function that maps a value of type T");
+			build.line(" *               to a Vector with elements of type R");
+			build.line(" * @return Vector of elements of type R");
+			build.line(" */");
+			build.line("public static <T, R> Vector<R> flatmap(final @NotNull Vector<T> vector, final @NotNull Function<T, Vector<R>> mapper)");
+			build.beginBlock();
+			{
+				build.line("Vector<R> result = Vectors.empty;");
+				build.line("for(T element : vector)");
+				build.beginBlock();
+				{
+					build.line("result = result.pushAll(mapper.apply(element));");
+				}
+				build.endBlock();
+				build.line("return result;");
+			}
+			build.endBlock();
+			
+			build.line("/**");
+			build.line(" * Format vectors as '[e0, e1, e2...]'");
+			build.line(" *");
+			build.line(" * @param vector");
+			build.line(" * @param <T>");
+			build.line(" * @return");
+			build.line(" */");
+			build.line("public static <T> String toString(final @NotNull Vector<T> vector)");
+			build.beginBlock();
+			{
+				build.line("final StringBuilder builder = new StringBuilder();");
+				build.line("builder.append('[');");
+				build.line("if(!vector.isEmpty())");
+				build.beginBlock();
+				{
+					build.line("builder.append(vector.get(0));");
+					build.line("for(int i = 1; i < vector.size(); i += 1)");
+					build.beginBlock();
+					{
+						build.line("builder.append(\", \").append(vector.get(i));");
+					}
+					build.endBlock(false);
+				}
+				build.endBlock(false);
+				build.line("builder.append(']');");
+				
+				build.line("return builder.toString();");
+			}
+			build.endBlock();
+
+
+		}
+		build.endBlock();
 	}
+	
 	
 	/**
 	 * simplistic symbol table for macro processing
@@ -809,9 +1129,13 @@ public final class VectorTemplate
 		
 		public VectorBuilder endBlock()
 		{
+			return endBlock(true);
+		}
+		public VectorBuilder endBlock(final boolean extraEndLine)
+		{
 			if(blockFrame <= 0) throw new IllegalStateException();
 			blockFrame -= 1;
-			return line("}").endLine();
+			return extraEndLine ? line("}").endLine() : line("}");
 		}
 		
 		//

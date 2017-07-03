@@ -16,8 +16,8 @@ public class VectorGeneratorApp
 		final int nodeSize = (args.length > 0) ? Integer.valueOf(args[0]) : 16;
 		final String fileFolder = (args.length > 1) ? args[1] : "./src/main/java/com/lumpofcode/collection/vector/";
 		
-//		vectorTemplateSystemOut(nodeSize);
-		vectorTemplateFileWriter(nodeSize, fileFolder);
+		vectorTemplateSystemOut(nodeSize);
+//		vectorTemplateFileWriter(nodeSize, fileFolder);
 	}
 	
 	public static void vectorTemplateSystemOut(final int nodeSize)
@@ -31,12 +31,16 @@ public class VectorGeneratorApp
 			final String vectorOf = writer.toString();
 			System.out.println(vectorOf);
 		}
-		
-		final Writer writer = new StringWriter();
+
+		Writer writer = new StringWriter();
 		template.generateVectorTrie(writer, nodeSize);
 		final String vectorTrie = writer.toString();
 		System.out.println(vectorTrie);
 		
+		writer = new StringWriter();
+		template.generateVectors(writer, nodeSize);
+		final String vectors = writer.toString();
+		System.out.println(vectors);
 	}
 	
 	/**
@@ -95,17 +99,30 @@ public class VectorGeneratorApp
 		//
 		// write the VectorTrie file in the impl folder
 		//
-		final File file = new File(implFolder, "VectorTrie.java");
+		File file = new File(implFolder, "VectorTrie.java");
 		if(file.exists())
 		{
 			file.delete();
 		}
 		
-		final Writer writer = new FileWriter(file.getPath());
+		Writer writer = new FileWriter(file.getPath());
 		template.generateVectorTrie(writer, nodeSize);
 		writer.flush();
 		writer.close();
 		
+		//
+		// write the Vectors file in the vector folder
+		//
+		file = new File(folder, "Vectors.java");
+		if(file.exists())
+		{
+			file.delete();
+		}
+		
+		writer = new FileWriter(file.getPath());
+		template.generateVectors(writer, nodeSize);
+		writer.flush();
+		writer.close();
 		
 	}
 	
