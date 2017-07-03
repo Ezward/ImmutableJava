@@ -8,21 +8,21 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 /**
- * Methods that create or act on Vectors.
- *
- * Use the Vectors.asVector() functions to construct Vectors.
- *
- * Created by emurphy on 6/16/17.
- */
+* Methods that create or act on Vectors.
+*
+* Use the Vectors.asVector() functions to construct Vectors.
+*
+* Created by emurphy on 6/16/17.
+*/
 public final class Vectors
 {
 	public static final int VECTOR_NODE_SIZE = 16;
-	
+
 	/**
 	 * An empty vector as a singleton.
 	 */
 	public static final EmptyVector empty = new EmptyVector();
-	
+
 	/**
 	 * Factory to construct a Vector with 1 elements
 	 *
@@ -32,9 +32,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0)
 	{
-		return new VectorOf1<T>(e0);
+		return new VectorOf1<>(e0);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 2 elements
 	 *
@@ -45,9 +45,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1)
 	{
-		return new VectorOf2<T>(e0, e1);
+		return new VectorOf2<>(e0, e1);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 3 elements
 	 *
@@ -59,9 +59,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2)
 	{
-		return new VectorOf3<T>(e0, e1, e2);
+		return new VectorOf3<>(e0, e1, e2);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 4 elements
 	 *
@@ -74,9 +74,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3)
 	{
-		return new VectorOf4<T>(e0, e1, e2, e3);
+		return new VectorOf4<>(e0, e1, e2, e3);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 5 elements
 	 *
@@ -90,9 +90,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4)
 	{
-		return new VectorOf5<T>(e0, e1, e2, e3, e4);
+		return new VectorOf5<>(e0, e1, e2, e3, e4);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 6 elements
 	 *
@@ -107,9 +107,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5)
 	{
-		return new VectorOf6<T>(e0, e1, e2, e3, e4, e5);
+		return new VectorOf6<>(e0, e1, e2, e3, e4, e5);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 7 elements
 	 *
@@ -125,9 +125,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6)
 	{
-		return new VectorOf7<T>(e0, e1, e2, e3, e4, e5, e6);
+		return new VectorOf7<>(e0, e1, e2, e3, e4, e5, e6);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 8 elements
 	 *
@@ -144,9 +144,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7)
 	{
-		return new VectorOf8<T>(e0, e1, e2, e3, e4, e5, e6, e7);
+		return new VectorOf8<>(e0, e1, e2, e3, e4, e5, e6, e7);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 9 elements
 	 *
@@ -164,9 +164,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8)
 	{
-		return new VectorOf9<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8);
+		return new VectorOf9<>(e0, e1, e2, e3, e4, e5, e6, e7, e8);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 10 elements
 	 *
@@ -185,9 +185,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9)
 	{
-		return new VectorOf10<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9);
+		return new VectorOf10<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 11 elements
 	 *
@@ -207,9 +207,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10)
 	{
-		return new VectorOf11<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
+		return new VectorOf11<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 12 elements
 	 *
@@ -230,9 +230,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11)
 	{
-		return new VectorOf12<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11);
+		return new VectorOf12<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 13 elements
 	 *
@@ -254,9 +254,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12)
 	{
-		return new VectorOf13<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12);
+		return new VectorOf13<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 14 elements
 	 *
@@ -279,9 +279,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13)
 	{
-		return new VectorOf14<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13);
+		return new VectorOf14<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 15 elements
 	 *
@@ -305,9 +305,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14)
 	{
-		return new VectorOf15<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14);
+		return new VectorOf15<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14);
 	}
-	
+
 	/**
 	 * Factory to construct a Vector with 16 elements
 	 *
@@ -332,9 +332,9 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> asVector(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
 	{
-		return new VectorOf16<T>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15);
+		return new VectorOf16<>(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15);
 	}
-	
+
 	/**
 	 * Construct a vector from an Iterable
 	 *
@@ -346,7 +346,7 @@ public final class Vectors
 	{
 		return Vectors.empty.pushAll(values);
 	}
-	
+
 	/**
 	 * Push all elements in the Iterable into the end of the Vector
 	 *
@@ -362,7 +362,7 @@ public final class Vectors
 		//
 		Vector<T> result = vector;
 		final Iterator<T> it = iterable.iterator();
-		
+
 		//
 		// get to a node-size-aligned result, so we can start using push-16 for efficiency
 		//
@@ -370,7 +370,7 @@ public final class Vectors
 		{
 			result = result.push(it.next());
 		}
-		
+
 		//
 		// While we have 16 elements available, collect them and use the more efficient 16 push,
 		// otherwise push each element individually
@@ -548,10 +548,10 @@ public final class Vectors
 				result = result.push(e0);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Map the values in the vector using the mapper function
 	 * and return a new vector of mapped elements.
@@ -571,13 +571,13 @@ public final class Vectors
 		while(index <= (vector.size() - VECTOR_NODE_SIZE))
 		{
 			result = result.push(
-				mapper.apply(vector.get(index + 0)), 	mapper.apply(vector.get(index + 1)), 	mapper.apply(vector.get(index + 2)), 	mapper.apply(vector.get(index + 3)),
-				mapper.apply(vector.get(index + 4)), 	mapper.apply(vector.get(index + 5)), 	mapper.apply(vector.get(index + 6)), 	mapper.apply(vector.get(index + 7)),
-				mapper.apply(vector.get(index + 8)), 	mapper.apply(vector.get(index + 9)), 	mapper.apply(vector.get(index + 10)), 	mapper.apply(vector.get(index + 11)),
+				mapper.apply(vector.get(index + 0)), 	mapper.apply(vector.get(index + 1)), 	mapper.apply(vector.get(index + 2)), 	mapper.apply(vector.get(index + 3)), 
+				mapper.apply(vector.get(index + 4)), 	mapper.apply(vector.get(index + 5)), 	mapper.apply(vector.get(index + 6)), 	mapper.apply(vector.get(index + 7)), 
+				mapper.apply(vector.get(index + 8)), 	mapper.apply(vector.get(index + 9)), 	mapper.apply(vector.get(index + 10)), 	mapper.apply(vector.get(index + 11)), 
 				mapper.apply(vector.get(index + 12)), 	mapper.apply(vector.get(index + 13)), 	mapper.apply(vector.get(index + 14)), 	mapper.apply(vector.get(index + 15)));
 			index += VECTOR_NODE_SIZE;
 		}
-		
+
 		//
 		// handle the rest with simple push
 		//
@@ -586,10 +586,10 @@ public final class Vectors
 			result = result.push(mapper.apply(vector.get(index)));
 			index += 1;
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Map each element of type T of the vector to
 	 * a Vector of type R, to produce a vector of vectors of type R,
@@ -608,10 +608,10 @@ public final class Vectors
 		{
 			result = result.pushAll(mapper.apply(element));
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Format vectors as '[e0, e1, e2...]'
 	 *
@@ -634,5 +634,6 @@ public final class Vectors
 		builder.append(']');
 		return builder.toString();
 	}
-	
+
 }
+

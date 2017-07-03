@@ -99,8 +99,7 @@ public final class VectorOf8<T> implements Vector<T>, Iterable<T>
 
 	public String toString()
 	{
-		return "[" + element0.toString() + ", " + element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ", " + element5.toString() + ", " + element6.toString() + ", " + element7.toString() + "]";
-
+		return Vectors.toString(this);
 	}
 
 	public Iterator<T> iterator() { return new VectorIterator<T>(this); }

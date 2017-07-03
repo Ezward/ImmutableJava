@@ -119,8 +119,7 @@ public final class VectorOf13<T> implements Vector<T>, Iterable<T>
 
 	public String toString()
 	{
-		return "[" + element0.toString() + ", " + element1.toString() + ", " + element2.toString() + ", " + element3.toString() + ", " + element4.toString() + ", " + element5.toString() + ", " + element6.toString() + ", " + element7.toString() + ", " + element8.toString() + ", " + element9.toString() + ", " + element10.toString() + ", " + element11.toString() + ", " + element12.toString() + "]";
-
+		return Vectors.toString(this);
 	}
 
 	public Iterator<T> iterator() { return new VectorIterator<T>(this); }

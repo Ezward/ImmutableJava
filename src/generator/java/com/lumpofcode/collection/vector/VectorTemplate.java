@@ -24,8 +24,8 @@ public final class VectorTemplate
 	 */
 	public void generateVector(final Writer writer, final int size, final int nodeSize)
 	{
-		if(nodeSize <= 0) throw new IllegalArgumentException();
-		if((size <= 0) || (size > nodeSize)) throw new IllegalArgumentException();
+		if(nodeSize < 2) throw new IllegalArgumentException();
+		if((size < 1) || (size > nodeSize)) throw new IllegalArgumentException();
 		
 		final VectorBuilder build = new VectorBuilder(writer);
 		final Macros m = new Macros();
@@ -283,7 +283,7 @@ public final class VectorTemplate
 	
 	public void generateVectorTrie(final Writer writer, final int nodeSize)
 	{
-		if(nodeSize <= 0) throw new IllegalArgumentException();
+		if(nodeSize < 2) throw new IllegalArgumentException();
 		
 		final VectorBuilder build = new VectorBuilder(writer);
 		final Macros m = new Macros();
@@ -671,7 +671,7 @@ public final class VectorTemplate
 	 */
 	public void generateVectors(final Writer writer, final int nodeSize)
 	{
-		if(nodeSize <= 0) throw new IllegalArgumentException();
+		if(nodeSize < 2) throw new IllegalArgumentException();
 		
 		final boolean useVectorOfSize = false;
 		

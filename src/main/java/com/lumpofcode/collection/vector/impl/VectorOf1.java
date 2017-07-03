@@ -71,8 +71,7 @@ public final class VectorOf1<T> implements Vector<T>, Iterable<T>
 
 	public String toString()
 	{
-		return "[" + element0.toString() + "]";
-
+		return Vectors.toString(this);
 	}
 
 	public Iterator<T> iterator() { return new VectorIterator<T>(this); }
