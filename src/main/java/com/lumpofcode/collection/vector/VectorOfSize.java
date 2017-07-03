@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.vector;
 
-import com.lumpofcode.collection.vector.impl.VectorTrie;
+import com.lumpofcode.collection.vector.impl.*;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -62,7 +62,7 @@ public final class VectorOfSize<T> implements Vector<T>, Iterable<T>
 	                                  final T element09, final T element10, final T element11, final T element12,
 	                                  final T element13, final T element14, final T element15, final T element16)
 	{
-		if((size < 1) || (size > Vectors.VECTOR_NODE_SIZE)) throw new IllegalArgumentException();
+		if((size < 1) || (size > Vector.VECTOR_NODE_SIZE)) throw new IllegalArgumentException();
 		this.size = size;
 		
 		this.element01 = element01;

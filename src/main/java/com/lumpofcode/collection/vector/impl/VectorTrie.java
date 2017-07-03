@@ -15,8 +15,6 @@ import java.util.function.Function;
 
 public final class VectorTrie<T> implements Vector<T>
 {
-	private static final int VECTOR_NODE_SIZE = 16;
-
 	private final int level;        // zero if leaf node, 1 is first level trie, 2 is second level trie, etc.
 	private final int childSize;    // capacity (maximum size) of a child node at this level
 	private final int size;
@@ -45,7 +43,7 @@ public final class VectorTrie<T> implements Vector<T>
 	public VectorTrie(final int level, final Vector<T> vector0, final Vector<T> vector1, final Vector<T> vector2, final Vector<T> vector3, final Vector<T> vector4, final Vector<T> vector5, final Vector<T> vector6, final Vector<T> vector7, final Vector<T> vector8, final Vector<T> vector9, final Vector<T> vector10, final Vector<T> vector11, final Vector<T> vector12, final Vector<T> vector13, final Vector<T> vector14, final Vector<T> vector15)
 	{
 		this.level = level;
-		this.childSize = IntegerMath.power(VECTOR_NODE_SIZE, level);
+		this.childSize = IntegerMath.power(Vector.VECTOR_NODE_SIZE, level);
 		this.vector0 = vector0;
 		this.vector1 = vector1;
 		this.vector2 = vector2;
@@ -97,7 +95,7 @@ public final class VectorTrie<T> implements Vector<T>
 		// if it is not within this trie, then we need to add another level to the hierarchy
 		//
 		final int childIndex = index / childSize;
-		if(childIndex < VECTOR_NODE_SIZE)
+		if(childIndex < Vector.VECTOR_NODE_SIZE)
 		{
 			//
 			// find the child within this trie (index / childSize)
@@ -129,7 +127,7 @@ public final class VectorTrie<T> implements Vector<T>
 		//
 		if(childCapacity >= 16)
 		{
-			if(childIndex < VECTOR_NODE_SIZE)
+			if(childIndex < Vector.VECTOR_NODE_SIZE)
 			{
 				//
 				// there is room for these elements in the child,
@@ -205,12 +203,12 @@ public final class VectorTrie<T> implements Vector<T>
 	/**
 	 * get child vector at given child index
 	 * 
-	 * @param childIndex index of child vector 0..VECTOR_NODE_SIZE-1
+	 * @param childIndex index of child vector 0..Vector.VECTOR_NODE_SIZE-1
 	 * @return child vector given child index   
 	 */
 	private Vector<T> getChild(final int childIndex)
 	{
-		if((childIndex < 0) || (childIndex >= VECTOR_NODE_SIZE)) throw new IndexOutOfBoundsException();
+		if((childIndex < 0) || (childIndex >= Vector.VECTOR_NODE_SIZE)) throw new IndexOutOfBoundsException();
 		switch(childIndex)
 		{
 			case 0: return vector0;
@@ -236,13 +234,13 @@ public final class VectorTrie<T> implements Vector<T>
 	/**
 	 * set child element at given index to the given vector
 	 * 
-	 * @param childIndex index of child vector 0..VECTOR_NODE_SIZE-1
+	 * @param childIndex index of child vector 0..Vector.VECTOR_NODE_SIZE-1
 	 * @param childValue child vector
 	 * @return new vector with given child at given index   
 	 */
 	private Vector<T> setChild(final int childIndex, Vector<T> childValue)
 	{
-		if((childIndex < 0) || (childIndex >= VECTOR_NODE_SIZE)) throw new IndexOutOfBoundsException();
+		if((childIndex < 0) || (childIndex >= Vector.VECTOR_NODE_SIZE)) throw new IndexOutOfBoundsException();
 		switch(childIndex)
 		{
 			case 0: return new VectorTrie(level, childValue, vector1, vector2, vector3, vector4, vector5, vector6, vector7, vector8, vector9, vector10, vector11, vector12, vector13, vector14, vector15);

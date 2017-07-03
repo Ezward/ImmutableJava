@@ -1,5 +1,7 @@
 package com.lumpofcode.collection.vector;
 
+import com.lumpofcode.collection.vector.impl.*;
+
 import com.lumpofcode.annotation.NotNull;
 import com.lumpofcode.math.IntegerMath;
 

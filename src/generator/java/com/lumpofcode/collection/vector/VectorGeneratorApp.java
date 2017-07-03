@@ -26,19 +26,29 @@ public class VectorGeneratorApp
 
 		final VectorTemplate template = new VectorTemplate();
 		
+		Writer writer = new StringWriter();
+		template.generateVectorInterface(writer, radix);
+		final String vectorInterface = writer.toString();
+		System.out.println(vectorInterface);
+
+		writer = new StringWriter();
+		template.generateEmptyVector(writer, radix);
+		final String emptyVector = writer.toString();
+		System.out.println(emptyVector);
+
 		for(int i = 1; i <= radix; i += 1)
 		{
-			final Writer writer = new StringWriter();
-			template.generateVector(writer, i, radix);
+			writer = new StringWriter();
+			template.generateVectorOfNN(writer, i, radix);
 			final String vectorOf = writer.toString();
 			System.out.println(vectorOf);
 		}
 
-		Writer writer = new StringWriter();
+		writer = new StringWriter();
 		template.generateVectorTrie(writer, radix);
 		final String vectorTrie = writer.toString();
 		System.out.println(vectorTrie);
-		
+
 		writer = new StringWriter();
 		template.generateVectors(writer, radix);
 		final String vectors = writer.toString();
@@ -77,24 +87,54 @@ public class VectorGeneratorApp
 			}
 		}
 		
+		final VectorTemplate template = new VectorTemplate();
+
+		//
+		// write the Vector.java interface file in the vector folder
+		//
+		File file = new File(folder, "Vector.java");
+		if(file.exists())
+		{
+			file.delete();
+		}
+		
+		Writer writer = new FileWriter(file.getPath());
+		template.generateVectorInterface(writer, radix);
+		writer.flush();
+		writer.close();
+		
+		//
+		// write EmptyVector.java in the impl folder
+		//
+		file = new File(implFolder, "EmptyVector.java");
+		if(file.exists())
+		{
+			file.delete();
+		}
+		
+		writer = new FileWriter(file.getPath());
+		template.generateEmptyVector(writer, radix);
+		writer.flush();
+		writer.close();
+		
+		
 		//
 		// write the VectorOf## source files in the impl folder
 		//
-		final VectorTemplate template = new VectorTemplate();
 		for(int i = 1; i <= radix; i += 1)
 		{
 			//
 			// delete existing file and recreate
 			//
 			final String fileName = "VectorOf{{size}}.java".replace("{{size}}", String.valueOf(i));
-			final File file = new File(implFolder, fileName);
+			file = new File(implFolder, fileName);
 			if(file.exists())
 			{
 				file.delete();
 			}
 			
-			final Writer writer = new FileWriter(file.getPath());
-			template.generateVector(writer, i, radix);
+			writer = new FileWriter(file.getPath());
+			template.generateVectorOfNN(writer, i, radix);
 			writer.flush();
 			writer.close();
 		}
@@ -102,13 +142,13 @@ public class VectorGeneratorApp
 		//
 		// write the VectorTrie file in the impl folder
 		//
-		File file = new File(implFolder, "VectorTrie.java");
+		file = new File(implFolder, "VectorTrie.java");
 		if(file.exists())
 		{
 			file.delete();
 		}
 		
-		Writer writer = new FileWriter(file.getPath());
+		writer = new FileWriter(file.getPath());
 		template.generateVectorTrie(writer, radix);
 		writer.flush();
 		writer.close();

@@ -49,7 +49,7 @@ public final class VectorOf1<T> implements Vector<T>, Iterable<T>
 		return new VectorOf2<>(element0, value);
 	}
 
-	public Vector<T> push(T e0, T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8, T e9, T e10, T e11, T e12, T e13, T e14, T e15)
+	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
 	{
 		return new VectorTrie<T>(1, new VectorOf16(element0, e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14), new VectorOf1(e15));
 	}
