@@ -2,7 +2,7 @@ package com.lumpofcode.collection.tuple;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lumpofcode.annotation.NotNull;
+import com.lumpofcode.annotation.NotNullable;
 import com.lumpofcode.collection.vector.Vector;
 
 import java.util.function.Function;
@@ -38,7 +38,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R> result type
 	 * @return a value of type R
 	 */
-	public <R> R map(@NotNull Function<? super Tuple3<T1, T2, T3>, ? extends R> mapper)
+	public <R> R map(@NotNullable Function<? super Tuple3<T1, T2, T3>, ? extends R> mapper)
 	{
 		return mapper.apply(this);
 	}
@@ -50,7 +50,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R> the result type
 	 * @return a Vector with elements of type R
 	 */
-	public <R> Vector<R> flatmap(@NotNull Function<Tuple3<T1, T2, T3>, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNullable Function<Tuple3<T1, T2, T3>, Vector<R>> mapper)
 	{
 		return mapper.apply(this);
 	}

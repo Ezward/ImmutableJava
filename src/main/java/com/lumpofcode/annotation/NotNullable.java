@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target(value= ElementType.PARAMETER)
 @Retention(value= RetentionPolicy.CLASS)
-public @interface NotNull
+public @interface NotNullable
 {
 }

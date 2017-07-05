@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.vector;
 
-import com.lumpofcode.annotation.NotNull;
+import com.lumpofcode.annotation.NotNullable;
 
 import java.util.function.Function;
 
@@ -89,7 +89,7 @@ public interface Vector<T> extends Iterable<T>
 	 * @param iterable with elements to append
 	 * @return a new vector with the Iterable's elements appended.
 	*/
-	Vector<T> pushAll(@NotNull final Iterable<T> iterable);
+	Vector<T> pushAll(@NotNullable final Iterable<T> iterable);
 
 	/**
 	 * Map the values in the vector using the mapper function
@@ -99,7 +99,7 @@ public interface Vector<T> extends Iterable<T>
 	 * @param mapper function that maps a T to an R
 	 * @return Vector of elements of type R
 	 */
-	<R> Vector<R> map(@NotNull Function<? super T, ? extends R> mapper);
+	<R> Vector<R> map(@NotNullable Function<? super T, ? extends R> mapper);
 
 	/**
 	 * Map each element of type T of this vector to
@@ -111,6 +111,6 @@ public interface Vector<T> extends Iterable<T>
 	 *               to a Vector with elements of type R
 	 * @return Vector of elements of type R
 	 */
-	<R> Vector<R> flatmap(@NotNull Function<T, Vector<R>> mapper);
+	<R> Vector<R> flatmap(@NotNullable Function<T, Vector<R>> mapper);
 }
 

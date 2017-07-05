@@ -398,8 +398,7 @@ public final class VectorTemplate
 			//
 			// constructor
 			//
-			b.indent("public VectorOf{{size}}".replace("{{size}}", String.valueOf(size)));
-			b.args();
+			b.indent("public VectorOf{{size}}").args();
 			if (size > 0)
 			{
 				for (int i = 0; i < size - 1; i += 1)

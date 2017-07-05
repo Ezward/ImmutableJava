@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.vector;
 
-import com.lumpofcode.annotation.NotNull;
+import com.lumpofcode.annotation.NotNullable;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -16,7 +16,7 @@ public final class VectorView<T> implements Vector<T>
 	private final int fromIndex;
 	private final int size;
 	
-	public VectorView(@NotNull final Vector<T> vector, final int fromIndex, final int toIndex)
+	public VectorView(@NotNullable final Vector<T> vector, final int fromIndex, final int toIndex)
 	{
 		if(null == vector) throw new IllegalArgumentException();
 		if((fromIndex < 0) || (fromIndex > vector.size())) throw new IndexOutOfBoundsException();
@@ -71,7 +71,7 @@ public final class VectorView<T> implements Vector<T>
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
+	public Vector<T> pushAll(@NotNullable Iterable<T> iterable)
 	{
 		if (iterable instanceof Vector)
 		{
@@ -88,13 +88,13 @@ public final class VectorView<T> implements Vector<T>
 	}
 	
 	@Override
-	public <R> Vector<R> map(@NotNull Function<? super T, ? extends R> mapper)
+	public <R> Vector<R> map(@NotNullable Function<? super T, ? extends R> mapper)
 	{
 		return Vectors.map(this, mapper);
 	}
 	
 	@Override
-	public <R> Vector<R> flatmap(@NotNull Function<T, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNullable Function<T, Vector<R>> mapper)
 	{
 		return Vectors.flatmap(this, mapper);
 	}

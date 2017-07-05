@@ -56,9 +56,11 @@ public class VectorGeneratorApp
 	}
 	
 	/**
-	 * Run this test manually in order to generate
-	 * the VectorOfNN.java files in
-	 * com/lumpofcode/collection/vector/impl
+	 * Run this in order to generate
+	 * the Vector.java and Vectors.java
+	 * and the implementation files EmptyVector.java and
+	 * the family ofVectorOfNN.java files and VectorTrie.java
+	 * in 'com/lumpofcode/collection/vector/impl'
 	 *
 	 * @throws IOException
 	 */

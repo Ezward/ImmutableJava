@@ -2,7 +2,7 @@ package com.lumpofcode.collection.vector;
 
 import com.lumpofcode.collection.vector.impl.*;
 
-import com.lumpofcode.annotation.NotNull;
+import com.lumpofcode.annotation.NotNullable;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -562,7 +562,7 @@ public final class Vectors
 	 * @param mapper function that maps a T to an R
 	 * @return Vector of elements of type R
 	 */
-	public static <T, R> Vector<R> map(final @NotNull Vector<T> vector, final @NotNull Function<? super T, ? extends R> mapper)
+	public static <T, R> Vector<R> map(final @NotNullable Vector<T> vector, final @NotNullable Function<? super T, ? extends R> mapper)
 	{
 		//
 		// do in chunks of node size for efficiency
@@ -602,7 +602,7 @@ public final class Vectors
 	 *               to a Vector with elements of type R
 	 * @return Vector of elements of type R
 	 */
-	public static <T, R> Vector<R> flatmap(final @NotNull Vector<T> vector, final @NotNull Function<T, Vector<R>> mapper)
+	public static <T, R> Vector<R> flatmap(final @NotNullable Vector<T> vector, final @NotNullable Function<T, Vector<R>> mapper)
 	{
 		Vector<R> result = Vectors.empty;
 		for(T element : vector)
@@ -620,7 +620,7 @@ public final class Vectors
 	 * @param <T>
 	 * @return
 	 */
-	public static <T> String toString(final @NotNull Vector<T> vector)
+	public static <T> String toString(final @NotNullable Vector<T> vector)
 	{
 		final StringBuilder builder = new StringBuilder();
 		builder.append('[');

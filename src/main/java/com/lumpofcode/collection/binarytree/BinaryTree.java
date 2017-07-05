@@ -1,7 +1,6 @@
 package com.lumpofcode.collection.binarytree;
 
-import com.lumpofcode.annotation.NotNull;
-import com.lumpofcode.lazy.Once;
+import com.lumpofcode.annotation.NotNullable;
 import com.lumpofcode.lazy.OnceInteger;
 
 import java.util.Comparator;
@@ -43,7 +42,7 @@ public final class BinaryTree<T>
      *
      * @param value
      */
-    public BinaryTree(final @NotNull T value)
+    public BinaryTree(final @NotNullable T value)
     {
         if(null == value) throw new IllegalArgumentException();
 
@@ -62,7 +61,7 @@ public final class BinaryTree<T>
      * @param left
      * @param right
      */
-    private BinaryTree(final @NotNull T value, final @NotNull BinaryTree<T> left, final @NotNull BinaryTree<T> right)
+    private BinaryTree(final @NotNullable T value, final @NotNullable BinaryTree<T> left, final @NotNullable BinaryTree<T> right)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == left) throw new IllegalArgumentException();
@@ -80,7 +79,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return the node with the value or Nil if not found.
      */
-    public BinaryTree<T> find(final @NotNull T value, final @NotNull Comparator<T> comparator)
+    public BinaryTree<T> find(final @NotNullable T value, final @NotNullable Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -105,7 +104,7 @@ public final class BinaryTree<T>
      * @param comparator values that compare < 0 insert on left
      * @return a new tree if the value was inserted, otherwise this tree
      */
-    public BinaryTree<T> insert(final @NotNull T value, final @NotNull Comparator<T> comparator)
+    public BinaryTree<T> insert(final @NotNullable T value, final @NotNullable Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -187,7 +186,7 @@ public final class BinaryTree<T>
      * @param comparator values that compare < 0 insert on left
      * @return a new tree if the value was updated, otherwise this tree
      */
-    public BinaryTree<T> update(final @NotNull T value, final @NotNull Comparator<T> comparator)
+    public BinaryTree<T> update(final @NotNullable T value, final @NotNullable Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -258,7 +257,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return a new tree with the value removed and left side promoted.
      */
-    public BinaryTree<T> removePromoteLeft(final @NotNull T value, final @NotNull Comparator<T> comparator)
+    public BinaryTree<T> removePromoteLeft(final @NotNullable T value, final @NotNullable Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -291,7 +290,7 @@ public final class BinaryTree<T>
      * @param comparator
      * @return a new tree with the value removed and right side promoted.
      */
-    public BinaryTree<T> removePromoteRight(final @NotNull T value, final @NotNull Comparator<T> comparator)
+    public BinaryTree<T> removePromoteRight(final @NotNullable T value, final @NotNullable Comparator<T> comparator)
     {
         if(null == value) throw new IllegalArgumentException();
         if(null == comparator) throw new IllegalArgumentException();
@@ -318,7 +317,7 @@ public final class BinaryTree<T>
      * @param left NotNull
      * @return new binary tree with the given tree as the left-most node.
      */
-    private BinaryTree<T> insertLeft(final @NotNull BinaryTree<T> left)
+    private BinaryTree<T> insertLeft(final @NotNullable BinaryTree<T> left)
     {
         if(null == left) throw new IllegalArgumentException();
 
@@ -339,7 +338,7 @@ public final class BinaryTree<T>
      * @param right
      * @return new tree with right as the right-most leaf node.
      */
-    private BinaryTree<T> insertRight(final @NotNull BinaryTree<T> right)
+    private BinaryTree<T> insertRight(final @NotNullable BinaryTree<T> right)
     {
         if(null == right) throw new IllegalArgumentException();
 
