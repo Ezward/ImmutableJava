@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Simple builder to generate code source files.
+ *
  * Created by emurphy on 7/2/17.
  */
 public class SourceBuilder
