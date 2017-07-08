@@ -34,6 +34,10 @@ public final class Tuple3<T1, T2, T3>
 
 	public int size() { return 3; }
 
+	public T1 _1() { return this.t1; }
+	public T2 _2() { return this.t2; }
+	public T3 _3() { return this.t3; }
+
 	/**
 	 * Map a Tuple3 to a value of type R given a mapper function.
 	 *

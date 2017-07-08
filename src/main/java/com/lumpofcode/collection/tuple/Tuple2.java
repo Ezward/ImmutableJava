@@ -31,6 +31,9 @@ public final class Tuple2<T1, T2>
 
 	public int size() { return 2; }
 
+	public T1 _1() { return this.t1; }
+	public T2 _2() { return this.t2; }
+
 	/**
 	 * Map a Tuple3 to a value of type R given a mapper function.
 	 *

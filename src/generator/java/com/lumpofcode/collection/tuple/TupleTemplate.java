@@ -51,7 +51,7 @@ public class TupleTemplate
 			//
 			// public final element properties
 			//
-			for(int i = 1; i <= size; i += 1)
+			for (int i = 1; i <= size; i += 1)
 			{
 				b.with("i", i).line("public final T{{i}} t{{i}};");
 			}
@@ -63,14 +63,14 @@ public class TupleTemplate
 			b.line("/**");
 			b.line(" * Complete constructor");
 			b.line(" *");
-			for(int i = 1; i <= size; i += 1)
+			for (int i = 1; i <= size; i += 1)
 			{
 				b.with("i", i).line(" * @param t{{i}}");
 			}
 			b.line(" */");
-			if(useJson) b.line("@JsonCreator");
+			if (useJson) b.line("@JsonCreator");
 			b.indent("public Tuple{{size}}").args();
-			for(int i = 1; i <= size; i += 1)
+			for (int i = 1; i <= size; i += 1)
 			{
 				//
 				// if using json, then format the annotation to put in front of the argument, otherwise leave it blank
@@ -78,7 +78,7 @@ public class TupleTemplate
 				b.with("i", i);
 				b.with("json", useJson ? m.apply("@JsonProperty(\"t{{i}}\") ") : "");
 				
-				b.arg(i-1, "{{json}}T{{i}} t{{i}}");
+				b.arg(i - 1, "{{json}}T{{i}} t{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -86,7 +86,7 @@ public class TupleTemplate
 				//
 				// assign properties
 				//
-				for(int i = 1; i <= size; i += 1)
+				for (int i = 1; i <= size; i += 1)
 				{
 					b.with("i", i).line("this.t{{i}} = t{{i}};");
 				}
@@ -97,6 +97,13 @@ public class TupleTemplate
 			/// size() method
 			//
 			b.line("public int size() { return {{size}}; }").eol();
+			
+			for (int i = 1; i <= size; i += 1)
+			{
+				b.with("i", i).line("public T{{i}} _{{i}}() { return this.t{{i}}; }");
+			}
+			b.eol();
+		
 			
 			//
 			// map() method with single mapper
