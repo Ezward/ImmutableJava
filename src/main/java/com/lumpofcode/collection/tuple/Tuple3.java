@@ -2,9 +2,8 @@ package com.lumpofcode.collection.tuple;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lumpofcode.annotation.NotNullable;
-import com.lumpofcode.collection.vector.Vector;
 
+import com.lumpofcode.annotation.NotNullable;
 import java.util.function.Function;
 
 /**
@@ -14,18 +13,10 @@ import java.util.function.Function;
  */
 public final class Tuple3<T1, T2, T3>
 {
-	//
-	// Note that since properties are final, we don't need getter
-	// we can just refer to the field directly.
-	//
 	public final T1 t1;
 	public final T2 t2;
 	public final T3 t3;
-	
-	//
-	// Complete constructor, annotated for Jackson json mapper
-	//
-	
+
 	/**
 	 * Complete constructor
 	 *
@@ -40,10 +31,11 @@ public final class Tuple3<T1, T2, T3>
 		this.t2 = t2;
 		this.t3 = t3;
 	}
-	
+
+	public int size() { return 3; }
+
 	/**
-	 * Map a Tuple3 to a value of type R given a single mapper function
-	 * that can map all elements.
+	 * Map a Tuple3 to a value of type R given a mapper function.
 	 *
 	 * @param mapper function to map Tuple3 to an R value
 	 * @param <R> result type
@@ -53,8 +45,7 @@ public final class Tuple3<T1, T2, T3>
 	{
 		return mapper.apply(this);
 	}
-	
-	
+
 	/**
 	 * Map a Tuple to another Tuple with a mapper function per element.
 	 *
@@ -67,14 +58,13 @@ public final class Tuple3<T1, T2, T3>
 	 * @return new Tuple with mapped elements
 	 */
 	public <R1, R2, R3> Tuple3<R1, R2, R3> map(
-		@NotNullable Function<? super T1, ? extends R1> mapper1,
-		@NotNullable Function<? super T2, ? extends R2> mapper2,
+		@NotNullable Function<? super T1, ? extends R1> mapper1, 
+		@NotNullable Function<? super T2, ? extends R2> mapper2, 
 		@NotNullable Function<? super T3, ? extends R3> mapper3)
 	{
 		return new Tuple3(mapper1.apply(t1), mapper2.apply(t2), mapper3.apply(t3));
 	}
-	
-	@Override
+
 	public String toString()
 	{
 		final StringBuffer sb = new StringBuffer("{");
@@ -82,23 +72,24 @@ public final class Tuple3<T1, T2, T3>
 		sb.append(", t2: ").append((null != t2) ? t2 : "null");
 		sb.append(", t3: ").append((null != t3) ? t3 : "null");
 		sb.append('}');
+
 		return sb.toString();
 	}
-	
-	@Override
-	public boolean equals(Object o)
+
+	public boolean equals(Object that)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		
-		Tuple3<?, ?, ?> tuple3 = (Tuple3<?, ?, ?>) o;
-		
+		if (this == that) return true;
+		if (that == null || getClass() != that.getClass()) return false;
+
+		Tuple3<?,?,?> tuple3 = (Tuple3<?,?,?>) that;
+
 		if (t1 != null ? !t1.equals(tuple3.t1) : tuple3.t1 != null) return false;
 		if (t2 != null ? !t2.equals(tuple3.t2) : tuple3.t2 != null) return false;
-		return t3 != null ? t3.equals(tuple3.t3) : tuple3.t3 == null;
+		if (t3 != null ? !t3.equals(tuple3.t3) : tuple3.t3 != null) return false;
+
+		return true;
 	}
-	
-	@Override
+
 	public int hashCode()
 	{
 		int result = t1 != null ? t1.hashCode() : 0;
@@ -106,4 +97,6 @@ public final class Tuple3<T1, T2, T3>
 		result = 31 * result + (t3 != null ? t3.hashCode() : 0);
 		return result;
 	}
+
 }
+

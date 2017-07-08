@@ -29,7 +29,6 @@ public class TupleTemplate
 		b.line("import com.fasterxml.jackson.annotation.JsonCreator;");
 		b.line("import com.fasterxml.jackson.annotation.JsonProperty;").eol();
 		b.line("import com.lumpofcode.annotation.NotNullable;");
-		b.line("import com.lumpofcode.collection.vector.Vector;").eol();
 		
 		b.line("import java.util.function.Function;").eol();
 		
@@ -95,6 +94,11 @@ public class TupleTemplate
 			b.endBlock();
 			
 			//
+			/// size() method
+			//
+			b.line("public int size() { return {{size}}; }").eol();
+			
+			//
 			// map() method with single mapper
 			//
 			b.line("/**");
@@ -146,7 +150,7 @@ public class TupleTemplate
 			b.endList(">").args(" map");
 			for(int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).with("tabs", "\n\t\t").arg(i-1, "{{tabs}}@NotNullable Function<? super T{{i}}, ? extends R{{i}}> mapper1)");
+				b.with("i", i).with("tabs", "\n\t\t").arg(i-1, "{{tabs}}@NotNullable Function<? super T{{i}}, ? extends R{{i}}> mapper{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -154,7 +158,7 @@ public class TupleTemplate
 				b.indent("return new Tuple{{size}}").args();
 				for(int i = 1; i <= size; i += 1)
 				{
-					b.with("i", i).arg(i-1, "mapper1.apply(t{{i}})");
+					b.with("i", i).arg(i-1, "mapper{{i}}.apply(t{{i}})");
 				}
 				b.endArgs().eol(";");
 			}
