@@ -53,7 +53,7 @@ public class TupleTemplate
 			//
 			for (int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line("public final T{{i}} t{{i}};");
+				b.with("i", i).line("public final T{{i}} _{{i}};");
 			}
 			b.eol();
 			
@@ -88,7 +88,7 @@ public class TupleTemplate
 				//
 				for (int i = 1; i <= size; i += 1)
 				{
-					b.with("i", i).line("this.t{{i}} = t{{i}};");
+					b.with("i", i).line("this._{{i}} = t{{i}};");
 				}
 			}
 			b.endBlock();
@@ -100,7 +100,7 @@ public class TupleTemplate
 			
 			for (int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line("public T{{i}} _{{i}}() { return this.t{{i}}; }");
+				b.with("i", i).line("public T{{i}} _{{i}}() { return this._{{i}}; }");
 			}
 			b.eol();
 		
@@ -165,7 +165,7 @@ public class TupleTemplate
 				b.indent("return new Tuple{{size}}").args();
 				for(int i = 1; i <= size; i += 1)
 				{
-					b.with("i", i).arg(i-1, "mapper{{i}}.apply(t{{i}})");
+					b.with("i", i).arg(i-1, "mapper{{i}}.apply(this._{{i}})");
 				}
 				b.endArgs().eol(";");
 			}
@@ -181,7 +181,7 @@ public class TupleTemplate
 				for(int i = 1; i <= size; i += 1)
 				{
 					b.with("i", i).with("sep", (1 == i) ? "" : ", ");
-					b.line("sb.append(\"{{sep}}t{{i}}: \").append((null != t{{i}}) ? t{{i}} : \"null\");");
+					b.line("sb.append(\"{{sep}}this._{{i}}: \").append((null != this._{{i}}) ? this._{{i}} : \"null\");");
 				}
 				b.line("sb.append('}');").eol();
 				b.line("return sb.toString();");
@@ -206,7 +206,7 @@ public class TupleTemplate
 				for(int i = 1; i <= size; i += 1)
 				{
 					b.with("i", i);
-					b.line("if (t{{i}} != null ? !t{{i}}.equals(tuple{{size}}.t{{i}}) : tuple{{size}}.t{{i}} != null) return false;");
+					b.line("if (this._{{i}} != null ? !this._{{i}}.equals(tuple{{size}}._{{i}}) : tuple{{size}}._{{i}} != null) return false;");
 				}
 				b.eol();
 				
@@ -221,10 +221,10 @@ public class TupleTemplate
 			b.line("public int hashCode()");
 			b.block();
 			{
-				b.line("int result = t1 != null ? t1.hashCode() : 0;");
+				b.line("int result = this._1 != null ? this._1.hashCode() : 0;");
 				for(int i = 2; i <= size; i += 1)
 				{
-					b.with("i", i).line("result = 31 * result + (t{{i}} != null ? t{{i}}.hashCode() : 0);");
+					b.with("i", i).line("result = 31 * result + (this._{{i}} != null ? this._{{i}}.hashCode() : 0);");
 				}
 				b.line("return result;");
 			}
