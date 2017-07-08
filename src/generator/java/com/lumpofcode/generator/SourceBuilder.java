@@ -16,15 +16,35 @@ public class SourceBuilder
 	private int blockFrame = 0; // for balancing block open and close
 	private int listFrame = 0;  // for balancing list open and close
 	private final Map<String, String> values = new HashMap<>();
+	private final Macros macros;
 	
 	/**
 	 * Construct with given Writer
 	 *
 	 * @param builder Writer that will get the text
 	 */
-	public SourceBuilder(final Writer builder)
+	public SourceBuilder(final Writer builder, final Macros macros)
 	{
 		this.builder = builder;
+		this.macros = macros;
+	}
+	
+	public SourceBuilder(final Writer builder)
+	{
+		this(builder, new Macros());
+	}
+	
+	//
+	// symbol definition
+	public SourceBuilder with(final String name, final String value)
+	{
+		macros.with(name, value);
+		return this;
+	}
+	public SourceBuilder with(final String name, final int value)
+	{
+		macros.with(name, value);
+		return this;
 	}
 	
 	//
@@ -34,7 +54,7 @@ public class SourceBuilder
 	{
 		try
 		{
-			builder.write(string);
+			builder.write(macros.apply(string));
 		}
 		catch (IOException e)
 		{

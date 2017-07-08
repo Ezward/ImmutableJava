@@ -8,6 +8,8 @@ import com.lumpofcode.collection.vector.Vector;
 import java.util.function.Function;
 
 /**
+ * A finite ordered collection of elements with independent types.
+ *
  * Created by emurphy on 6/25/17.
  */
 public final class Tuple3<T1, T2, T3>
@@ -21,8 +23,16 @@ public final class Tuple3<T1, T2, T3>
 	public final T3 t3;
 	
 	//
-	// annotate constructor for Jackson json mapper
+	// Complete constructor, annotated for Jackson json mapper
 	//
+	
+	/**
+	 * Complete constructor
+	 *
+	 * @param t1
+	 * @param t2
+	 * @param t3
+	 */
 	@JsonCreator
 	public Tuple3(@JsonProperty("t1") T1 t1, @JsonProperty("t2") T2 t2, @JsonProperty("t3") T3 t3)
 	{
@@ -32,29 +42,37 @@ public final class Tuple3<T1, T2, T3>
 	}
 	
 	/**
-	 * Map a Tuple3 to a value of type R given a mapper function.
+	 * Map a Tuple3 to a value of type R given a single mapper function
+	 * that can map all elements.
 	 *
 	 * @param mapper function to map Tuple3 to an R value
 	 * @param <R> result type
 	 * @return a value of type R
 	 */
-	public <R> R map(@NotNullable Function<? super Tuple3<T1, T2, T3>, ? extends R> mapper)
+	public <R> R map(@NotNullable Function<? super Tuple3<? super T1, ? super T2, ? super T3>, ? extends R> mapper)
 	{
 		return mapper.apply(this);
 	}
+	
 	
 	/**
-	 * Map a Tuple3 into a Vector with elements of type R
+	 * Map a Tuple to another Tuple with a mapper function per element.
 	 *
-	 * @param mapper function that takes a Tuple3 and returns a Vector with elements of type R
-	 * @param <R> the result type
-	 * @return a Vector with elements of type R
+	 * @param mapper1 mapper for element 1
+	 * @param mapper2 mapper for element 2
+	 * @param mapper3 mapper for element 3
+	 * @param <R1> resulting type of element 1
+	 * @param <R2> resulting type of element 2
+	 * @param <R3> resulting type of element 3
+	 * @return new Tuple with mapped elements
 	 */
-	public <R> Vector<R> flatmap(@NotNullable Function<Tuple3<T1, T2, T3>, Vector<R>> mapper)
+	public <R1, R2, R3> Tuple3<R1, R2, R3> map(
+		@NotNullable Function<? super T1, ? extends R1> mapper1,
+		@NotNullable Function<? super T2, ? extends R2> mapper2,
+		@NotNullable Function<? super T3, ? extends R3> mapper3)
 	{
-		return mapper.apply(this);
+		return new Tuple3(mapper1.apply(t1), mapper2.apply(t2), mapper3.apply(t3));
 	}
-	
 	
 	@Override
 	public String toString()
