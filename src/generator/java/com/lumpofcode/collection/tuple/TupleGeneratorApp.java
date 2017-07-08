@@ -13,7 +13,7 @@ public class TupleGeneratorApp
 {
 	public static void main(String[] args) throws IOException
 	{
-		final int size = (args.length > 0) ? Integer.valueOf(args[0]) : 8;
+		final int size = (args.length > 0) ? Integer.valueOf(args[0]) : 10;
 		final String fileFolder = (args.length > 1) ? args[1] : "./src/main/java/com/lumpofcode/collection/tuple/";
 
 		//tupleTemplateSystemOut(size);
@@ -44,7 +44,7 @@ public class TupleGeneratorApp
 	 */
 	public static void tupleTemplateFileWriter(final int size, final String fileFolder) throws IOException
 	{
-		if(size < 2) throw new IllegalArgumentException();
+		if(size < 1) throw new IllegalArgumentException();
 		
 		//
 		// create directory structure './src/main/java/com/lumpofcode/collection/tuple/'
@@ -64,7 +64,7 @@ public class TupleGeneratorApp
 		//
 		// write the Tuple## source files in the tuple folder
 		//
-		for(int i = 2; i <= size; i += 1)
+		for(int i = 1; i <= size; i += 1)
 		{
 			//
 			// delete existing file and recreate

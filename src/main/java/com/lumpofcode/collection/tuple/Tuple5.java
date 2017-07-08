@@ -22,29 +22,58 @@ public final class Tuple5<T1, T2, T3, T4, T5>
 	/**
 	 * Complete constructor
 	 *
-	 * @param t1
-	 * @param t2
-	 * @param t3
-	 * @param t4
-	 * @param t5
+	 * @param t1 component 1 of type T1
+	 * @param t2 component 2 of type T2
+	 * @param t3 component 3 of type T3
+	 * @param t4 component 4 of type T4
+	 * @param t5 component 5 of type T5
 	 */
 	@JsonCreator
 	public Tuple5(@JsonProperty("t1") T1 t1, @JsonProperty("t2") T2 t2, @JsonProperty("t3") T3 t3, @JsonProperty("t4") T4 t4, @JsonProperty("t5") T5 t5)
 	{
-		this._1 = t1;
-		this._2 = t2;
-		this._3 = t3;
-		this._4 = t4;
-		this._5 = t5;
+		_1 = t1;
+		_2 = t2;
+		_3 = t3;
+		_4 = t4;
+		_5 = t5;
 	}
 
 	public int size() { return 5; }
 
-	public T1 _1() { return this._1; }
-	public T2 _2() { return this._2; }
-	public T3 _3() { return this._3; }
-	public T4 _4() { return this._4; }
-	public T5 _5() { return this._5; }
+	/**
+	 * get component 1
+	 *
+	 * @return value of component 1
+	 */
+	public T1 _1() { return _1; }
+
+	/**
+	 * get component 2
+	 *
+	 * @return value of component 2
+	 */
+	public T2 _2() { return _2; }
+
+	/**
+	 * get component 3
+	 *
+	 * @return value of component 3
+	 */
+	public T3 _3() { return _3; }
+
+	/**
+	 * get component 4
+	 *
+	 * @return value of component 4
+	 */
+	public T4 _4() { return _4; }
+
+	/**
+	 * get component 5
+	 *
+	 * @return value of component 5
+	 */
+	public T5 _5() { return _5; }
 
 	/**
 	 * Map a Tuple3 to a value of type R given a mapper function.
@@ -59,39 +88,99 @@ public final class Tuple5<T1, T2, T3, T4, T5>
 	}
 
 	/**
-	 * Map a Tuple to another Tuple with a mapper function per element.
+	 * Map a Tuple to another Tuple with a mapper function per component.
 	 *
-	 * @param mapper1 mapper for element 1
-	 * @param mapper2 mapper for element 2
-	 * @param mapper3 mapper for element 3
-	 * @param mapper4 mapper for element 4
-	 * @param mapper5 mapper for element 5
-	 * @param <R1> resulting type of element 1
-	 * @param <R2> resulting type of element 2
-	 * @param <R3> resulting type of element 3
-	 * @param <R4> resulting type of element 4
-	 * @param <R5> resulting type of element 5
-	 * @return new Tuple with mapped elements
+	 * @param mapper1 mapper for component 1
+	 * @param mapper2 mapper for component 2
+	 * @param mapper3 mapper for component 3
+	 * @param mapper4 mapper for component 4
+	 * @param mapper5 mapper for component 5
+	 * @param <R1> resulting type of component 1
+	 * @param <R2> resulting type of component 2
+	 * @param <R3> resulting type of component 3
+	 * @param <R4> resulting type of component 4
+	 * @param <R5> resulting type of component 5
+	 * @return new Tuple with mapped components
 	 */
-	public <R1, R2, R3, R4, R5> Tuple5<R1, R2, R3, R4, R5> map(
+	public <R1, R2, R3, R4, R5> Tuple5<R1, R2, R3, R4, R5> mapTuple(
 		@NotNullable Function<? super T1, ? extends R1> mapper1, 
 		@NotNullable Function<? super T2, ? extends R2> mapper2, 
 		@NotNullable Function<? super T3, ? extends R3> mapper3, 
 		@NotNullable Function<? super T4, ? extends R4> mapper4, 
 		@NotNullable Function<? super T5, ? extends R5> mapper5)
 	{
-		return new Tuple5(mapper1.apply(this._1), mapper2.apply(this._2), mapper3.apply(this._3), mapper4.apply(this._4), mapper5.apply(this._5));
+		return new Tuple5(mapper1.apply(_1), mapper2.apply(_2), mapper3.apply(_3), mapper4.apply(_4), mapper5.apply(_5));
+	}
+
+	/**
+	 * Create a new Tuple by mapping component 1
+	 *
+	 * @param mapper1 mapper for component 1
+	 * @param <R1> result type for component 1
+	 * @return a new Tuple with component 1 mapped
+	 */
+	public <R1> Tuple5<R1, T2, T3, T4, T5> map_1 (@NotNullable Function <? super T1, ? extends R1> mapper1)
+	{
+		return new Tuple5(mapper1.apply(_1), _2, _3, _4, _5);
+	}
+
+	/**
+	 * Create a new Tuple by mapping component 2
+	 *
+	 * @param mapper2 mapper for component 2
+	 * @param <R2> result type for component 2
+	 * @return a new Tuple with component 2 mapped
+	 */
+	public <R2> Tuple5<T1, R2, T3, T4, T5> map_2 (@NotNullable Function <? super T2, ? extends R2> mapper2)
+	{
+		return new Tuple5(_1, mapper2.apply(_2), _3, _4, _5);
+	}
+
+	/**
+	 * Create a new Tuple by mapping component 3
+	 *
+	 * @param mapper3 mapper for component 3
+	 * @param <R3> result type for component 3
+	 * @return a new Tuple with component 3 mapped
+	 */
+	public <R3> Tuple5<T1, T2, R3, T4, T5> map_3 (@NotNullable Function <? super T3, ? extends R3> mapper3)
+	{
+		return new Tuple5(_1, _2, mapper3.apply(_3), _4, _5);
+	}
+
+	/**
+	 * Create a new Tuple by mapping component 4
+	 *
+	 * @param mapper4 mapper for component 4
+	 * @param <R4> result type for component 4
+	 * @return a new Tuple with component 4 mapped
+	 */
+	public <R4> Tuple5<T1, T2, T3, R4, T5> map_4 (@NotNullable Function <? super T4, ? extends R4> mapper4)
+	{
+		return new Tuple5(_1, _2, _3, mapper4.apply(_4), _5);
+	}
+
+	/**
+	 * Create a new Tuple by mapping component 5
+	 *
+	 * @param mapper5 mapper for component 5
+	 * @param <R5> result type for component 5
+	 * @return a new Tuple with component 5 mapped
+	 */
+	public <R5> Tuple5<T1, T2, T3, T4, R5> map_5 (@NotNullable Function <? super T5, ? extends R5> mapper5)
+	{
+		return new Tuple5(_1, _2, _3, _4, mapper5.apply(_5));
 	}
 
 	public String toString()
 	{
-		final StringBuffer sb = new StringBuffer("{");
-		sb.append("this._1: ").append((null != this._1) ? this._1 : "null");
-		sb.append(", this._2: ").append((null != this._2) ? this._2 : "null");
-		sb.append(", this._3: ").append((null != this._3) ? this._3 : "null");
-		sb.append(", this._4: ").append((null != this._4) ? this._4 : "null");
-		sb.append(", this._5: ").append((null != this._5) ? this._5 : "null");
-		sb.append('}');
+		final StringBuffer sb = new StringBuffer("(");
+		sb.append((null != _1) ? _1 : "null");
+		sb.append((null != _2) ? _2 : "null");
+		sb.append((null != _3) ? _3 : "null");
+		sb.append((null != _4) ? _4 : "null");
+		sb.append((null != _5) ? _5 : "null");
+		sb.append(')');
 
 		return sb.toString();
 	}
@@ -103,22 +192,22 @@ public final class Tuple5<T1, T2, T3, T4, T5>
 
 		Tuple5<?,?,?,?,?> tuple5 = (Tuple5<?,?,?,?,?>) that;
 
-		if (this._1 != null ? !this._1.equals(tuple5._1) : tuple5._1 != null) return false;
-		if (this._2 != null ? !this._2.equals(tuple5._2) : tuple5._2 != null) return false;
-		if (this._3 != null ? !this._3.equals(tuple5._3) : tuple5._3 != null) return false;
-		if (this._4 != null ? !this._4.equals(tuple5._4) : tuple5._4 != null) return false;
-		if (this._5 != null ? !this._5.equals(tuple5._5) : tuple5._5 != null) return false;
+		if (_1 != null ? !_1.equals(tuple5._1) : tuple5._1 != null) return false;
+		if (_2 != null ? !_2.equals(tuple5._2) : tuple5._2 != null) return false;
+		if (_3 != null ? !_3.equals(tuple5._3) : tuple5._3 != null) return false;
+		if (_4 != null ? !_4.equals(tuple5._4) : tuple5._4 != null) return false;
+		if (_5 != null ? !_5.equals(tuple5._5) : tuple5._5 != null) return false;
 
 		return true;
 	}
 
 	public int hashCode()
 	{
-		int result = this._1 != null ? this._1.hashCode() : 0;
-		result = 31 * result + (this._2 != null ? this._2.hashCode() : 0);
-		result = 31 * result + (this._3 != null ? this._3.hashCode() : 0);
-		result = 31 * result + (this._4 != null ? this._4.hashCode() : 0);
-		result = 31 * result + (this._5 != null ? this._5.hashCode() : 0);
+		int result = _1 != null ? _1.hashCode() : 0;
+		result = 31 * result + (_2 != null ? _2.hashCode() : 0);
+		result = 31 * result + (_3 != null ? _3.hashCode() : 0);
+		result = 31 * result + (_4 != null ? _4.hashCode() : 0);
+		result = 31 * result + (_5 != null ? _5.hashCode() : 0);
 		return result;
 	}
 

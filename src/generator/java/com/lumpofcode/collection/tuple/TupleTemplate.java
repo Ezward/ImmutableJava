@@ -65,7 +65,7 @@ public class TupleTemplate
 			b.line(" *");
 			for (int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line(" * @param t{{i}}");
+				b.with("i", i).line(" * @param t{{i}} component {{i}} of type T{{i}}");
 			}
 			b.line(" */");
 			if (useJson) b.line("@JsonCreator");
@@ -88,7 +88,7 @@ public class TupleTemplate
 				//
 				for (int i = 1; i <= size; i += 1)
 				{
-					b.with("i", i).line("this._{{i}} = t{{i}};");
+					b.with("i", i).line("_{{i}} = t{{i}};");
 				}
 			}
 			b.endBlock();
@@ -98,11 +98,19 @@ public class TupleTemplate
 			//
 			b.line("public int size() { return {{size}}; }").eol();
 			
+			//
+			// getters
+			//
 			for (int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line("public T{{i}} _{{i}}() { return this._{{i}}; }");
+				b.with("i", i);
+				b.line("/**");
+				b.line(" * get component {{i}}");
+				b.line(" *");
+				b.line(" * @return value of component {{i}}");
+				b.line(" */");
+				b.line("public T{{i}} _{{i}}() { return _{{i}}; }").eol();
 			}
-			b.eol();
 		
 			
 			//
@@ -129,20 +137,20 @@ public class TupleTemplate
 			b.endBlock();
 			
 			//
-			// map method with mapper per element
+			// mapTuple() method with mapper per component
 			//
 			b.line("/**");
-			b.line(" * Map a Tuple to another Tuple with a mapper function per element.");
+			b.line(" * Map a Tuple to another Tuple with a mapper function per component.");
 			b.line(" *");
 			for(int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line(" * @param mapper{{i}} mapper for element {{i}}");
+				b.with("i", i).line(" * @param mapper{{i}} mapper for component {{i}}");
 			}
 			for(int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).line(" * @param <R{{i}}> resulting type of element {{i}}");
+				b.with("i", i).line(" * @param <R{{i}}> resulting type of component {{i}}");
 			}
-			b.line(" * @return new Tuple with mapped elements");
+			b.line(" * @return new Tuple with mapped components");
 			b.line(" */");
 			b.indent("public ").list("<");
 			for(int i = 1; i <= size; i += 1)
@@ -154,7 +162,7 @@ public class TupleTemplate
 			{
 				b.with("i", i).item(i-1, "R{{i}}", ", ");
 			}
-			b.endList(">").args(" map");
+			b.endList(">").args(" mapTuple");
 			for(int i = 1; i <= size; i += 1)
 			{
 				b.with("i", i).with("tabs", "\n\t\t").arg(i-1, "{{tabs}}@NotNullable Function<? super T{{i}}, ? extends R{{i}}> mapper{{i}}");
@@ -165,11 +173,42 @@ public class TupleTemplate
 				b.indent("return new Tuple{{size}}").args();
 				for(int i = 1; i <= size; i += 1)
 				{
-					b.with("i", i).arg(i-1, "mapper{{i}}.apply(this._{{i}})");
+					b.with("i", i).arg(i-1, "mapper{{i}}.apply(_{{i}})");
 				}
 				b.endArgs().eol(";");
 			}
 			b.endBlock();
+			
+			//
+			// family of map_NN to create a new Tuple by mapping a single component
+			//
+			for(int j = 1; j <= size; j += 1)
+			{
+				b.with("j", j);
+				b.line("/**");
+				b.line(" * Create a new Tuple by mapping component {{j}}");
+				b.line(" *");
+				b.line(" * @param mapper{{j}} mapper for component {{j}}");
+				b.line(" * @param <R{{j}}> result type for component {{j}}");
+				b.line(" * @return a new Tuple with component {{j}} mapped");
+				b.line(" */");
+				b.indent().list("public <R{{j}}> Tuple{{size}}<");
+				for(int i = 1; i <= size; i += 1)
+				{
+					b.with("i", i).item(i - 1, (i == j) ? "R{{j}}" : "T{{i}}", ", ");
+				}
+				b.endList(">").emit(" map_{{j}} (@NotNullable Function <? super T{{j}}, ? extends R{{j}}> mapper{{j}})").eol();
+				b.block();
+				{
+					b.indent("return new Tuple{{size}}").args();
+					for(int i = 1; i <= size; i += 1)
+					{
+						b.with("i", i).arg(i - 1, (i == j) ? "mapper{{j}}.apply(_{{j}})" : "_{{i}}");
+					}
+					b.endArgs().eol(";");
+				}
+				b.endBlock();
+			}
 			
 			//
 			// toString() method
@@ -177,13 +216,13 @@ public class TupleTemplate
 			b.line("public String toString()");
 			b.block();
 			{
-				b.line("final StringBuffer sb = new StringBuffer(\"{\");");
+				b.line("final StringBuffer sb = new StringBuffer(\"(\");");
 				for(int i = 1; i <= size; i += 1)
 				{
 					b.with("i", i).with("sep", (1 == i) ? "" : ", ");
-					b.line("sb.append(\"{{sep}}this._{{i}}: \").append((null != this._{{i}}) ? this._{{i}} : \"null\");");
+					b.line("sb.append((null != _{{i}}) ? _{{i}} : \"null\");");
 				}
-				b.line("sb.append('}');").eol();
+				b.line("sb.append(')');").eol();
 				b.line("return sb.toString();");
 			}
 			b.endBlock();
@@ -206,7 +245,7 @@ public class TupleTemplate
 				for(int i = 1; i <= size; i += 1)
 				{
 					b.with("i", i);
-					b.line("if (this._{{i}} != null ? !this._{{i}}.equals(tuple{{size}}._{{i}}) : tuple{{size}}._{{i}} != null) return false;");
+					b.line("if (_{{i}} != null ? !_{{i}}.equals(tuple{{size}}._{{i}}) : tuple{{size}}._{{i}} != null) return false;");
 				}
 				b.eol();
 				
@@ -221,10 +260,10 @@ public class TupleTemplate
 			b.line("public int hashCode()");
 			b.block();
 			{
-				b.line("int result = this._1 != null ? this._1.hashCode() : 0;");
+				b.line("int result = _1 != null ? _1.hashCode() : 0;");
 				for(int i = 2; i <= size; i += 1)
 				{
-					b.with("i", i).line("result = 31 * result + (this._{{i}} != null ? this._{{i}}.hashCode() : 0);");
+					b.with("i", i).line("result = 31 * result + (_{{i}} != null ? _{{i}}.hashCode() : 0);");
 				}
 				b.line("return result;");
 			}
