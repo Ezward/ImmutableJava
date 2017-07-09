@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.list;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -32,7 +32,7 @@ public final class LinkList<T> implements Iterable<T>
      * @param head non-null element
      * @param tail the rest of the list; may be null at end of list
      */
-    public LinkList(final @NotNullable T head, final @NotNullable LinkList<T> tail)
+    public LinkList(final @NotNull T head, final @NotNull LinkList<T> tail)
     {
         if(null == head) throw new IllegalArgumentException();
         if(null == tail) throw new IllegalArgumentException();

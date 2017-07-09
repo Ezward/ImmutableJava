@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.vector;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 import com.lumpofcode.math.IntegerMath;
 
 import java.util.Iterator;
@@ -114,7 +114,7 @@ public final class VectorOverlay<T> implements Vector<T>
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNullable Iterable<T> iterable)
+	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
 	{
 		if(this.size() > (this.fromIndex + this.overlay.size()))
 		{
@@ -127,13 +127,13 @@ public final class VectorOverlay<T> implements Vector<T>
 	}
 	
 	@Override
-	public <R> Vector<R> map(@NotNullable Function<? super T, ? extends R> mapper)
+	public <R> Vector<R> map(@NotNull Function<? super T, ? extends R> mapper)
 	{
 		return Vectors.map(this, mapper);
 	}
 	
 	@Override
-	public <R> Vector<R> flatmap(@NotNullable Function<T, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNull Function<T, Vector<R>> mapper)
 	{
 		return Vectors.flatmap(this, mapper);
 	}

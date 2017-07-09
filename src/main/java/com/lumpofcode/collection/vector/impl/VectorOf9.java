@@ -4,6 +4,8 @@ import com.lumpofcode.collection.vector.Vector;
 import com.lumpofcode.collection.vector.Vectors;
 import com.lumpofcode.collection.vector.VectorIterator;
 
+import com.lumpofcode.annotation.NotNull;
+
 import java.util.Iterator;
 import java.util.function.Function;
 
@@ -22,7 +24,7 @@ public final class VectorOf9<T> implements Vector<T>, Iterable<T>
 	private final T element7;
 	private final T element8;
 
-	public VectorOf9(T element0, T element1, T element2, T element3, T element4, T element5, T element6, T element7, T element8)
+	public VectorOf9(final T element0, final T element1, final T element2, final T element3, final T element4, final T element5, final T element6, final T element7, final T element8)
 	{
 		this.element0 = element0;
 		this.element1 = element1;
@@ -39,7 +41,7 @@ public final class VectorOf9<T> implements Vector<T>, Iterable<T>
 
 	public int size() { return 9; }
 
-	public T get(int index)
+	public T get(final int index)
 	{
 		switch(index)
 		{
@@ -57,7 +59,7 @@ public final class VectorOf9<T> implements Vector<T>, Iterable<T>
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> set(int index, T value)
+	public Vector<T> set(final int index, final T value)
 	{
 		switch(index)
 		{
@@ -76,7 +78,7 @@ public final class VectorOf9<T> implements Vector<T>, Iterable<T>
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> push(T value)
+	public Vector<T> push(final T value)
 	{
 		return new VectorOf10<>(element0, element1, element2, element3, element4, element5, element6, element7, element8, value);
 	}
@@ -86,17 +88,17 @@ public final class VectorOf9<T> implements Vector<T>, Iterable<T>
 		return new VectorTrie<T>(1, new VectorOf16(element0, element1, element2, element3, element4, element5, element6, element7, element8, e0, e1, e2, e3, e4, e5, e6), new VectorOf9(e7, e8, e9, e10, e11, e12, e13, e14, e15));
 	}
 
-	public Vector<T> pushAll(final Iterable<T> iterable)
+	public Vector<T> pushAll(@NotNull final Iterable<T> iterable)
 	{
 		return Vectors.pushAll(this, iterable);
 	}
 
-	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
+	public <R> Vector<R> map(@NotNull final Function<? super T, ? extends R> mapper)
 	{
 		return new VectorOf9<>(mapper.apply(element0), mapper.apply(element1), mapper.apply(element2), mapper.apply(element3), mapper.apply(element4), mapper.apply(element5), mapper.apply(element6), mapper.apply(element7), mapper.apply(element8));
 	}
 
-	public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNull final Function<T, Vector<R>> mapper)
 	{
 		return Vectors.flatmap(this, mapper);
 	}

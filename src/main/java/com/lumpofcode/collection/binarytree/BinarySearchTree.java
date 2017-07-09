@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.binarytree;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 import com.lumpofcode.collection.compare.ComparableComparator;
 
 import java.util.Comparator;
@@ -28,7 +28,7 @@ public class BinarySearchTree<T extends Comparable>
 	 *
 	 * @param comparator
 	 */
-	public BinarySearchTree(@NotNullable final Comparator<T> comparator)
+	public BinarySearchTree(@NotNull final Comparator<T> comparator)
 	{
 		this(BinaryTree.Nil, comparator);
 	}
@@ -39,7 +39,7 @@ public class BinarySearchTree<T extends Comparable>
 	 * @param tree
 	 * @param comparator
 	 */
-	private BinarySearchTree(@NotNullable final BinaryTree<T> tree, @NotNullable final Comparator<T> comparator)
+	private BinarySearchTree(@NotNull final BinaryTree<T> tree, @NotNull final Comparator<T> comparator)
 	{
 		if(null == tree) throw new IllegalArgumentException();
 		if(null == comparator) throw new IllegalArgumentException();
@@ -55,7 +55,7 @@ public class BinarySearchTree<T extends Comparable>
 	 * @param value NotNull
 	 * @return a new tree
 	 */
-	public BinarySearchTree<T> insert(final @NotNullable T value)
+	public BinarySearchTree<T> insert(final @NotNull T value)
 	{
 		return new BinarySearchTree(tree.insert(value, comparator), comparator);
 	}
@@ -67,7 +67,7 @@ public class BinarySearchTree<T extends Comparable>
 	 * @param value NotNull
 	 * @return a new tree
 	 */
-	public BinarySearchTree<T> update(final @NotNullable T value)
+	public BinarySearchTree<T> update(final @NotNull T value)
 	{
 		return new BinarySearchTree(tree.update(value, comparator), comparator);
 	}
@@ -87,7 +87,7 @@ public class BinarySearchTree<T extends Comparable>
 	 * @param value
 	 * @return a new tree with the value removed and left side promoted.
 	 */
-	public BinarySearchTree<T> removePromoteLeft(final @NotNullable T value)
+	public BinarySearchTree<T> removePromoteLeft(final @NotNull T value)
 	{
 		return new BinarySearchTree(tree.removePromoteLeft(value, comparator), comparator);
 	}
@@ -107,7 +107,7 @@ public class BinarySearchTree<T extends Comparable>
 	 * @param value
 	 * @return a new tree with the value removed and right side promoted.
 	 */
-	public BinarySearchTree<T> removePromoteRight(final @NotNullable T value)
+	public BinarySearchTree<T> removePromoteRight(final @NotNull T value)
 	{
 		return new BinarySearchTree(tree.removePromoteRight(value, comparator), comparator);
 	}

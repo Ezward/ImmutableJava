@@ -28,7 +28,7 @@ public class TupleTemplate
 
 		b.line("import com.fasterxml.jackson.annotation.JsonCreator;");
 		b.line("import com.fasterxml.jackson.annotation.JsonProperty;").eol();
-		b.line("import com.lumpofcode.annotation.NotNullable;");
+		b.line("import com.lumpofcode.annotation.NotNull;");
 		
 		b.line("import java.util.function.Function;").eol();
 		
@@ -123,7 +123,7 @@ public class TupleTemplate
 			b.line(" * @param <R> result type");
 			b.line(" * @return a value of type R");
 			b.line(" */");
-			b.indent("public <R> R map(@NotNullable Function<? super Tuple{{size}}");
+			b.indent("public <R> R map(@NotNull Function<? super Tuple{{size}}");
 			b.list("<");
 			for(int i = 1; i <= size; i += 1)
 			{
@@ -165,7 +165,7 @@ public class TupleTemplate
 			b.endList(">").args(" mapTuple");
 			for(int i = 1; i <= size; i += 1)
 			{
-				b.with("i", i).with("tabs", "\n\t\t").arg(i-1, "{{tabs}}@NotNullable Function<? super T{{i}}, ? extends R{{i}}> mapper{{i}}");
+				b.with("i", i).with("tabs", "\n\t\t").arg(i-1, "{{tabs}}@NotNull Function<? super T{{i}}, ? extends R{{i}}> mapper{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -197,7 +197,7 @@ public class TupleTemplate
 				{
 					b.with("i", i).item(i - 1, (i == j) ? "R{{j}}" : "T{{i}}", ", ");
 				}
-				b.endList(">").emit(" map_{{j}} (@NotNullable Function <? super T{{j}}, ? extends R{{j}}> mapper{{j}})").eol();
+				b.endList(">").emit(" map_{{j}} (@NotNull Function <? super T{{j}}, ? extends R{{j}}> mapper{{j}})").eol();
 				b.block();
 				{
 					b.indent("return new Tuple{{size}}").args();

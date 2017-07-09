@@ -21,7 +21,7 @@ public class VectorViewTest
 		//
 		for(int i = 1; i <= 512; i += 1)
 		{
-			Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, i));
+			Vector<Integer> vector = Vector.asVector(new IntegerRange(0, i));
 			for(int k = 0; k < (vector.size() - 1) / 2; k += 1)
 			{
 				final VectorView view = new VectorView(vector, k, vector.size() - k);
@@ -50,7 +50,7 @@ public class VectorViewTest
 			//
 			// build vector of length i with values 0..i-1 inclusive
 			//
-			Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, i));
+			Vector<Integer> vector = Vector.asVector(new IntegerRange(0, i));
 			for(int k = 0; k < (vector.size() - 1) / 2; k += 1)
 			{
 				//

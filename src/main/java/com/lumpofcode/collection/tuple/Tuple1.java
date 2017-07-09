@@ -3,7 +3,7 @@ package com.lumpofcode.collection.tuple;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 import java.util.function.Function;
 
 /**
@@ -42,7 +42,7 @@ public final class Tuple1<T1>
 	 * @param <R> result type
 	 * @return a value of type R
 	 */
-	public <R> R map(@NotNullable Function<? super Tuple1<? super T1>, ? extends R> mapper)
+	public <R> R map(@NotNull Function<? super Tuple1<? super T1>, ? extends R> mapper)
 	{
 		return mapper.apply(this);
 	}
@@ -55,7 +55,7 @@ public final class Tuple1<T1>
 	 * @return new Tuple with mapped components
 	 */
 	public <R1> Tuple1<R1> mapTuple(
-		@NotNullable Function<? super T1, ? extends R1> mapper1)
+		@NotNull Function<? super T1, ? extends R1> mapper1)
 	{
 		return new Tuple1(mapper1.apply(_1));
 	}
@@ -67,7 +67,7 @@ public final class Tuple1<T1>
 	 * @param <R1> result type for component 1
 	 * @return a new Tuple with component 1 mapped
 	 */
-	public <R1> Tuple1<R1> map_1 (@NotNullable Function <? super T1, ? extends R1> mapper1)
+	public <R1> Tuple1<R1> map_1 (@NotNull Function <? super T1, ? extends R1> mapper1)
 	{
 		return new Tuple1(mapper1.apply(_1));
 	}

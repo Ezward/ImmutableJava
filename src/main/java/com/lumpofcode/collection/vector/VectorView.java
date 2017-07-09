@@ -1,6 +1,6 @@
 package com.lumpofcode.collection.vector;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -16,7 +16,7 @@ public final class VectorView<T> implements Vector<T>
 	private final int fromIndex;
 	private final int size;
 	
-	public VectorView(@NotNullable final Vector<T> vector, final int fromIndex, final int toIndex)
+	public VectorView(@NotNull final Vector<T> vector, final int fromIndex, final int toIndex)
 	{
 		if(null == vector) throw new IllegalArgumentException();
 		if((fromIndex < 0) || (fromIndex > vector.size())) throw new IndexOutOfBoundsException();
@@ -52,13 +52,13 @@ public final class VectorView<T> implements Vector<T>
 	{
 		if((index < 0) || (index > this.size)) throw new IndexOutOfBoundsException();
 
-		return new VectorOverlay(this, index, Vectors.asVector(value));
+		return new VectorOverlay(this, index, Vector.of(value));
 	}
 	
 	@Override
 	public Vector<T> push(T value)
 	{
-		return new VectorOverlay(this, this.size, Vectors.asVector(value));
+		return new VectorOverlay(this, this.size, Vector.of(value));
 	}
 	
 	@Override
@@ -67,11 +67,11 @@ public final class VectorView<T> implements Vector<T>
 		//
 		// create a vector from the values and append as an overlay
 		//
-		return new VectorOverlay(this, this.size, Vectors.asVector(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+		return new VectorOverlay(this, this.size, Vector.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNullable Iterable<T> iterable)
+	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
 	{
 		if (iterable instanceof Vector)
 		{
@@ -84,17 +84,17 @@ public final class VectorView<T> implements Vector<T>
 		//
 		// create a vector from the iterable, then append it as an overlay
 		//
-		return new VectorOverlay(this, this.size, Vectors.empty.pushAll(iterable));
+		return new VectorOverlay(this, this.size, Vector.empty.pushAll(iterable));
 	}
 	
 	@Override
-	public <R> Vector<R> map(@NotNullable Function<? super T, ? extends R> mapper)
+	public <R> Vector<R> map(@NotNull Function<? super T, ? extends R> mapper)
 	{
 		return Vectors.map(this, mapper);
 	}
 	
 	@Override
-	public <R> Vector<R> flatmap(@NotNullable Function<T, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNull Function<T, Vector<R>> mapper)
 	{
 		return Vectors.flatmap(this, mapper);
 	}

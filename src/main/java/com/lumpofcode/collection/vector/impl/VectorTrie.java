@@ -37,7 +37,7 @@ public final class VectorTrie<T> implements Vector<T>
 
 	public VectorTrie(final int level, final Vector<T> vector0, final Vector<T> vector1)
 	{
-		this(level, vector0, vector1, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty, Vectors.empty);
+		this(level, vector0, vector1, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty, Vector.empty);
 	}
 
 	public VectorTrie(final int level, final Vector<T> vector0, final Vector<T> vector1, final Vector<T> vector2, final Vector<T> vector3, final Vector<T> vector4, final Vector<T> vector5, final Vector<T> vector6, final Vector<T> vector7, final Vector<T> vector8, final Vector<T> vector9, final Vector<T> vector10, final Vector<T> vector11, final Vector<T> vector12, final Vector<T> vector13, final Vector<T> vector14, final Vector<T> vector15)
@@ -108,7 +108,7 @@ public final class VectorTrie<T> implements Vector<T>
 		//
 		// we are beyond the capacity of this trie, so create a new level in the hierarachy
 		//
-		return new VectorTrie(level + 1,this, Vectors.asVector(value));
+		return new VectorTrie(level + 1,this, Vector.of(value));
 	}
 
 	public Vector<T> push(final T value)
@@ -139,7 +139,7 @@ public final class VectorTrie<T> implements Vector<T>
 			//
 			// no room in this level of the hierarchy, so create another level
 			//
-			return new VectorTrie<T>(this.level + 1, this, Vectors.asVector(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15));
+			return new VectorTrie<T>(this.level + 1, this, Vector.of(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15));
 		}
 
 		else
@@ -167,7 +167,7 @@ public final class VectorTrie<T> implements Vector<T>
 
 	public <R> Vector<R> flatmap(final Function<T, Vector<R>> mapper)
 	{
-		Vector<R> result = Vectors.empty;
+		Vector<R> result = Vector.empty;
 		result = result.pushAll(vector0.flatmap(mapper));
 		result = result.pushAll(vector1.flatmap(mapper));
 		result = result.pushAll(vector2.flatmap(mapper));

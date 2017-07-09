@@ -2,9 +2,7 @@ package com.lumpofcode.annotation;
 
 import com.lumpofcode.collection.binarytree.BinaryTree;
 import com.lumpofcode.collection.list.LinkList;
-import com.lumpofcode.collection.tuple.Tuple2;
-import com.lumpofcode.collection.tuple.Tuple3;
-import com.lumpofcode.collection.vector.VectorOfSize;
+import com.lumpofcode.collection.tuple.*;
 import com.lumpofcode.collection.vector.VectorOverlay;
 import com.lumpofcode.collection.vector.impl.*;
 import com.lumpofcode.collection.vector.VectorView;
@@ -100,7 +98,7 @@ public class ImmutableTest
 		//
 		assertTrue(Immutables.isPersistent(LinkList.class));
 		assertTrue(Immutables.isPersistent(BinaryTree.class));
-		assertTrue(Immutables.isPersistent(VectorOfSize.class));
+		assertTrue(Immutables.isPersistent(EmptyVector.class));
 		assertTrue(Immutables.isPersistent(VectorOf1.class));
 		assertTrue(Immutables.isPersistent(VectorOf2.class));
 		assertTrue(Immutables.isPersistent(VectorOf3.class));
@@ -131,12 +129,16 @@ public class ImmutableTest
 		assertTrue(Immutables.isPersistent(Once.class));
 		assertTrue(Immutables.isPersistent(Lazy.class));
 		
+		assertTrue(Immutables.isPersistent(Tuple1.class));
 		assertTrue(Immutables.isPersistent(Tuple2.class));
 		assertTrue(Immutables.isPersistent(Tuple3.class));
+		assertTrue(Immutables.isPersistent(Tuple4.class));
+		assertTrue(Immutables.isPersistent(Tuple5.class));
+		assertTrue(Immutables.isPersistent(Tuple6.class));
+		assertTrue(Immutables.isPersistent(Tuple7.class));
+		assertTrue(Immutables.isPersistent(Tuple8.class));
+		assertTrue(Immutables.isPersistent(Tuple9.class));
+		assertTrue(Immutables.isPersistent(Tuple10.class));
 	}
 	
-	public void foo()
-	{
-		final Map<String, String > map = new HashMap<>();
-	}
 }

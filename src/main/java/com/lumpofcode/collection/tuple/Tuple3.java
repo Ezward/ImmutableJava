@@ -3,7 +3,7 @@ package com.lumpofcode.collection.tuple;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 import java.util.function.Function;
 
 /**
@@ -62,7 +62,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R> result type
 	 * @return a value of type R
 	 */
-	public <R> R map(@NotNullable Function<? super Tuple3<? super T1, ? super T2, ? super T3>, ? extends R> mapper)
+	public <R> R map(@NotNull Function<? super Tuple3<? super T1, ? super T2, ? super T3>, ? extends R> mapper)
 	{
 		return mapper.apply(this);
 	}
@@ -79,9 +79,9 @@ public final class Tuple3<T1, T2, T3>
 	 * @return new Tuple with mapped components
 	 */
 	public <R1, R2, R3> Tuple3<R1, R2, R3> mapTuple(
-		@NotNullable Function<? super T1, ? extends R1> mapper1, 
-		@NotNullable Function<? super T2, ? extends R2> mapper2, 
-		@NotNullable Function<? super T3, ? extends R3> mapper3)
+		@NotNull Function<? super T1, ? extends R1> mapper1, 
+		@NotNull Function<? super T2, ? extends R2> mapper2, 
+		@NotNull Function<? super T3, ? extends R3> mapper3)
 	{
 		return new Tuple3(mapper1.apply(_1), mapper2.apply(_2), mapper3.apply(_3));
 	}
@@ -93,7 +93,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R1> result type for component 1
 	 * @return a new Tuple with component 1 mapped
 	 */
-	public <R1> Tuple3<R1, T2, T3> map_1 (@NotNullable Function <? super T1, ? extends R1> mapper1)
+	public <R1> Tuple3<R1, T2, T3> map_1 (@NotNull Function <? super T1, ? extends R1> mapper1)
 	{
 		return new Tuple3(mapper1.apply(_1), _2, _3);
 	}
@@ -105,7 +105,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R2> result type for component 2
 	 * @return a new Tuple with component 2 mapped
 	 */
-	public <R2> Tuple3<T1, R2, T3> map_2 (@NotNullable Function <? super T2, ? extends R2> mapper2)
+	public <R2> Tuple3<T1, R2, T3> map_2 (@NotNull Function <? super T2, ? extends R2> mapper2)
 	{
 		return new Tuple3(_1, mapper2.apply(_2), _3);
 	}
@@ -117,7 +117,7 @@ public final class Tuple3<T1, T2, T3>
 	 * @param <R3> result type for component 3
 	 * @return a new Tuple with component 3 mapped
 	 */
-	public <R3> Tuple3<T1, T2, R3> map_3 (@NotNullable Function <? super T3, ? extends R3> mapper3)
+	public <R3> Tuple3<T1, T2, R3> map_3 (@NotNull Function <? super T3, ? extends R3> mapper3)
 	{
 		return new Tuple3(_1, _2, mapper3.apply(_3));
 	}

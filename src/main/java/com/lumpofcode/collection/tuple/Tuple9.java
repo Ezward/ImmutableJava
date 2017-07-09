@@ -3,7 +3,7 @@ package com.lumpofcode.collection.tuple;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.lumpofcode.annotation.NotNullable;
+import com.lumpofcode.annotation.NotNull;
 import java.util.function.Function;
 
 /**
@@ -122,7 +122,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R> result type
 	 * @return a value of type R
 	 */
-	public <R> R map(@NotNullable Function<? super Tuple9<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9>, ? extends R> mapper)
+	public <R> R map(@NotNull Function<? super Tuple9<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9>, ? extends R> mapper)
 	{
 		return mapper.apply(this);
 	}
@@ -151,15 +151,15 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @return new Tuple with mapped components
 	 */
 	public <R1, R2, R3, R4, R5, R6, R7, R8, R9> Tuple9<R1, R2, R3, R4, R5, R6, R7, R8, R9> mapTuple(
-		@NotNullable Function<? super T1, ? extends R1> mapper1, 
-		@NotNullable Function<? super T2, ? extends R2> mapper2, 
-		@NotNullable Function<? super T3, ? extends R3> mapper3, 
-		@NotNullable Function<? super T4, ? extends R4> mapper4, 
-		@NotNullable Function<? super T5, ? extends R5> mapper5, 
-		@NotNullable Function<? super T6, ? extends R6> mapper6, 
-		@NotNullable Function<? super T7, ? extends R7> mapper7, 
-		@NotNullable Function<? super T8, ? extends R8> mapper8, 
-		@NotNullable Function<? super T9, ? extends R9> mapper9)
+		@NotNull Function<? super T1, ? extends R1> mapper1, 
+		@NotNull Function<? super T2, ? extends R2> mapper2, 
+		@NotNull Function<? super T3, ? extends R3> mapper3, 
+		@NotNull Function<? super T4, ? extends R4> mapper4, 
+		@NotNull Function<? super T5, ? extends R5> mapper5, 
+		@NotNull Function<? super T6, ? extends R6> mapper6, 
+		@NotNull Function<? super T7, ? extends R7> mapper7, 
+		@NotNull Function<? super T8, ? extends R8> mapper8, 
+		@NotNull Function<? super T9, ? extends R9> mapper9)
 	{
 		return new Tuple9(mapper1.apply(_1), mapper2.apply(_2), mapper3.apply(_3), mapper4.apply(_4), mapper5.apply(_5), mapper6.apply(_6), mapper7.apply(_7), mapper8.apply(_8), mapper9.apply(_9));
 	}
@@ -171,7 +171,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R1> result type for component 1
 	 * @return a new Tuple with component 1 mapped
 	 */
-	public <R1> Tuple9<R1, T2, T3, T4, T5, T6, T7, T8, T9> map_1 (@NotNullable Function <? super T1, ? extends R1> mapper1)
+	public <R1> Tuple9<R1, T2, T3, T4, T5, T6, T7, T8, T9> map_1 (@NotNull Function <? super T1, ? extends R1> mapper1)
 	{
 		return new Tuple9(mapper1.apply(_1), _2, _3, _4, _5, _6, _7, _8, _9);
 	}
@@ -183,7 +183,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R2> result type for component 2
 	 * @return a new Tuple with component 2 mapped
 	 */
-	public <R2> Tuple9<T1, R2, T3, T4, T5, T6, T7, T8, T9> map_2 (@NotNullable Function <? super T2, ? extends R2> mapper2)
+	public <R2> Tuple9<T1, R2, T3, T4, T5, T6, T7, T8, T9> map_2 (@NotNull Function <? super T2, ? extends R2> mapper2)
 	{
 		return new Tuple9(_1, mapper2.apply(_2), _3, _4, _5, _6, _7, _8, _9);
 	}
@@ -195,7 +195,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R3> result type for component 3
 	 * @return a new Tuple with component 3 mapped
 	 */
-	public <R3> Tuple9<T1, T2, R3, T4, T5, T6, T7, T8, T9> map_3 (@NotNullable Function <? super T3, ? extends R3> mapper3)
+	public <R3> Tuple9<T1, T2, R3, T4, T5, T6, T7, T8, T9> map_3 (@NotNull Function <? super T3, ? extends R3> mapper3)
 	{
 		return new Tuple9(_1, _2, mapper3.apply(_3), _4, _5, _6, _7, _8, _9);
 	}
@@ -207,7 +207,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R4> result type for component 4
 	 * @return a new Tuple with component 4 mapped
 	 */
-	public <R4> Tuple9<T1, T2, T3, R4, T5, T6, T7, T8, T9> map_4 (@NotNullable Function <? super T4, ? extends R4> mapper4)
+	public <R4> Tuple9<T1, T2, T3, R4, T5, T6, T7, T8, T9> map_4 (@NotNull Function <? super T4, ? extends R4> mapper4)
 	{
 		return new Tuple9(_1, _2, _3, mapper4.apply(_4), _5, _6, _7, _8, _9);
 	}
@@ -219,7 +219,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R5> result type for component 5
 	 * @return a new Tuple with component 5 mapped
 	 */
-	public <R5> Tuple9<T1, T2, T3, T4, R5, T6, T7, T8, T9> map_5 (@NotNullable Function <? super T5, ? extends R5> mapper5)
+	public <R5> Tuple9<T1, T2, T3, T4, R5, T6, T7, T8, T9> map_5 (@NotNull Function <? super T5, ? extends R5> mapper5)
 	{
 		return new Tuple9(_1, _2, _3, _4, mapper5.apply(_5), _6, _7, _8, _9);
 	}
@@ -231,7 +231,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R6> result type for component 6
 	 * @return a new Tuple with component 6 mapped
 	 */
-	public <R6> Tuple9<T1, T2, T3, T4, T5, R6, T7, T8, T9> map_6 (@NotNullable Function <? super T6, ? extends R6> mapper6)
+	public <R6> Tuple9<T1, T2, T3, T4, T5, R6, T7, T8, T9> map_6 (@NotNull Function <? super T6, ? extends R6> mapper6)
 	{
 		return new Tuple9(_1, _2, _3, _4, _5, mapper6.apply(_6), _7, _8, _9);
 	}
@@ -243,7 +243,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R7> result type for component 7
 	 * @return a new Tuple with component 7 mapped
 	 */
-	public <R7> Tuple9<T1, T2, T3, T4, T5, T6, R7, T8, T9> map_7 (@NotNullable Function <? super T7, ? extends R7> mapper7)
+	public <R7> Tuple9<T1, T2, T3, T4, T5, T6, R7, T8, T9> map_7 (@NotNull Function <? super T7, ? extends R7> mapper7)
 	{
 		return new Tuple9(_1, _2, _3, _4, _5, _6, mapper7.apply(_7), _8, _9);
 	}
@@ -255,7 +255,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R8> result type for component 8
 	 * @return a new Tuple with component 8 mapped
 	 */
-	public <R8> Tuple9<T1, T2, T3, T4, T5, T6, T7, R8, T9> map_8 (@NotNullable Function <? super T8, ? extends R8> mapper8)
+	public <R8> Tuple9<T1, T2, T3, T4, T5, T6, T7, R8, T9> map_8 (@NotNull Function <? super T8, ? extends R8> mapper8)
 	{
 		return new Tuple9(_1, _2, _3, _4, _5, _6, _7, mapper8.apply(_8), _9);
 	}
@@ -267,7 +267,7 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 	 * @param <R9> result type for component 9
 	 * @return a new Tuple with component 9 mapped
 	 */
-	public <R9> Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, R9> map_9 (@NotNullable Function <? super T9, ? extends R9> mapper9)
+	public <R9> Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, R9> map_9 (@NotNull Function <? super T9, ? extends R9> mapper9)
 	{
 		return new Tuple9(_1, _2, _3, _4, _5, _6, _7, _8, mapper9.apply(_9));
 	}

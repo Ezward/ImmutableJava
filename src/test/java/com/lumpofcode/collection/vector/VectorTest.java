@@ -15,7 +15,7 @@ public class VectorTest
 	@Test
 	public void EmptyVectorTest()
 	{
-		final Vector<Integer> vector = Vectors.empty;
+		final Vector<Integer> vector = Vector.empty;
 		
 		assertTrue(0 == vector.size());
 		
@@ -70,13 +70,13 @@ public class VectorTest
 		assert(vector.map(e -> e + 1).isEmpty());
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assert(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)).isEmpty());
+		assert(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)).isEmpty());
 	}
 	
 	@Test
 	public void VectorOf1Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0);
+		final Vector<Integer> vector = Vector.of(0);
 		assertTrue(null != vector);
 		assertTrue(!vector.isEmpty());
 		assertTrue(1 == vector.size());
@@ -135,13 +135,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 1, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 1 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 1 * 2);
 	}
 	
 	@Test
 	public void VectorOf2Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1);
+		final Vector<Integer> vector = Vector.of(0, 1);
 		assertTrue(null != vector);
 		assertTrue(2 == vector.size());
 		assertTrue(0 == vector.get(0));
@@ -199,13 +199,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 2, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 2 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 2 * 2);
 	}
 	
 	@Test
 	public void VectorOf3Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2);
+		final Vector<Integer> vector = Vector.of(0, 1, 2);
 		assertTrue(null != vector);
 		assertTrue(3 == vector.size());
 		assertTrue(0 == vector.get(0));
@@ -265,13 +265,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 3, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 3 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 3 * 2);
 	}
 	
 	@Test
 	public void VectorOf4Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3);
+		final Vector<Integer> vector = Vector.of(0, 1, 2, 3);
 		assertVector(vector, 4);
 		assertBounds(vector, 4);
 		
@@ -289,13 +289,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 4, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 4 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 4 * 2);
 	}
 	
 	@Test
 	public void VectorOf5Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4);
+		final Vector<Integer> vector = Vector.of(0, 1, 2, 3, 4);
 		assertVector(vector, 5);
 		assertBounds(vector, 5);
 		
@@ -313,13 +313,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 5, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 5 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 5 * 2);
 	}
 	
 	@Test
 	public void VectorOf6Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5);
+		final Vector<Integer> vector = Vector.of(0, 1, 2, 3, 4, 5);
 		assertVector(vector, 6);
 		assertBounds(vector, 6);
 		
@@ -337,13 +337,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 6, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 6 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 6 * 2);
 	}
 	
 	@Test
 	public void VectorOf7Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5, 6);
+		final Vector<Integer> vector = Vector.of(0, 1, 2, 3, 4, 5, 6);
 		assertVector(vector, 7);
 		assertBounds(vector, 7);
 		
@@ -361,13 +361,13 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 7, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 7 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 7 * 2);
 	}
 	
 	@Test
 	public void VectorOf8Test()
 	{
-		final Vector<Integer> vector = Vectors.asVector(0, 1, 2, 3, 4, 5, 6, 7);
+		final Vector<Integer> vector = Vector.of(0, 1, 2, 3, 4, 5, 6, 7);
 		assertVector(vector, 8);
 		assertBounds(vector, 8);
 		
@@ -385,14 +385,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 8, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 8 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 8 * 2);
 	}
 	
 	@Test
 	public void VectorOf9Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8);
 		assertVector(vector, 9);
@@ -412,14 +412,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 9, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 9 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 9 * 2);
 	}
 	
 	@Test
 	public void VectorOf10Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9);
 		assertVector(vector, 10);
@@ -439,14 +439,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 10, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 10 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 10 * 2);
 	}
 	
 	@Test
 	public void VectorOf11Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10);
 		assertVector(vector, 11);
@@ -466,14 +466,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 11, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 11 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 11 * 2);
 	}
 	
 	@Test
 	public void VectorOf12Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11);
 		assertVector(vector, 12);
@@ -493,14 +493,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 12, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 12 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 12 * 2);
 	}
 	
 	@Test
 	public void VectorOf13Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12);
 		assertVector(vector, 13);
@@ -520,14 +520,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 13, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 13 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 13 * 2);
 	}
 	
 	@Test
 	public void VectorOf14Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13);
 		assertVector(vector, 14);
@@ -547,14 +547,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 14, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 14 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 14 * 2);
 	}
 	
 	@Test
 	public void VectorOf15Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13, 14);
 		assertVector(vector, 15);
@@ -574,14 +574,14 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 15, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 15 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 15 * 2);
 	}
 	
 	@Test
 	public void VectorOf16Test()
 	{
 		final Vector<Integer> vector =
-			Vectors.asVector(
+			Vector.of(
 				0, 1, 2, 3, 4, 5, 6, 7,
 				8, 9, 10, 11, 12, 13, 14, 15);
 		assertVector(vector, 16);
@@ -601,7 +601,7 @@ public class VectorTest
 		assertVector(vector.map(e -> e + 1), 16, 1);
 		
 		// flatmap (make vector of 0, 2, 4, etc, then flatmap to (e,e+1) to get flattened vector of double length
-		assertVector(vector.map(e -> e * 2).flatmap(e -> Vectors.asVector(e, e+1)), 16 * 2);
+		assertVector(vector.map(e -> e * 2).flatmap(e -> Vector.of(e, e+1)), 16 * 2);
 	}
 	
 	
@@ -612,7 +612,7 @@ public class VectorTest
 		// build a vector of 16000 elements one element at a time
 		// and verify the vector on each step
 		//
-		Vector<Integer> vector = Vectors.empty;
+		Vector<Integer> vector = Vector.empty;
 		final int n = 16000;
 		for(int i = 0; i < n; i += 1)
 		{
@@ -629,7 +629,7 @@ public class VectorTest
 		// starting with empty, built a vector of 16000 elements, 16 elements at a time
 		// and verify the vector after each grop fo 16 elements is added.
 		//
-		Vector<Integer> vector = Vectors.empty;
+		Vector<Integer> vector = Vector.empty;
 		final int n = 16000;
 		for(int i = 0; i < n; i += 16)
 		{
@@ -650,7 +650,7 @@ public class VectorTest
 		for(int j = 1; j <= 15; j += 1)
 		{
 			final int n = 16000 + j;
-			Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, j));
+			Vector<Integer> vector = Vector.asVector(new IntegerRange(0, j));
 			for (int i = j; i < n; i += 16)
 			{
 				assertVector(vector, i);
@@ -664,7 +664,7 @@ public class VectorTest
 	public void mapTest()
 	{
 		final int n = 16000;
-		Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, n));
+		Vector<Integer> vector = Vector.asVector(new IntegerRange(0, n));
 		Vector<Integer> mappedVector = vector.map(e -> e + 1);
 		assertVector(mappedVector, n, 1);
 	}
@@ -678,8 +678,8 @@ public class VectorTest
 		// which should produce a flattened vector from 0 to 5 * n
 		//
 		final int n = 16000;
-		Vector<Integer> vector = Vectors.asVector(new IntegerRange(0, n, 5));
-		Vector<Integer> mappedVector = vector.flatmap(e -> Vectors.asVector(e, e+1, e+2, e+3, e+4));
+		Vector<Integer> vector = Vector.asVector(new IntegerRange(0, n, 5));
+		Vector<Integer> mappedVector = vector.flatmap(e -> Vector.of(e, e+1, e+2, e+3, e+4));
 		assertVector(mappedVector, n * 5);
 	}
 	
@@ -687,7 +687,7 @@ public class VectorTest
 	public void push1Time()
 	{
 		final long start = System.currentTimeMillis();
-		Vector<Integer> vector = Vectors.empty;
+		Vector<Integer> vector = Vector.empty;
 		final int n = 1600000;
 		for(int i = 0; i < n; i += 1)
 		{
@@ -713,7 +713,7 @@ public class VectorTest
 		// starting with empty
 		//
 		final long start = System.currentTimeMillis();
-		Vector<Integer> vector = Vectors.empty;
+		Vector<Integer> vector = Vector.empty;
 		final int n = 1600000;
 		for(int i = 0; i < n; i += 16)
 		{

@@ -4,6 +4,8 @@ import com.lumpofcode.collection.vector.Vector;
 import com.lumpofcode.collection.vector.Vectors;
 import com.lumpofcode.collection.vector.VectorIterator;
 
+import com.lumpofcode.annotation.NotNull;
+
 import java.util.Iterator;
 import java.util.function.Function;
 
@@ -16,7 +18,7 @@ public final class VectorOf3<T> implements Vector<T>, Iterable<T>
 	private final T element1;
 	private final T element2;
 
-	public VectorOf3(T element0, T element1, T element2)
+	public VectorOf3(final T element0, final T element1, final T element2)
 	{
 		this.element0 = element0;
 		this.element1 = element1;
@@ -27,7 +29,7 @@ public final class VectorOf3<T> implements Vector<T>, Iterable<T>
 
 	public int size() { return 3; }
 
-	public T get(int index)
+	public T get(final int index)
 	{
 		switch(index)
 		{
@@ -39,7 +41,7 @@ public final class VectorOf3<T> implements Vector<T>, Iterable<T>
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> set(int index, T value)
+	public Vector<T> set(final int index, final T value)
 	{
 		switch(index)
 		{
@@ -52,7 +54,7 @@ public final class VectorOf3<T> implements Vector<T>, Iterable<T>
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> push(T value)
+	public Vector<T> push(final T value)
 	{
 		return new VectorOf4<>(element0, element1, element2, value);
 	}
@@ -62,17 +64,17 @@ public final class VectorOf3<T> implements Vector<T>, Iterable<T>
 		return new VectorTrie<T>(1, new VectorOf16(element0, element1, element2, e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12), new VectorOf3(e13, e14, e15));
 	}
 
-	public Vector<T> pushAll(final Iterable<T> iterable)
+	public Vector<T> pushAll(@NotNull final Iterable<T> iterable)
 	{
 		return Vectors.pushAll(this, iterable);
 	}
 
-	public <R> Vector<R> map(Function<? super T, ? extends R> mapper)
+	public <R> Vector<R> map(@NotNull final Function<? super T, ? extends R> mapper)
 	{
 		return new VectorOf3<>(mapper.apply(element0), mapper.apply(element1), mapper.apply(element2));
 	}
 
-	public <R> Vector<R> flatmap(Function<T, Vector<R>> mapper)
+	public <R> Vector<R> flatmap(@NotNull final Function<T, Vector<R>> mapper)
 	{
 		return Vectors.flatmap(this, mapper);
 	}
