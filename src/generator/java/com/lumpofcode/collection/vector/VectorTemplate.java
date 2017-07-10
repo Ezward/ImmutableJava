@@ -1074,7 +1074,6 @@ public final class VectorTemplate
 		//
 		b.line("package com.lumpofcode.collection.vector;").eol();
 		
-		b.line("import com.lumpofcode.collection.vector.impl.*;").eol();
 		b.line("import com.lumpofcode.annotation.NotNull;").eol();
 		
 		b.line("import java.util.Iterator;");
