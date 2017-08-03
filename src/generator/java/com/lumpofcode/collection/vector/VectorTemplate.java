@@ -22,13 +22,12 @@ public final class VectorTemplate
 		if(nodeSize < 2) throw new IllegalArgumentException();
 		
 		final SourceBuilder b = new SourceBuilder(writer);
-		final Macros m = new Macros();
 		
 		//
 		// set up common symbols
 		//
-		m.with("nodesize", nodeSize);
-		m.with("nodesize-1", nodeSize-1);
+		b.with("nodesize", nodeSize);
+		b.with("nodesize-1", nodeSize-1);
 
 		b.line("package com.lumpofcode.collection.vector;").eol();
 		b.line("import com.lumpofcode.collection.vector.impl.*;").eol();
@@ -46,7 +45,7 @@ public final class VectorTemplate
 		b.line("public interface Vector<T> extends Iterable<T>");
 		b.block();
 		{
-			b.line(m.apply("public static final int VECTOR_NODE_SIZE = {{nodesize}};")).eol();
+			b.line("public static final int VECTOR_NODE_SIZE = {{nodesize}};").eol();
 			
 			//
 			// empty vector singleton
@@ -61,21 +60,21 @@ public final class VectorTemplate
 			//
 			for(int i = 1; i <= nodeSize; i += 1)
 			{
-				m.with("i", i);
+				b.with("i", i);
 				b.line("/**");
-				b.line(m.apply(" * Factory to construct a Vector with {{i}} elements"));
+				b.line(" * Factory to construct a Vector with {{i}} elements");
 				b.line(" *");
 				for(int j = 0; j < i; j += 1)
 				{
-					b.line(m.with("j", j).apply(" * @param e{{j}} the element an index {{j}}"));
+					b.with("j", j).line(" * @param e{{j}} the element an index {{j}}");
 				}
 				b.line(" * @param <T> the type of the element");
-				b.line(m.apply(" * @return a Vector of type T with {{i}} elements"));
+				b.line(" * @return a Vector of type T with {{i}} elements");
 				b.line(" */");
 				b.indent("public static <T> Vector<T> of").args();
 				for (int j = 0; j < i; j += 1)
 				{
-					b.arg(j, m.with("j", j).apply("final T e{{j}}"));
+					b.with("j", j).arg(j, "final T e{{j}}");
 				}
 				b.endArgs().eol();
 				
@@ -84,11 +83,10 @@ public final class VectorTemplate
 					//
 					// using VectorOf## implementation
 					//
-					m.with("i", i);
-					b.indent(m.apply("return new VectorOf{{i}}<>")).args();
+					b.indent("return new VectorOf{{i}}<>").args();
 					for (int j = 0; j < i; j += 1)
 					{
-						b.arg(j, m.with("j", j).apply("e{{j}}"));
+						b.with("j", j).arg(j, "e{{j}}");
 					}
 					b.endArgs().eol(";");
 				}
@@ -184,14 +182,14 @@ public final class VectorTemplate
 			b.line(" *");
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.line(m.with("i", i).apply(" * @param e{{i}} element to push"));
+				b.with("i", i).line(" * @param e{{i}} element to push");
 			}
-			b.line(m.apply(" * @return a new Vector with {{nodesize}} addition elements"));
+			b.line(" * @return a new Vector with {{nodesize}} addition elements");
 			b.line(" */");
 			b.indent("public Vector<T> push").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.arg(i, m.with("i", i).apply("final T e{{i}}"));
+				b.with("i", i).arg(i, "final T e{{i}}");
 			}
 			b.endArgs().eol(";").eol();
 			
@@ -250,13 +248,12 @@ public final class VectorTemplate
 		if(nodeSize < 2) throw new IllegalArgumentException();
 		
 		final SourceBuilder b = new SourceBuilder(writer);
-		final Macros m = new Macros();
 		
 		//
 		// set up common symbols
 		//
-		m.with("nodesize", nodeSize);
-		m.with("nodesize-1", nodeSize-1);
+		b.with("nodesize", nodeSize);
+		b.with("nodesize-1", nodeSize-1);
 		
 		b.line("package com.lumpofcode.collection.vector.impl;").eol();
 		b.line("import com.lumpofcode.collection.vector.Vector;");
@@ -278,7 +275,7 @@ public final class VectorTemplate
 		b.line(" *");
 		b.line(" * Created by emurphy on 6/16/17.");
 		b.line(" */");
-		b.line("public class EmptyVector<T> implements Vector<T>");
+		b.line("public final class EmptyVector<T> implements Vector<T>");
 		b.block();
 		{
 			//
@@ -338,7 +335,7 @@ public final class VectorTemplate
 			b.indent("public Vector<T> push").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.arg(i, m.with("i", i).apply("final T e{{i}}"));
+				b.with("i", i).arg(i, "final T e{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -346,7 +343,7 @@ public final class VectorTemplate
 				b.indent("return Vector.of").args();
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.arg(i, m.with("i", i).apply("e{{i}}"));
+					b.with("i", i).arg(i, "e{{i}}");
 				}
 				b.endArgs().eol(";");
 			}
@@ -424,15 +421,14 @@ public final class VectorTemplate
 		if((size < 1) || (size > nodeSize)) throw new IllegalArgumentException();
 		
 		final SourceBuilder b = new SourceBuilder(writer);
-		final Macros m = new Macros();
 		
 		//
 		// set up common symbols
 		//
-		m.with("size", size);
-		m.with("size-1", size - 1);
-		m.with("size+1", size + 1);
-		m.with("nodesize", nodeSize);
+		b.with("size", size);
+		b.with("size-1", size - 1);
+		b.with("size+1", size + 1);
+		b.with("nodesize", nodeSize);
 		
 		//
 		// package and imports
@@ -451,7 +447,7 @@ public final class VectorTemplate
 		//
 		// class definition
 		//
-		b.line(m.apply("public final class VectorOf{{size}}<T> implements Vector<T>, Iterable<T>"));
+		b.line("public final class VectorOf{{size}}<T> implements Vector<T>, Iterable<T>");
 		b.block();
 		{
 			//
@@ -459,19 +455,19 @@ public final class VectorTemplate
 			//
 			for (int i = 0; i < size; i += 1)
 			{
-				b.line(m.with("i", i).apply("private final T element{{i}};"));
+				b.with("i", i).line("private final T element{{i}};");
 			}
 			b.eol();
 			
 			//
 			// constructor
 			//
-			b.indent(m.apply("public VectorOf{{size}}")).args();
+			b.indent("public VectorOf{{size}}").args();
 			if (size > 0)
 			{
 				for (int i = 0; i < size; i += 1)
 				{
-					b.arg(i, m.with("i", i).apply("final T element{{i}}"));
+					b.with("i", i).arg(i, "final T element{{i}}");
 				}
 			}
 			b.endArgs();
@@ -482,7 +478,7 @@ public final class VectorTemplate
 			{
 				for (int i = 0; i < size; i += 1)
 				{
-					b.line(m.with("i", i).apply("this.element{{i}} = element{{i}};"));
+					b.with("i", i).line("this.element{{i}} = element{{i}};");
 				}
 			}
 			b.endBlock();
@@ -495,7 +491,7 @@ public final class VectorTemplate
 			//
 			// size() method
 			//
-			b.line(m.apply("public int size() { return {{size}}; }")).eol();
+			b.line("public int size() { return {{size}}; }").eol();
 			
 			//
 			// get() method
@@ -506,7 +502,7 @@ public final class VectorTemplate
 				{
 					for (int i = 0; i < size; i += 1)
 					{
-						b.line(m.with("i", i).apply("case {{i}}: return element{{i}};"));
+						b.with("i", i).line("case {{i}}: return element{{i}};");
 					}
 					b.endBlock();
 				}
@@ -523,7 +519,7 @@ public final class VectorTemplate
 				{
 					for (int i = 0; i < size; i += 1)
 					{
-						b.indent(m.with("i", i).apply("case {{i}}: return new VectorOf{{size}}<>"));
+						b.with("i", i).indent("case {{i}}: return new VectorOf{{size}}<>");
 						b.args();
 						if (size > 0)
 						{
@@ -531,12 +527,12 @@ public final class VectorTemplate
 							b.arg(0, (0 == i) ? "value" : "element0");
 							for (int j = 1; j < size; j += 1)
 							{
-								b.arg(j, (i == j) ? "value" : m.with("j", j).apply("element{{j}}"));
+								b.with("j", j).arg(j, (i == j) ? "value" : "element{{j}}");
 							}
 						}
 						b.endArgs().eol(";");
 					}
-					b.line(m.apply("case {{size}}: return push(value);"));
+					b.line("case {{size}}: return push(value);");
 				}
 				b.endBlock();
 				
@@ -551,11 +547,11 @@ public final class VectorTemplate
 			{
 				if (size < nodeSize)
 				{
-					b.indent(m.apply("return new VectorOf{{size+1}}<>"));
+					b.indent("return new VectorOf{{size+1}}<>");
 					b.args();
 					for (int i = 0; i < size; i += 1)
 					{
-						b.arg(i, m.with("i", i).apply("element{{i}}"));
+						b.with("i", i).arg(i, "element{{i}}");
 					}
 					b.arg(size, "value");
 					b.endArgs().eol(";");
@@ -581,7 +577,7 @@ public final class VectorTemplate
 			b.indent("public Vector<T> push").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.arg(i, m.with("i", i).apply("final T e{{i}}"));
+				b.with("i", i).arg(i, "final T e{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -589,23 +585,23 @@ public final class VectorTemplate
 				b.indent().args("return new VectorTrie<T>");
 				{
 					b.arg(0, "1");
-					b.arg(1, m.apply("new VectorOf{{nodesize}}")).args();
+					b.arg(1, "new VectorOf{{nodesize}}").args();
 					{
 						for (int i = 0; i < size; i += 1)
 						{
-							b.arg(i, m.with("i", i).apply("element{{i}}"));
+							b.with("i", i).arg(i, "element{{i}}");
 						}
 						for (int i = 0, j = size; i < nodeSize - size; i += 1, j += 1)
 						{
-							b.arg(j, m.with("i", i).apply("e{{i}}"));
+							b.with("i", i).arg(j, "e{{i}}");
 						}
 					}
 					b.endArgs();
-					b.arg(2, m.apply("new VectorOf{{size}}")).args();
+					b.arg(2, "new VectorOf{{size}}").args();
 					{
 						for (int i = nodeSize - size, j = 0; i < nodeSize; i += 1, j += 1)
 						{
-							b.arg(j, m.with("i", i).apply("e{{i}}"));
+							b.with("i", i).arg(j, "e{{i}}");
 						}
 					}
 					b.endArgs();
@@ -631,11 +627,11 @@ public final class VectorTemplate
 			b.line("public <R> Vector<R> map(@NotNull final Function<? super T, ? extends R> mapper)");
 			b.block();
 			{
-				b.indent(m.apply("return new VectorOf{{size}}<>"));
+				b.indent("return new VectorOf{{size}}<>");
 				b.args();
 				for (int i = 0; i < size; i += 1)
 				{
-					b.arg(i, m.with("i", i).apply("mapper.apply(element{{i}})"));
+					b.with("i", i).arg(i, "mapper.apply(element{{i}})");
 				}
 				b.endArgs();
 				b.eol(";");
@@ -682,13 +678,12 @@ public final class VectorTemplate
 		if(nodeSize < 2) throw new IllegalArgumentException();
 		
 		final SourceBuilder b = new SourceBuilder(writer);
-		final Macros m = new Macros();
 		
 		//
 		// set up common symbols
 		//
-		m.with("nodesize", nodeSize);
-		m.with("nodesize-1", nodeSize-1);
+		b.with("nodesize", nodeSize);
+		b.with("nodesize-1", nodeSize-1);
 		
 		//
 		// package and imports
@@ -715,7 +710,7 @@ public final class VectorTemplate
 			b.line("private final int size;");
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.line(m.with("i", i).apply("private final Vector<T> vector{{i}};"));
+				b.with("i", i).line("private final Vector<T> vector{{i}};");
 			}
 			b.eol();
 
@@ -742,7 +737,7 @@ public final class VectorTemplate
 			b.indent().args("public VectorTrie").arg(0, "final int level");
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.arg(i + 1, m.with("i", i).apply("final Vector<T> vector{{i}}"));
+				b.with("i", i).arg(i + 1, "final Vector<T> vector{{i}}");
 			}
 			b.endArgs().eol();
 			b.block();
@@ -755,7 +750,7 @@ public final class VectorTemplate
 				//
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.line(m.with("i", i).apply("this.vector{{i}} = vector{{i}};"));
+					b.with("i", i).line("this.vector{{i}} = vector{{i}};");
 				}
 				b.eol();
 
@@ -765,7 +760,7 @@ public final class VectorTemplate
 				b.indent().list().item(0, "this.size =  vector0.size()", "+ ");
 				for(int i = 1; i < nodeSize; i += 1)
 				{
-					b.item(i, m.with("i", i).apply("vector{{i}}.size()"), " + ");
+					b.with("i", i).item(i, "vector{{i}}.size()", " + ");
 				}
 				b.eol(";");
 			}
@@ -858,7 +853,7 @@ public final class VectorTemplate
 			b.args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.arg(i, m.with("i", i).apply("final T e{{i}}"));
+				b.with("i", i).arg(i, "final T e{{i}}");
 			}
 			b.endArgs();
 			b.block();
@@ -871,7 +866,7 @@ public final class VectorTemplate
 				b.line("//");
 				b.line("// determine if we can just add this to the child, or if we need to split it between children");
 				b.line("//");
-				b.line(m.apply("if(childCapacity >= {{nodesize}})"));
+				b.line("if(childCapacity >= {{nodesize}})");
 				b.block();
 				{
 					b.line("if(childIndex < Vector.VECTOR_NODE_SIZE)");
@@ -885,7 +880,7 @@ public final class VectorTemplate
 						b.args();
 						for(int i = 0; i < nodeSize; i += 1)
 						{
-							b.arg(i, m.with("i", i).apply("e{{i}}"));
+							b.with("i", i).arg(i, "e{{i}}");
 						}
 						b.endArgs();
 						b.eol(");");
@@ -898,7 +893,7 @@ public final class VectorTemplate
 					b.indent("return new VectorTrie<T>(this.level + 1, this, Vector.of").args();
 					for(int i = 0; i < nodeSize; i += 1)
 					{
-						b.arg(i, m.with("i", i).apply("e{{i}}"));
+						b.with("i", i).arg(i, "e{{i}}");
 					}
 					b.endArgs().eol(");");
 				}
@@ -915,7 +910,7 @@ public final class VectorTemplate
 					b.indent("return this");
 					for(int i = 0; i < nodeSize; i += 1)
 					{
-						b.emit(m.with("i", i).apply(".push(e{{i}})"));
+						b.with("i", i).emit(".push(e{{i}})");
 					}
 					b.eol(";");
 				}
@@ -945,7 +940,7 @@ public final class VectorTemplate
 				b.arg(0, "level");
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.arg(i + 1, m.with("i", i).apply("vector{{i}}.map(mapper)"));
+					b.with("i", i).arg(i + 1, "vector{{i}}.map(mapper)");
 				}
 				b.endArgs().eol(";");
 			}
@@ -960,7 +955,7 @@ public final class VectorTemplate
 				b.line("Vector<R> result = Vector.empty;");
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.line(m.with("i", i).apply("result = result.pushAll(vector{{i}}.flatmap(mapper));"));
+					b.with("i", i).line("result = result.pushAll(vector{{i}}.flatmap(mapper));");
 				}
 				b.line("return result;");
 			}
@@ -1005,9 +1000,9 @@ public final class VectorTemplate
 				{
 					for(int i = 0; i < nodeSize - 1; i += 1)
 					{
-						b.line(m.with("i", i).apply("case {{i}}: return vector{{i}};"));
+						b.with("i", i).line("case {{i}}: return vector{{i}};");
 					}
-					b.line(m.apply("default: return vector{{nodesize-1}};"));
+					b.line("default: return vector{{nodesize-1}};");
 				}
 				b.endBlock();
 			}
@@ -1032,11 +1027,11 @@ public final class VectorTemplate
 				{
 					for(int i = 0; i < nodeSize; i += 1)
 					{
-						m.with("i", i);
-						b.indent((i == nodeSize - 1) ? "default: " : m.apply("case {{i}}: ")).emit("return new VectorTrie(level");
+						b.with("i", i);
+						b.indent((i == nodeSize - 1) ? "default: " : "case {{i}}: ").emit("return new VectorTrie(level");
 						for(int j = 0; j < nodeSize; j += 1)
 						{
-							b.emit(", ").emit((i == j) ? "childValue" : m.with("j", j).apply("vector{{j}}"));
+							b.with("j", j).emit(", ").emit((i == j) ? "childValue" : "vector{{j}}");
 						}
 						b.eol(");");
 					}
@@ -1061,13 +1056,12 @@ public final class VectorTemplate
 		final boolean useVectorOfSize = false;
 		
 		final SourceBuilder b = new SourceBuilder(writer);
-		final Macros m = new Macros();
 		
 		//
 		// set up common symbols
 		//
-		m.with("nodesize", nodeSize);
-		m.with("nodesize-1", nodeSize-1);
+		b.with("nodesize", nodeSize);
+		b.with("nodesize-1", nodeSize-1);
 		
 		//
 		// package and imports
@@ -1091,85 +1085,6 @@ public final class VectorTemplate
 		b.line("public final class Vectors");
 		b.block();
 		{
-//			b.line("/**");
-//			b.line(" * An empty vector as a singleton.");
-//			b.line(" */");
-//			b.line("public static final EmptyVector empty = new EmptyVector();").eol();
-//
-//			//
-//			// loop to create all the Vectors.asVector() factory methods from 1..nodeSize
-//			//
-//			for(int i = 1; i <= nodeSize; i += 1)
-//			{
-//				m.with("i", i);
-//				b.line("/**");
-//				b.line(m.apply(" * Factory to construct a Vector with {{i}} elements"));
-//				b.line(" *");
-//				for(int j = 0; j < i; j += 1)
-//				{
-//					b.line(m.with("j", j).apply(" * @param e{{j}} the element an index {{j}}"));
-//				}
-//				b.line(" * @param <T> the type of the element");
-//				b.line(m.apply(" * @return a Vector of type T with {{i}} elements"));
-//				b.line(" */");
-//				b.indent("public static final <T> Vector<T> asVector").args();
-//				for (int j = 0; j < i; j += 1)
-//				{
-//					b.arg(j, m.with("j", j).apply("final T e{{j}}"));
-//				}
-//				b.endArgs().eol();
-//
-//				b.block();
-//				{
-//					if(!useVectorOfSize)
-//					{
-//						//
-//						// using VectorOf## implementation
-//						//
-//						m.with("i", i);
-//						b.indent(m.apply("return new VectorOf{{i}}<>")).args();
-//						for (int j = 0; j < i; j += 1)
-//						{
-//							b.arg(j, m.with("j", j).apply("e{{j}}"));
-//						}
-//						b.endArgs().eol(";");
-//					}
-//					else
-//					{
-//						//
-//						// using VectorOfSize() implementation
-//						//
-//						b.indent(m.apply("return new VectorOfSize<>")).args();
-//						b.arg(0, m.with("i", i).apply("{{i}}"));
-//						for (int j = 0; j < i; j += 1)
-//						{
-//							b.arg(j + 1, m.with("j", j).apply("e{{j}}"));
-//						}
-//						for (int j = i; j < nodeSize; j += 1)
-//						{
-//							b.arg(j + 1, "null");
-//						}
-//						b.endArgs().eol(";");
-//					}
-//				}
-//				b.endBlock();
-//			}
-//
-//			b.line("/**");
-//			b.line(" * Construct a vector from an Iterable");
-//			b.line(" *");
-//			b.line(" * @param values an Iterable that provides ordered values");
-//			b.line(" * @param <T>");
-//			b.line(" * @return A vector of the elements of the Iterable");
-//			b.line(" */");
-//			b.line("public static final <T> Vector<T> asVector(Iterable<T> values)");
-//			b.block();
-//			{
-//				b.line("return Vector.empty.pushAll(values);");
-//			}
-//			b.endBlock();
-			
-			
 			b.line("/**");
 			b.line(" * Push all elements in the Iterable into the end of the Vector");
 			b.line(" *");
@@ -1210,7 +1125,7 @@ public final class VectorTemplate
 					//
 					for(int i = 0; i < nodeSize - 1; i += 1)
 					{
-						b.line(m.with("i", i).apply("final T e{{i}} = it.next();"));
+						b.with("i", i).line("final T e{{i}} = it.next();");
 						b.line("if (it.hasNext())");
 						b.block();
 					}
@@ -1221,11 +1136,11 @@ public final class VectorTemplate
 					b.line("//");
 					b.line("// we have enough for a node size push");
 					b.line("//");
-					b.line(m.apply("final T e{{nodesize-1}} = it.next();"));
+					b.line("final T e{{nodesize-1}} = it.next();");
 					b.indent("result = result.push").args();
 					for (int j = 0; j < nodeSize; j += 1)
 					{
-						b.arg(j, m.with("j", j).apply("e{{j}}"));
+						b.with("j", j).arg(j, "e{{j}}");
 					}
 					b.endArgs().eol(";");
 					
@@ -1244,7 +1159,7 @@ public final class VectorTemplate
 							b.indent("result = result");
 							for(int j = 0; j < i; j += 1)
 							{
-								b.emit(m.with("j", j).apply(".push(e{{j}})"));
+								b.with("j", j).emit(".push(e{{j}})");
 							}
 							b.eol(";");
 						}
@@ -1281,8 +1196,8 @@ public final class VectorTemplate
 					b.indent().args("result = result.push");
 					for(int i = 0; i < nodeSize; i += 1)
 					{
-						m.with("tab", (0 == i % 4) ? "\n\t\t\t\t" : "\t");
-						b.arg(i, m.with("i", i).apply("{{tab}}mapper.apply(vector.get(index + {{i}}))"));
+						b.with("tab", (0 == i % 4) ? "\n\t\t\t\t" : "\t");
+						b.with("i", i).arg(i, "{{tab}}mapper.apply(vector.get(index + {{i}}))");
 					}
 					b.endArgs().eol(";");
 					b.line("index += Vector.VECTOR_NODE_SIZE;");

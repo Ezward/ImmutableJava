@@ -19,7 +19,7 @@ import java.util.function.Function;
  *
  * Created by emurphy on 6/16/17.
  */
-public class EmptyVector<T> implements Vector<T>
+public final class EmptyVector<T> implements Vector<T>
 {
 	public int size()
 	{
