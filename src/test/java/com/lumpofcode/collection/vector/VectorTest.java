@@ -684,6 +684,20 @@ public class VectorTest
 	}
 	
 	@Test
+	public void filterTest()
+	{
+		//
+		// create a vector like 0, 5, 10, 15 ...
+		// flatmap with function that takes value and makes vector (v, v+1, v+2, v+3, v+4)
+		// which should produce a flattened vector from 0 to 5 * n
+		//
+		final int n = 16000;
+		Vector<Integer> vector = Vector.asVector(new IntegerRange(0, n));
+		Vector<Integer> filteredVector = Vectors.filter(vector, e -> (0 == (e % 2)));
+		assertVector(filteredVector, n / 2, 0, 2);
+	}
+	
+	@Test
 	public void push1Time()
 	{
 		final long start = System.currentTimeMillis();
@@ -775,9 +789,13 @@ public class VectorTest
 	
 	private void assertVector(final Vector<Integer> vector, final int size)
 	{
-		assertVector(vector, size, 0);
+		assertVector(vector, size, 0, 0);
 	}
 	private void assertVector(final Vector<Integer> vector, final int size, final int offset)
+	{
+		assertVector(vector, size, offset, 0);
+	}
+	private void assertVector(final Vector<Integer> vector, final int size, final int offset, final int skip)
 	{
 		//System.out.println(vector.toString());
 		//System.out.println("-------------------------");
@@ -788,7 +806,7 @@ public class VectorTest
 		for(Integer value : vector)
 		{
 			assertTrue(j + "th element should match the iteration", value == vector.get(j));
-			assertTrue(j + "th element should be " + j + offset, value == (j + offset));
+			assertTrue(j + "th element should be " + j * skip + offset, value == (j * skip + offset));
 			
 			j += 1;
 		}
