@@ -24,14 +24,14 @@ public final class Vectors
 	 *
 	 * @param vector Vector to be appended to
 	 * @param iterable Iterable with elements to append
-	 * @param <T> type of elements in the Vector and Iterator
+	 * @param <T> type of elements in the Vector and Iterable
 	 * @return a new Vector with the Iterable's elements appended.
 	 */
 	public static final <T> Vector<T> pushAll(final Vector vector, final Iterable<T> iterable)
 	{
 		return Vectors.pushAll(vector, iterable.iterator());
 	}
-	
+
 	/**
 	 * Push all elements in the Iterator into the end of the Vector
 	 *
@@ -40,13 +40,13 @@ public final class Vectors
 	 * @param <T> type of elements in the Vector and Iterator
 	 * @return a new Vector with the Iterator's elements appended.
 	 */
-	public static final <T> Vector<T> pushAll(final Vector<T> vector, final Iterator<T> it)
+	public static final <T> Vector<T> pushAll(final Vector vector, final Iterator<T> it)
 	{
 		//
 		// do in chunks of node size for efficiency
 		//
 		Vector<T> result = vector;
-		
+
 		//
 		// get to a node-size-aligned result, so we can start using push-16 for efficiency
 		//
@@ -54,7 +54,7 @@ public final class Vectors
 		{
 			result = result.push(it.next());
 		}
-		
+
 		//
 		// While we have 16 elements available, collect them and use the more efficient 16 push,
 		// otherwise push each element individually
@@ -232,38 +232,36 @@ public final class Vectors
 				result = result.push(e0);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Filter elements in the Vector to create a new Vector
 	 * composed of those that pass the filter
 	 *
-	 * @param vector
+	 * @param vector Vector to be filtered
 	 * @param <T> type of elements in the Vector
-	 * @return a new Vector with the Iterable's elements appended.
+	 * @return a new Vector with elements that pass the predicate filter.
 	 */
 	public static final <T> Vector<T> filter(final Vector<T> vector, Predicate<T> predicate)
 	{
 		return Vectors.pushAll(Vector.empty, new FilteredIterator(vector.iterator(), predicate));
 	}
-	
+
 	/**
 	 * Filter elements in the Iterable and append those that pass the filter to the end of the Vector
 	 *
-	 * @param vector
-	 * @param iterable
-	 * @param <T>
-	 * @return a new Vector with the Iterable's elements appended.
+	 * @param vector Vector that will be appended to
+	 * @param iterable Iterable with elements to be filtered
+	 * @param <T> type of elements in vector and iterable
+	 * @return a new Vector with the Iterable's filtered elements appended.
 	 */
 	public static final <T> Vector<T> filter(final Vector<T> vector, final Iterable<T> iterable, Predicate<T> predicate)
 	{
 		return Vectors.pushAll(vector, new FilteredIterator(iterable.iterator(), predicate));
 	}
-	
-	
-	
+
 	/**
 	 * Map the values in the vector using the mapper function
 	 * and return a new vector of mapped elements.
@@ -323,9 +321,7 @@ public final class Vectors
 
 		return result;
 	}
-	
-	
-	
+
 	/**
 	 * Format vectors as '[e0, e1, e2...]'
 	 *

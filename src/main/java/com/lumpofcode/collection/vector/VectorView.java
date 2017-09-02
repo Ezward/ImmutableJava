@@ -4,6 +4,7 @@ import com.lumpofcode.annotation.NotNull;
 
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A subset range of an underlying Vector.
@@ -85,6 +86,21 @@ public final class VectorView<T> implements Vector<T>
 		// create a vector from the iterable, then append it as an overlay
 		//
 		return new VectorOverlay(this, this.size, Vector.empty.pushAll(iterable));
+	}
+	
+	@Override
+	public Vector<T> pushAll(@NotNull Iterator<T> it)
+	{
+		//
+		// create a vector from the iterator, then append it as an overlay
+		//
+		return new VectorOverlay(this, this.size, Vector.empty.pushAll(it));
+	}
+	
+	@Override
+	public Vector<T> filter(@NotNull final Predicate<T> predicate)
+	{
+		return Vectors.filter(this, predicate);
 	}
 	
 	@Override

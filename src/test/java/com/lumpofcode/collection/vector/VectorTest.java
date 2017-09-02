@@ -693,7 +693,7 @@ public class VectorTest
 		//
 		final int n = 16000;
 		Vector<Integer> vector = Vector.asVector(new IntegerRange(0, n));
-		Vector<Integer> filteredVector = Vectors.filter(vector, e -> (0 == (e % 2)));
+		Vector<Integer> filteredVector = vector.filter(e -> (0 == (e % 2)));
 		assertVector(filteredVector, n / 2, 0, 2);
 	}
 	
@@ -789,11 +789,11 @@ public class VectorTest
 	
 	private void assertVector(final Vector<Integer> vector, final int size)
 	{
-		assertVector(vector, size, 0, 0);
+		assertVector(vector, size, 0);
 	}
 	private void assertVector(final Vector<Integer> vector, final int size, final int offset)
 	{
-		assertVector(vector, size, offset, 0);
+		assertVector(vector, size, offset, 1);
 	}
 	private void assertVector(final Vector<Integer> vector, final int size, final int offset, final int skip)
 	{

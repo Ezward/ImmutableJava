@@ -66,10 +66,16 @@ public final class VectorOf2<T> implements Vector<T>, Iterable<T>
 		return Vectors.pushAll(this, iterable);
 	}
 
+	public Vector<T> pushAll(@NotNull final Iterator<T> it)
+	{
+		return Vectors.pushAll(this, it);
+	}
+
 	public Vector<T> filter(@NotNull final Predicate<T> predicate)
 	{
 		return Vectors.filter(this, predicate);
 	}
+
 	public <R> Vector<R> map(@NotNull final Function<? super T, ? extends R> mapper)
 	{
 		return new VectorOf2<>(mapper.apply(element0), mapper.apply(element1));

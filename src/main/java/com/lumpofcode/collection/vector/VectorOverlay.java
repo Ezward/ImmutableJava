@@ -5,6 +5,7 @@ import com.lumpofcode.math.IntegerMath;
 
 import java.util.Iterator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Created by emurphy on 6/23/17.
@@ -116,14 +117,26 @@ public final class VectorOverlay<T> implements Vector<T>
 	@Override
 	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
 	{
+		return this.pushAll(iterable.iterator());
+	}
+	
+	@Override
+	public Vector<T> pushAll(@NotNull Iterator<T> it)
+	{
 		if(this.size() > (this.fromIndex + this.overlay.size()))
 		{
 			// underlying vector is rightmost; grow the underlying vector
-			return new VectorOverlay<T>(this.vector.pushAll(iterable), this.fromIndex, this.overlay);
+			return new VectorOverlay<T>(this.vector.pushAll(it), this.fromIndex, this.overlay);
 		}
 		
 		// overlay is the right most, so grow it
-		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.pushAll(iterable));
+		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.pushAll(it));
+	}
+	
+	@Override
+	public Vector<T> filter(@NotNull final Predicate<T> predicate)
+	{
+		return Vectors.filter(this, predicate);
 	}
 	
 	@Override
