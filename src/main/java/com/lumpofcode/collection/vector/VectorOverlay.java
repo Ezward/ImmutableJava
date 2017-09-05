@@ -83,26 +83,26 @@ public final class VectorOverlay<T> implements Vector<T>
 	}
 	
 	@Override
-	public Vector<T> push(T value)
+	public Vector<T> append(T value)
 	{
 		if(this.size() > (this.fromIndex + this.overlay.size()))
 		{
 			// underlying vector is rightmost; grow the underlying vector
-			return new VectorOverlay<T>(this.vector.push(value), this.fromIndex, this.overlay);
+			return new VectorOverlay<T>(this.vector.append(value), this.fromIndex, this.overlay);
 		}
 		
 		// overlay is the right most, so grow it
-		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.push(value));
+		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.append(value));
 	}
 	
 	@Override
-	public Vector<T> push(T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8, T e9, T e10, T e11, T e12, T e13, T e14, T e15, T e16)
+	public Vector<T> append(T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8, T e9, T e10, T e11, T e12, T e13, T e14, T e15, T e16)
 	{
 		if(this.size() > (this.fromIndex + this.overlay.size()))
 		{
 			// underlying vector is rightmost; grow the underlying vector
 			return new VectorOverlay<T>(
-				this.vector.push(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16),
+				this.vector.append(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16),
 				this.fromIndex,
 				this.overlay);
 		}
@@ -111,26 +111,26 @@ public final class VectorOverlay<T> implements Vector<T>
 		return new VectorOverlay<T>(
 			this.vector,
 			this.fromIndex,
-			this.overlay.push(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
+			this.overlay.append(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16));
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
+	public Vector<T> appendAll(@NotNull Iterable<T> iterable)
 	{
-		return this.pushAll(iterable.iterator());
+		return this.appendAll(iterable.iterator());
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNull Iterator<T> it)
+	public Vector<T> appendAll(@NotNull Iterator<T> it)
 	{
 		if(this.size() > (this.fromIndex + this.overlay.size()))
 		{
 			// underlying vector is rightmost; grow the underlying vector
-			return new VectorOverlay<T>(this.vector.pushAll(it), this.fromIndex, this.overlay);
+			return new VectorOverlay<T>(this.vector.appendAll(it), this.fromIndex, this.overlay);
 		}
 		
 		// overlay is the right most, so grow it
-		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.pushAll(it));
+		return new VectorOverlay<T>(this.vector, this.fromIndex, this.overlay.appendAll(it));
 	}
 	
 	@Override

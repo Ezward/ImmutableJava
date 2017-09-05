@@ -61,10 +61,10 @@ public class VectorTest
 		assertTrue(0 == vectorOf1.get(0));
 		
 		// explicit push
-		assertVector(vector.push(0), 1);
+		assertVector(vector.append(0), 1);
 		
 		// push 16
-		assertVector(vector.push(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 16);
+		assertVector(vector.append(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), 16);
 		
 		// map
 		assert(vector.map(e -> e + 1).isEmpty());
@@ -125,10 +125,10 @@ public class VectorTest
 		assertTrue(1 == vectorOf2.get(1));
 		
 		// explicit push
-		assertVector(vector.push(1), 2);
+		assertVector(vector.append(1), 2);
 		
 		// push 16
-		assertVector(vector.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), 17);
+		assertVector(vector.append(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), 17);
 		
 		
 		// map
@@ -190,10 +190,10 @@ public class VectorTest
 		assertTrue(2 == vectorOf3.get(2));
 		
 		// explicit push
-		assertVector(vector.push(2), 3);
+		assertVector(vector.append(2), 3);
 		
 		// push 16
-		assertVector(vector.push(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), 18);
+		assertVector(vector.append(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17), 18);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 2, 1);
@@ -256,10 +256,10 @@ public class VectorTest
 		assertTrue(3 == vectorOf4.get(3));
 		
 		// explicit push
-		assertVector(vector.push(3), 4);
+		assertVector(vector.append(3), 4);
 		
 		// push 16
-		assertVector(vector.push(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), 19);
+		assertVector(vector.append(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), 19);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 3, 1);
@@ -280,10 +280,10 @@ public class VectorTest
 		assertVector(vectorOf5, 5);
 		
 		// explicit push
-		assertVector(vector.push(4), 5);
+		assertVector(vector.append(4), 5);
 		
 		// push 16
-		assertVector(vector.push(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), 20);
+		assertVector(vector.append(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), 20);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 4, 1);
@@ -304,10 +304,10 @@ public class VectorTest
 		assertVector(vectorOf6, 6);
 		
 		// explicit push
-		assertVector(vector.push(5), 6);
+		assertVector(vector.append(5), 6);
 		
 		// push 16
-		assertVector(vector.push(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20), 21);
+		assertVector(vector.append(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20), 21);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 5, 1);
@@ -328,10 +328,10 @@ public class VectorTest
 		assertVector(vectorOf7, 7);
 		
 		// explicit push
-		assertVector(vector.push(6), 7);
+		assertVector(vector.append(6), 7);
 		
 		// push 16
-		assertVector(vector.push(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21), 22);
+		assertVector(vector.append(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21), 22);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 6, 1);
@@ -352,10 +352,10 @@ public class VectorTest
 		assertVector(vectorOf8, 8);
 		
 		// explicit push
-		assertVector(vector.push(7), 8);
+		assertVector(vector.append(7), 8);
 		
 		// push 16
-		assertVector(vector.push(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22), 23);
+		assertVector(vector.append(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22), 23);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 7, 1);
@@ -376,10 +376,10 @@ public class VectorTest
 		assertVector(vectorOf9, 9);
 		
 		// explicit push
-		assertVector(vector.push(8), 9);
+		assertVector(vector.append(8), 9);
 		
 		// push 16
-		assertVector(vector.push(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23), 24);
+		assertVector(vector.append(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23), 24);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 8, 1);
@@ -403,10 +403,10 @@ public class VectorTest
 		assertVector(vectorOf10, 10);
 		
 		// explicit push
-		assertVector(vector.push(9), 10);
+		assertVector(vector.append(9), 10);
 		
 		// push 16
-		assertVector(vector.push(9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24), 25);
+		assertVector(vector.append(9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24), 25);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 9, 1);
@@ -430,10 +430,10 @@ public class VectorTest
 		assertVector(nextVector, 11);
 		
 		// explicit push
-		assertVector(vector.push(10), 11);
+		assertVector(vector.append(10), 11);
 		
 		// push 16
-		assertVector(vector.push(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), 26);
+		assertVector(vector.append(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), 26);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 10, 1);
@@ -457,10 +457,10 @@ public class VectorTest
 		assertVector(nextVector, 12);
 		
 		// explicit push
-		assertVector(vector.push(11), 12);
+		assertVector(vector.append(11), 12);
 		
 		// push 16
-		assertVector(vector.push(11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26), 27);
+		assertVector(vector.append(11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26), 27);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 11, 1);
@@ -484,10 +484,10 @@ public class VectorTest
 		assertVector(nextVector, 13);
 		
 		// explicit push
-		assertVector(vector.push(12), 13);
+		assertVector(vector.append(12), 13);
 		
 		// push 16
-		assertVector(vector.push(12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27), 28);
+		assertVector(vector.append(12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27), 28);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 12, 1);
@@ -511,10 +511,10 @@ public class VectorTest
 		assertVector(nextVector, 14);
 		
 		// explicit push
-		assertVector(vector.push(13), 14);
+		assertVector(vector.append(13), 14);
 		
 		// push 16
-		assertVector(vector.push(13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28), 29);
+		assertVector(vector.append(13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28), 29);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 13, 1);
@@ -538,10 +538,10 @@ public class VectorTest
 		assertVector(nextVector, 15);
 		
 		// explicit push
-		assertVector(vector.push(14), 15);
+		assertVector(vector.append(14), 15);
 		
 		// push 16
-		assertVector(vector.push(14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29), 30);
+		assertVector(vector.append(14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29), 30);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 14, 1);
@@ -565,10 +565,10 @@ public class VectorTest
 		assertVector(nextVector, 16);
 		
 		// explicit push
-		assertVector(vector.push(15), 16);
+		assertVector(vector.append(15), 16);
 		
 		// push 16
-		assertVector(vector.push(15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30), 31);
+		assertVector(vector.append(15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30), 31);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 15, 1);
@@ -592,10 +592,10 @@ public class VectorTest
 		assertVector(nextVector, 17);
 		
 		// explicit push
-		assertVector(vector.push(16), 17);
+		assertVector(vector.append(16), 17);
 		
 		// push 16
-		assertVector(vector.push(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 32);
+		assertVector(vector.append(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31), 32);
 		
 		// map
 		assertVector(vector.map(e -> e + 1), 16, 1);
@@ -623,7 +623,7 @@ public class VectorTest
 	}
 	
 	@Test
-	public void push16AlignedTest()
+	public void append16AlignedTest()
 	{
 		//
 		// starting with empty, built a vector of 16000 elements, 16 elements at a time
@@ -634,14 +634,14 @@ public class VectorTest
 		for(int i = 0; i < n; i += 16)
 		{
 			assertVector(vector, i);
-			vector = vector.push(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
+			vector = vector.append(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
 		}
 		assertVector(vector, n);
 		
 	}
 	
 	@Test
-	public void push16UnalignedTest()
+	public void append16UnalignedTest()
 	{
 		//
 		// starting with empty, built a vector unaligned vectors, then add 16000 elements, 16 elements at a time
@@ -654,7 +654,7 @@ public class VectorTest
 			for (int i = j; i < n; i += 16)
 			{
 				assertVector(vector, i);
-				vector = vector.push(i + 0, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9, i + 10, i + 11, i + 12, i + 13, i + 14, i + 15);
+				vector = vector.append(i + 0, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9, i + 10, i + 11, i + 12, i + 13, i + 14, i + 15);
 			}
 			assertVector(vector, n);
 		}
@@ -698,14 +698,14 @@ public class VectorTest
 	}
 	
 	@Test
-	public void push1Time()
+	public void append1Time()
 	{
 		final long start = System.currentTimeMillis();
 		Vector<Integer> vector = Vector.empty;
 		final int n = 1600000;
 		for(int i = 0; i < n; i += 1)
 		{
-			vector = vector.push(i);
+			vector = vector.append(i);
 		}
 		final long duration = System.currentTimeMillis() - start;
 		
@@ -731,7 +731,7 @@ public class VectorTest
 		final int n = 1600000;
 		for(int i = 0; i < n; i += 16)
 		{
-			vector = vector.push(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
+			vector = vector.append(i+0, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15);
 		}
 		final long duration = System.currentTimeMillis() - start;
 		

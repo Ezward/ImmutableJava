@@ -63,7 +63,7 @@ public class VectorViewTest
 					//
 					// push values onto the end.
 					//
-					final Vector extendedView = view.pushAll(new IntegerRange(i - k, j));
+					final Vector extendedView = view.appendAll(new IntegerRange(i - k, j));
 					System.out.println("i={{i}}, k={{k}}, j={{j}}"
 						.replace("{{i}}", String.valueOf(i))
 						.replace("{{k}}", String.valueOf(k))

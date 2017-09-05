@@ -39,28 +39,28 @@ public final class EmptyVector<T> implements Vector<T>
 
 	public Vector<T> set(final int index, final T value)
 	{
-		if(0 == index) return push(value);
+		if(0 == index) return append(value);
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> push(final T value)
+	public Vector<T> append(final T value)
 	{
 		return Vector.of(value);
 	}
 
-	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
+	public Vector<T> append(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
 	{
 		return Vector.of(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15);
 	}
 
-	public Vector<T> pushAll(@NotNull final Iterable<T> values)
+	public Vector<T> appendAll(@NotNull final Iterable<T> values)
 	{
-		return Vectors.pushAll(this, values);
+		return Vectors.appendAll(this, values);
 	}
 
-	public Vector<T> pushAll(@NotNull final Iterator<T> values)
+	public Vector<T> appendAll(@NotNull final Iterator<T> values)
 	{
-		return Vectors.pushAll(this, values);
+		return Vectors.appendAll(this, values);
 	}
 
 	public Vector<T> filter(@NotNull final Predicate<T> predicate)

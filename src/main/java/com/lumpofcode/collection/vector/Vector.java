@@ -341,7 +341,7 @@ public interface Vector<T> extends Iterable<T>
 	 */
 	public static <T> Vector<T> asVector(Iterable<T> values)
 	{
-		return Vector.empty.pushAll(values);
+		return Vector.empty.appendAll(values);
 	}
 
 	/**
@@ -372,7 +372,7 @@ public interface Vector<T> extends Iterable<T>
 	 * Set the value at the given index.
 	 * Setting the value at index == size will
 	 * increase the size of the Vector by one
-	 * (it is equivalent to a push()).
+	 * (it is equivalent to a append()).
 	 *
 	 * @param index zero based index 0..size
 	 * @param value the value to set
@@ -387,7 +387,7 @@ public interface Vector<T> extends Iterable<T>
 	 * @param value the value to append to this vector
 	 * @return a new Vector with the value appended
 	 */
-	Vector<T> push(final T value);
+	Vector<T> append(final T value);
 
 	/**
 	 * Efficiently append elements to the end of the Vector.
@@ -413,7 +413,7 @@ public interface Vector<T> extends Iterable<T>
 	 * @param e15 value to append to this vector
 	 * @return a new Vector with 16 addition elements
 	 */
-	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15);
+	public Vector<T> append(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15);
 
 	/**
 	 * Append all elements in the given Iterable
@@ -422,7 +422,7 @@ public interface Vector<T> extends Iterable<T>
 	 * @param iterable Iterable with elements to append
 	 * @return a new vector with the Iterable's elements appended.
 	*/
-	Vector<T> pushAll(@NotNull final Iterable<T> iterable);
+	Vector<T> appendAll(@NotNull final Iterable<T> iterable);
 
 	/**
 	 * Append all elements in the given Iterator
@@ -431,12 +431,11 @@ public interface Vector<T> extends Iterable<T>
 	 * @param it Iterator with elements to append
 	 * @return a new vector with the Iterators's elements appended.
 	*/
-	Vector<T> pushAll(@NotNull final Iterator<T> it);
+	Vector<T> appendAll(@NotNull final Iterator<T> it);
 
 	/**
 	 * Filter elements in the Iterable and append those that pass the filter to the end of the Vector
 	 *
-	 * @param <T> type of elements in vector
 	 * @param predicate Predicate used to filter the vector
 	 * @return a new Vector with the elements that pass the Predicate filter.
 	 */

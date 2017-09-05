@@ -69,30 +69,30 @@ public final class VectorOf8<T> implements Vector<T>, Iterable<T>
 			case 5: return new VectorOf8<>(element0, element1, element2, element3, element4, value, element6, element7);
 			case 6: return new VectorOf8<>(element0, element1, element2, element3, element4, element5, value, element7);
 			case 7: return new VectorOf8<>(element0, element1, element2, element3, element4, element5, element6, value);
-			case 8: return push(value);
+			case 8: return append(value);
 		}
 
 		throw new IndexOutOfBoundsException();
 	}
 
-	public Vector<T> push(final T value)
+	public Vector<T> append(final T value)
 	{
 		return new VectorOf9<>(element0, element1, element2, element3, element4, element5, element6, element7, value);
 	}
 
-	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
+	public Vector<T> append(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)
 	{
 		return new VectorTrie<T>(1, new VectorOf16(element0, element1, element2, element3, element4, element5, element6, element7, e0, e1, e2, e3, e4, e5, e6, e7), new VectorOf8(e8, e9, e10, e11, e12, e13, e14, e15));
 	}
 
-	public Vector<T> pushAll(@NotNull final Iterable<T> iterable)
+	public Vector<T> appendAll(@NotNull final Iterable<T> iterable)
 	{
-		return Vectors.pushAll(this, iterable);
+		return Vectors.appendAll(this, iterable);
 	}
 
-	public Vector<T> pushAll(@NotNull final Iterator<T> it)
+	public Vector<T> appendAll(@NotNull final Iterator<T> it)
 	{
-		return Vectors.pushAll(this, it);
+		return Vectors.appendAll(this, it);
 	}
 
 	public Vector<T> filter(@NotNull final Predicate<T> predicate)

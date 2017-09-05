@@ -107,7 +107,7 @@ public final class VectorTemplate
 			b.line("public static <T> Vector<T> asVector(Iterable<T> values)");
 			b.block();
 			{
-				b.line("return Vector.empty.pushAll(values);");
+				b.line("return Vector.empty.appendAll(values);");
 			}
 			b.endBlock();
 			
@@ -152,7 +152,7 @@ public final class VectorTemplate
 			b.line(" * Set the value at the given index.");
 			b.line(" * Setting the value at index == size will");
 			b.line(" * increase the size of the Vector by one");
-			b.line(" * (it is equivalent to a push()).");
+			b.line(" * (it is equivalent to a append()).");
 			b.line(" *");
 			b.line(" * @param index zero based index 0..size");
 			b.line(" * @param value the value to set");
@@ -162,7 +162,7 @@ public final class VectorTemplate
 			b.line("Vector<T> set(final int index, final T value);").eol();
 			
 			//
-			// push()
+			// append()
 			//
 			b.line("/**");
 			b.line(" * Append a value to the end of the Vector.");
@@ -170,10 +170,10 @@ public final class VectorTemplate
 			b.line(" * @param value the value to append to this vector");
 			b.line(" * @return a new Vector with the value appended");
 			b.line(" */");
-			b.line("Vector<T> push(final T value);").eol();
+			b.line("Vector<T> append(final T value);").eol();
 			
 			//
-			// push(e0, e1, ...)
+			// append(e0, e1, ...)
 			//
 			b.line("/**");
 			b.line(" * Efficiently append elements to the end of the Vector.");
@@ -187,7 +187,7 @@ public final class VectorTemplate
 			}
 			b.line(" * @return a new Vector with {{nodesize}} addition elements");
 			b.line(" */");
-			b.indent("public Vector<T> push").args();
+			b.indent("public Vector<T> append").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
 				b.with("i", i).arg(i, "final T e{{i}}");
@@ -195,7 +195,7 @@ public final class VectorTemplate
 			b.endArgs().eol(";").eol();
 			
 			//
-			// pushAll()
+			// appendAll()
 			//
 			b.line("/**");
 			b.line(" * Append all elements in the given Iterable");
@@ -204,7 +204,7 @@ public final class VectorTemplate
 			b.line(" * @param iterable Iterable with elements to append");
 			b.line(" * @return a new vector with the Iterable's elements appended.");
 			b.line("*/");
-			b.line("Vector<T> pushAll(@NotNull final Iterable<T> iterable);").eol();
+			b.line("Vector<T> appendAll(@NotNull final Iterable<T> iterable);").eol();
 			
 			b.line("/**");
 			b.line(" * Append all elements in the given Iterator");
@@ -213,7 +213,7 @@ public final class VectorTemplate
 			b.line(" * @param it Iterator with elements to append");
 			b.line(" * @return a new vector with the Iterators's elements appended.");
 			b.line("*/");
-			b.line("Vector<T> pushAll(@NotNull final Iterator<T> it);").eol();
+			b.line("Vector<T> appendAll(@NotNull final Iterator<T> it);").eol();
 			
 			//
 			// filter()
@@ -221,7 +221,6 @@ public final class VectorTemplate
 			b.line("/**");
 			b.line(" * Filter elements in the Iterable and append those that pass the filter to the end of the Vector");
 			b.line(" *");
-			b.line(" * @param <T> type of elements in vector");
 			b.line(" * @param predicate Predicate used to filter the vector");
 			b.line(" * @return a new Vector with the elements that pass the Predicate filter.");
 			b.line(" */");
@@ -337,15 +336,15 @@ public final class VectorTemplate
 			b.line("public Vector<T> set(final int index, final T value)");
 			b.block();
 			{
-				b.line("if(0 == index) return push(value);");
+				b.line("if(0 == index) return append(value);");
 				b.line("throw new IndexOutOfBoundsException();");
 			}
 			b.endBlock();
 			
 			//
-			// push()
+			// append()
 			//
-			b.line("public Vector<T> push(final T value)");
+			b.line("public Vector<T> append(final T value)");
 			b.block();
 			{
 				b.line("return Vector.of(value);");
@@ -353,9 +352,9 @@ public final class VectorTemplate
 			b.endBlock();
 
 			//
-			// push(e0, e1, ...)
+			// append(e0, e1, ...)
 			//
-			b.indent("public Vector<T> push").args();
+			b.indent("public Vector<T> append").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
 				b.with("i", i).arg(i, "final T e{{i}}");
@@ -373,19 +372,19 @@ public final class VectorTemplate
 			b.endBlock();
 			
 			//
-			// pushAll()
+			// appendAll()
 			//
-			b.line("public Vector<T> pushAll(@NotNull final Iterable<T> values)");
+			b.line("public Vector<T> appendAll(@NotNull final Iterable<T> values)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, values);");
+				b.line("return Vectors.appendAll(this, values);");
 			}
 			b.endBlock();
 			
-			b.line("public Vector<T> pushAll(@NotNull final Iterator<T> values)");
+			b.line("public Vector<T> appendAll(@NotNull final Iterator<T> values)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, values);");
+				b.line("return Vectors.appendAll(this, values);");
 			}
 			b.endBlock();
 			
@@ -574,7 +573,7 @@ public final class VectorTemplate
 						}
 						b.endArgs().eol(";");
 					}
-					b.line("case {{size}}: return push(value);");
+					b.line("case {{size}}: return append(value);");
 				}
 				b.endBlock();
 				
@@ -583,9 +582,9 @@ public final class VectorTemplate
 			b.endBlock();
 			
 			//
-			// push() method
+			// append() method
 			//
-			b.block("public Vector<T> push(final T value)");
+			b.block("public Vector<T> append(final T value)");
 			{
 				if (size < nodeSize)
 				{
@@ -606,7 +605,7 @@ public final class VectorTemplate
 			b.endBlock();
 			
 			//
-			// push(e0..e15) method
+			// append(e0..e15) method
 			//
 			// like for VectorOf5:
 			//   return new VectorTrie<T>(
@@ -616,7 +615,7 @@ public final class VectorTemplate
 			//
 			//
 			//
-			b.indent("public Vector<T> push").args();
+			b.indent("public Vector<T> append").args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
 				b.with("i", i).arg(i, "final T e{{i}}");
@@ -654,19 +653,19 @@ public final class VectorTemplate
 			
 			
 			//
-			// pushAll() method
+			// appendAll() method
 			//
-			b.line("public Vector<T> pushAll(@NotNull final Iterable<T> iterable)");
+			b.line("public Vector<T> appendAll(@NotNull final Iterable<T> iterable)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, iterable);");
+				b.line("return Vectors.appendAll(this, iterable);");
 			}
 			b.endBlock();
 			
-			b.line("public Vector<T> pushAll(@NotNull final Iterator<T> it)");
+			b.line("public Vector<T> appendAll(@NotNull final Iterator<T> it)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, it);");
+				b.line("return Vectors.appendAll(this, it);");
 			}
 			b.endBlock();
 			
@@ -896,9 +895,9 @@ public final class VectorTemplate
 			b.endBlock();
 
 			//
-			// push() method
+			// append() method
 			//
-			b.line("public Vector<T> push(final T value)");
+			b.line("public Vector<T> append(final T value)");
 			b.block();
 			{
 				b.line("// add element after last current element");
@@ -907,9 +906,9 @@ public final class VectorTemplate
 			b.endBlock();
 
 			//
-			// push(e1..e16) method
+			// append(e1..e16) method
 			//
-			b.indent("public Vector<T> push");
+			b.indent("public Vector<T> append");
 			b.args();
 			for(int i = 0; i < nodeSize; i += 1)
 			{
@@ -934,9 +933,9 @@ public final class VectorTemplate
 					{
 						b.line("//");
 						b.line("// there is room for these elements in the child,");
-						b.line("// push to the child, then rebuild the trie with the updated child");
+						b.line("// append to the child, then rebuild the trie with the updated child");
 						b.line("//");
-						b.indent("return setChild(childIndex, getChild(childIndex).push");
+						b.indent("return setChild(childIndex, getChild(childIndex).append");
 						b.args();
 						for(int i = 0; i < nodeSize; i += 1)
 						{
@@ -964,13 +963,13 @@ public final class VectorTemplate
 					b.line("//");
 					b.line("// there is not enough room in the child for 16 elements, which means these");
 					b.line("// new elements will need to be split between children.");
-					b.line("// Use a loop to push each element.  It is inefficient, but handles situation");
+					b.line("// Use a loop to append each element.  It is inefficient, but handles situation");
 					b.line("// where a new child or new level in the hierarchy is required");
 					b.line("//");
 					b.indent("return this");
 					for(int i = 0; i < nodeSize; i += 1)
 					{
-						b.with("i", i).emit(".push(e{{i}})");
+						b.with("i", i).emit(".append(e{{i}})");
 					}
 					b.eol(";");
 				}
@@ -980,19 +979,19 @@ public final class VectorTemplate
 
 
 			//
-			// pushAll() method
+			// appendAll() method
 			//
-			b.line("public Vector<T> pushAll(final Iterable<T> iterable)");
+			b.line("public Vector<T> appendAll(final Iterable<T> iterable)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, iterable);");
+				b.line("return Vectors.appendAll(this, iterable);");
 			}
 			b.endBlock();
 			
-			b.line("public Vector<T> pushAll(final Iterator<T> it)");
+			b.line("public Vector<T> appendAll(final Iterator<T> it)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(this, it);");
+				b.line("return Vectors.appendAll(this, it);");
 			}
 			b.endBlock();
 			
@@ -1005,7 +1004,7 @@ public final class VectorTemplate
 				b.line("Vector<T> result = Vector.empty;");
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.with("i", i).line("result = result.pushAll(vector{{i}}.filter(predicate));");
+					b.with("i", i).line("result = result.appendAll(vector{{i}}.filter(predicate));");
 				}
 				b.line("return result;");
 			}
@@ -1039,7 +1038,7 @@ public final class VectorTemplate
 				b.line("Vector<R> result = Vector.empty;");
 				for(int i = 0; i < nodeSize; i += 1)
 				{
-					b.with("i", i).line("result = result.pushAll(vector{{i}}.flatmap(mapper));");
+					b.with("i", i).line("result = result.appendAll(vector{{i}}.flatmap(mapper));");
 				}
 				b.line("return result;");
 			}
@@ -1179,10 +1178,10 @@ public final class VectorTemplate
 			b.line(" * @param <T> type of elements in the Vector and Iterable");
 			b.line(" * @return a new Vector with the Iterable's elements appended.");
 			b.line(" */");
-			b.line("public static final <T> Vector<T> pushAll(final Vector vector, final Iterable<T> iterable)");
+			b.line("public static final <T> Vector<T> appendAll(final Vector vector, final Iterable<T> iterable)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(vector, iterable.iterator());");
+				b.line("return Vectors.appendAll(vector, iterable.iterator());");
 			}
 			b.endBlock();
 			
@@ -1195,7 +1194,7 @@ public final class VectorTemplate
 			b.line(" * @param <T> type of elements in the Vector and Iterator");
 			b.line(" * @return a new Vector with the Iterator's elements appended.");
 			b.line(" */");
-			b.line("public static final <T> Vector<T> pushAll(final Vector vector, final Iterator<T> it)");
+			b.line("public static final <T> Vector<T> appendAll(final Vector vector, final Iterator<T> it)");
 			b.block();
 			{
 				b.line("//");
@@ -1205,18 +1204,18 @@ public final class VectorTemplate
 				b.line("Vector<T> result = vector;").eol();
 				
 				b.line("//");
-				b.line("// get to a node-size-aligned result, so we can start using push-16 for efficiency");
+				b.line("// get to a node-size-aligned result, so we can start using append-16 for efficiency");
 				b.line("//");
 				b.line("while(((result.size() % Vector.VECTOR_NODE_SIZE) != 0) && it.hasNext())");
 				b.block();
 				{
-					b.line("result = result.push(it.next());");
+					b.line("result = result.append(it.next());");
 				}
 				b.endBlock();
 				
 				b.line("//");
-				b.line("// While we have 16 elements available, collect them and use the more efficient 16 push,");
-				b.line("// otherwise push each element individually");
+				b.line("// While we have 16 elements available, collect them and use the more efficient 16 append,");
+				b.line("// otherwise append each element individually");
 				b.line("//");
 				b.line("while(it.hasNext())");
 				b.block();
@@ -1232,13 +1231,13 @@ public final class VectorTemplate
 					}
 					
 					//
-					// at nodesize - 1, emit a node size push
+					// at nodesize - 1, emit a node size append
 					//
 					b.line("//");
-					b.line("// we have enough for a node size push");
+					b.line("// we have enough for a node size append");
 					b.line("//");
 					b.line("final T e{{nodesize-1}} = it.next();");
-					b.indent("result = result.push").args();
+					b.indent("result = result.append").args();
 					for (int j = 0; j < nodeSize; j += 1)
 					{
 						b.with("j", j).arg(j, "e{{j}}");
@@ -1255,12 +1254,12 @@ public final class VectorTemplate
 						b.block();
 						{
 							b.line("//");
-							b.line("// else we don't have enough for a push of node size, so do a series of push of 1");
+							b.line("// else we don't have enough for a append of node size, so do a series of append of 1");
 							b.line("//");
 							b.indent("result = result");
 							for(int j = 0; j < i; j += 1)
 							{
-								b.with("j", j).emit(".push(e{{j}})");
+								b.with("j", j).emit(".append(e{{j}})");
 							}
 							b.eol(";");
 						}
@@ -1283,7 +1282,7 @@ public final class VectorTemplate
 			b.line("public static final <T> Vector<T> filter(final Vector<T> vector, Predicate<T> predicate)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(Vector.empty, new FilteredIterator(vector.iterator(), predicate));");
+				b.line("return Vectors.appendAll(Vector.empty, new FilteredIterator(vector.iterator(), predicate));");
 			}
 			b.endBlock();
 			
@@ -1298,7 +1297,7 @@ public final class VectorTemplate
 			b.line("public static final <T> Vector<T> filter(final Vector<T> vector, final Iterable<T> iterable, Predicate<T> predicate)");
 			b.block();
 			{
-				b.line("return Vectors.pushAll(vector, new FilteredIterator(iterable.iterator(), predicate));");
+				b.line("return Vectors.appendAll(vector, new FilteredIterator(iterable.iterator(), predicate));");
 			}
 			b.endBlock();
 			
@@ -1323,7 +1322,7 @@ public final class VectorTemplate
 				b.line("while(index <= (vector.size() - Vector.VECTOR_NODE_SIZE))");
 				b.block();
 				{
-					b.indent().args("result = result.push");
+					b.indent().args("result = result.append");
 					for(int i = 0; i < nodeSize; i += 1)
 					{
 						b.with("tab", (0 == i % 4) ? "\n\t\t\t\t" : "\t");
@@ -1335,12 +1334,12 @@ public final class VectorTemplate
 				b.endBlock();
 				
 				b.line("//");
-				b.line("// handle the rest with simple push");
+				b.line("// handle the rest with simple append");
 				b.line("//");
 				b.line("while(index < vector.size())");
 				b.block();
 				{
-					b.line("result = result.push(mapper.apply(vector.get(index)));");
+					b.line("result = result.append(mapper.apply(vector.get(index)));");
 					b.line("index += 1;");
 				}
 				b.endBlock();
@@ -1366,7 +1365,7 @@ public final class VectorTemplate
 				b.line("for(T element : vector)");
 				b.block();
 				{
-					b.line("result = result.pushAll(mapper.apply(element));");
+					b.line("result = result.appendAll(mapper.apply(element));");
 				}
 				b.endBlock();
 				b.line("return result;");

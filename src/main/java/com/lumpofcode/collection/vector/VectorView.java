@@ -57,13 +57,13 @@ public final class VectorView<T> implements Vector<T>
 	}
 	
 	@Override
-	public Vector<T> push(T value)
+	public Vector<T> append(T value)
 	{
 		return new VectorOverlay(this, this.size, Vector.of(value));
 	}
 	
 	@Override
-	public Vector<T> push(T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8, T e9, T e10, T e11, T e12, T e13, T e14, T e15, T e16)
+	public Vector<T> append(T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8, T e9, T e10, T e11, T e12, T e13, T e14, T e15, T e16)
 	{
 		//
 		// create a vector from the values and append as an overlay
@@ -72,7 +72,7 @@ public final class VectorView<T> implements Vector<T>
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNull Iterable<T> iterable)
+	public Vector<T> appendAll(@NotNull Iterable<T> iterable)
 	{
 		if (iterable instanceof Vector)
 		{
@@ -85,16 +85,16 @@ public final class VectorView<T> implements Vector<T>
 		//
 		// create a vector from the iterable, then append it as an overlay
 		//
-		return new VectorOverlay(this, this.size, Vector.empty.pushAll(iterable));
+		return new VectorOverlay(this, this.size, Vector.empty.appendAll(iterable));
 	}
 	
 	@Override
-	public Vector<T> pushAll(@NotNull Iterator<T> it)
+	public Vector<T> appendAll(@NotNull Iterator<T> it)
 	{
 		//
 		// create a vector from the iterator, then append it as an overlay
 		//
-		return new VectorOverlay(this, this.size, Vector.empty.pushAll(it));
+		return new VectorOverlay(this, this.size, Vector.empty.appendAll(it));
 	}
 	
 	@Override

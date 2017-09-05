@@ -112,13 +112,13 @@ public final class VectorTrie<T> implements Vector<T>
 		return new VectorTrie(level + 1,this, Vector.of(value));
 	}
 
-	public Vector<T> push(final T value)
+	public Vector<T> append(final T value)
 	{
 		// add element after last current element
 		return this.set(this.size(), value);
 	}
 
-	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)	{
+	public Vector<T> append(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15)	{
 		final int childIndex = size / childSize; // index of vector containing last element
 		final int childCount = size % childSize;  // size of vector containing last element
 		final int childCapacity = childSize - childCount;   // remaining capacity of vector containing last element
@@ -132,9 +132,9 @@ public final class VectorTrie<T> implements Vector<T>
 			{
 				//
 				// there is room for these elements in the child,
-				// push to the child, then rebuild the trie with the updated child
+				// append to the child, then rebuild the trie with the updated child
 				//
-				return setChild(childIndex, getChild(childIndex).push(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15));
+				return setChild(childIndex, getChild(childIndex).append(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15));
 			}
 
 			//
@@ -148,43 +148,43 @@ public final class VectorTrie<T> implements Vector<T>
 			//
 			// there is not enough room in the child for 16 elements, which means these
 			// new elements will need to be split between children.
-			// Use a loop to push each element.  It is inefficient, but handles situation
+			// Use a loop to append each element.  It is inefficient, but handles situation
 			// where a new child or new level in the hierarchy is required
 			//
-			return this.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10).push(e11).push(e12).push(e13).push(e14).push(e15);
+			return this.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10).append(e11).append(e12).append(e13).append(e14).append(e15);
 		}
 
 	}
 
-	public Vector<T> pushAll(final Iterable<T> iterable)
+	public Vector<T> appendAll(final Iterable<T> iterable)
 	{
-		return Vectors.pushAll(this, iterable);
+		return Vectors.appendAll(this, iterable);
 	}
 
-	public Vector<T> pushAll(final Iterator<T> it)
+	public Vector<T> appendAll(final Iterator<T> it)
 	{
-		return Vectors.pushAll(this, it);
+		return Vectors.appendAll(this, it);
 	}
 
 	public Vector<T> filter(final Predicate<T> predicate)
 	{
 		Vector<T> result = Vector.empty;
-		result = result.pushAll(vector0.filter(predicate));
-		result = result.pushAll(vector1.filter(predicate));
-		result = result.pushAll(vector2.filter(predicate));
-		result = result.pushAll(vector3.filter(predicate));
-		result = result.pushAll(vector4.filter(predicate));
-		result = result.pushAll(vector5.filter(predicate));
-		result = result.pushAll(vector6.filter(predicate));
-		result = result.pushAll(vector7.filter(predicate));
-		result = result.pushAll(vector8.filter(predicate));
-		result = result.pushAll(vector9.filter(predicate));
-		result = result.pushAll(vector10.filter(predicate));
-		result = result.pushAll(vector11.filter(predicate));
-		result = result.pushAll(vector12.filter(predicate));
-		result = result.pushAll(vector13.filter(predicate));
-		result = result.pushAll(vector14.filter(predicate));
-		result = result.pushAll(vector15.filter(predicate));
+		result = result.appendAll(vector0.filter(predicate));
+		result = result.appendAll(vector1.filter(predicate));
+		result = result.appendAll(vector2.filter(predicate));
+		result = result.appendAll(vector3.filter(predicate));
+		result = result.appendAll(vector4.filter(predicate));
+		result = result.appendAll(vector5.filter(predicate));
+		result = result.appendAll(vector6.filter(predicate));
+		result = result.appendAll(vector7.filter(predicate));
+		result = result.appendAll(vector8.filter(predicate));
+		result = result.appendAll(vector9.filter(predicate));
+		result = result.appendAll(vector10.filter(predicate));
+		result = result.appendAll(vector11.filter(predicate));
+		result = result.appendAll(vector12.filter(predicate));
+		result = result.appendAll(vector13.filter(predicate));
+		result = result.appendAll(vector14.filter(predicate));
+		result = result.appendAll(vector15.filter(predicate));
 		return result;
 	}
 
@@ -196,22 +196,22 @@ public final class VectorTrie<T> implements Vector<T>
 	public <R> Vector<R> flatmap(final Function<T, Vector<R>> mapper)
 	{
 		Vector<R> result = Vector.empty;
-		result = result.pushAll(vector0.flatmap(mapper));
-		result = result.pushAll(vector1.flatmap(mapper));
-		result = result.pushAll(vector2.flatmap(mapper));
-		result = result.pushAll(vector3.flatmap(mapper));
-		result = result.pushAll(vector4.flatmap(mapper));
-		result = result.pushAll(vector5.flatmap(mapper));
-		result = result.pushAll(vector6.flatmap(mapper));
-		result = result.pushAll(vector7.flatmap(mapper));
-		result = result.pushAll(vector8.flatmap(mapper));
-		result = result.pushAll(vector9.flatmap(mapper));
-		result = result.pushAll(vector10.flatmap(mapper));
-		result = result.pushAll(vector11.flatmap(mapper));
-		result = result.pushAll(vector12.flatmap(mapper));
-		result = result.pushAll(vector13.flatmap(mapper));
-		result = result.pushAll(vector14.flatmap(mapper));
-		result = result.pushAll(vector15.flatmap(mapper));
+		result = result.appendAll(vector0.flatmap(mapper));
+		result = result.appendAll(vector1.flatmap(mapper));
+		result = result.appendAll(vector2.flatmap(mapper));
+		result = result.appendAll(vector3.flatmap(mapper));
+		result = result.appendAll(vector4.flatmap(mapper));
+		result = result.appendAll(vector5.flatmap(mapper));
+		result = result.appendAll(vector6.flatmap(mapper));
+		result = result.appendAll(vector7.flatmap(mapper));
+		result = result.appendAll(vector8.flatmap(mapper));
+		result = result.appendAll(vector9.flatmap(mapper));
+		result = result.appendAll(vector10.flatmap(mapper));
+		result = result.appendAll(vector11.flatmap(mapper));
+		result = result.appendAll(vector12.flatmap(mapper));
+		result = result.appendAll(vector13.flatmap(mapper));
+		result = result.appendAll(vector14.flatmap(mapper));
+		result = result.appendAll(vector15.flatmap(mapper));
 		return result;
 	}
 

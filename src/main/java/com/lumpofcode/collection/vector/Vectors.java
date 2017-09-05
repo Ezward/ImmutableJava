@@ -27,9 +27,9 @@ public final class Vectors
 	 * @param <T> type of elements in the Vector and Iterable
 	 * @return a new Vector with the Iterable's elements appended.
 	 */
-	public static final <T> Vector<T> pushAll(final Vector vector, final Iterable<T> iterable)
+	public static final <T> Vector<T> appendAll(final Vector vector, final Iterable<T> iterable)
 	{
-		return Vectors.pushAll(vector, iterable.iterator());
+		return Vectors.appendAll(vector, iterable.iterator());
 	}
 
 	/**
@@ -40,7 +40,7 @@ public final class Vectors
 	 * @param <T> type of elements in the Vector and Iterator
 	 * @return a new Vector with the Iterator's elements appended.
 	 */
-	public static final <T> Vector<T> pushAll(final Vector vector, final Iterator<T> it)
+	public static final <T> Vector<T> appendAll(final Vector vector, final Iterator<T> it)
 	{
 		//
 		// do in chunks of node size for efficiency
@@ -48,16 +48,16 @@ public final class Vectors
 		Vector<T> result = vector;
 
 		//
-		// get to a node-size-aligned result, so we can start using push-16 for efficiency
+		// get to a node-size-aligned result, so we can start using append-16 for efficiency
 		//
 		while(((result.size() % Vector.VECTOR_NODE_SIZE) != 0) && it.hasNext())
 		{
-			result = result.push(it.next());
+			result = result.append(it.next());
 		}
 
 		//
-		// While we have 16 elements available, collect them and use the more efficient 16 push,
-		// otherwise push each element individually
+		// While we have 16 elements available, collect them and use the more efficient 16 append,
+		// otherwise append each element individually
 		//
 		while(it.hasNext())
 		{
@@ -107,129 +107,129 @@ public final class Vectors
 																	if (it.hasNext())
 																	{
 																		//
-																		// we have enough for a node size push
+																		// we have enough for a node size append
 																		//
 																		final T e15 = it.next();
-																		result = result.push(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15);
+																		result = result.append(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15);
 																	}
 																	else
 																	{
 																		//
-																		// else we don't have enough for a push of node size, so do a series of push of 1
+																		// else we don't have enough for a append of node size, so do a series of append of 1
 																		//
-																		result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10).push(e11).push(e12).push(e13).push(e14);
+																		result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10).append(e11).append(e12).append(e13).append(e14);
 																	}
 																}
 																else
 																{
 																	//
-																	// else we don't have enough for a push of node size, so do a series of push of 1
+																	// else we don't have enough for a append of node size, so do a series of append of 1
 																	//
-																	result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10).push(e11).push(e12).push(e13);
+																	result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10).append(e11).append(e12).append(e13);
 																}
 															}
 															else
 															{
 																//
-																// else we don't have enough for a push of node size, so do a series of push of 1
+																// else we don't have enough for a append of node size, so do a series of append of 1
 																//
-																result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10).push(e11).push(e12);
+																result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10).append(e11).append(e12);
 															}
 														}
 														else
 														{
 															//
-															// else we don't have enough for a push of node size, so do a series of push of 1
+															// else we don't have enough for a append of node size, so do a series of append of 1
 															//
-															result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10).push(e11);
+															result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10).append(e11);
 														}
 													}
 													else
 													{
 														//
-														// else we don't have enough for a push of node size, so do a series of push of 1
+														// else we don't have enough for a append of node size, so do a series of append of 1
 														//
-														result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9).push(e10);
+														result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9).append(e10);
 													}
 												}
 												else
 												{
 													//
-													// else we don't have enough for a push of node size, so do a series of push of 1
+													// else we don't have enough for a append of node size, so do a series of append of 1
 													//
-													result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8).push(e9);
+													result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8).append(e9);
 												}
 											}
 											else
 											{
 												//
-												// else we don't have enough for a push of node size, so do a series of push of 1
+												// else we don't have enough for a append of node size, so do a series of append of 1
 												//
-												result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7).push(e8);
+												result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7).append(e8);
 											}
 										}
 										else
 										{
 											//
-											// else we don't have enough for a push of node size, so do a series of push of 1
+											// else we don't have enough for a append of node size, so do a series of append of 1
 											//
-											result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6).push(e7);
+											result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6).append(e7);
 										}
 									}
 									else
 									{
 										//
-										// else we don't have enough for a push of node size, so do a series of push of 1
+										// else we don't have enough for a append of node size, so do a series of append of 1
 										//
-										result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5).push(e6);
+										result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5).append(e6);
 									}
 								}
 								else
 								{
 									//
-									// else we don't have enough for a push of node size, so do a series of push of 1
+									// else we don't have enough for a append of node size, so do a series of append of 1
 									//
-									result = result.push(e0).push(e1).push(e2).push(e3).push(e4).push(e5);
+									result = result.append(e0).append(e1).append(e2).append(e3).append(e4).append(e5);
 								}
 							}
 							else
 							{
 								//
-								// else we don't have enough for a push of node size, so do a series of push of 1
+								// else we don't have enough for a append of node size, so do a series of append of 1
 								//
-								result = result.push(e0).push(e1).push(e2).push(e3).push(e4);
+								result = result.append(e0).append(e1).append(e2).append(e3).append(e4);
 							}
 						}
 						else
 						{
 							//
-							// else we don't have enough for a push of node size, so do a series of push of 1
+							// else we don't have enough for a append of node size, so do a series of append of 1
 							//
-							result = result.push(e0).push(e1).push(e2).push(e3);
+							result = result.append(e0).append(e1).append(e2).append(e3);
 						}
 					}
 					else
 					{
 						//
-						// else we don't have enough for a push of node size, so do a series of push of 1
+						// else we don't have enough for a append of node size, so do a series of append of 1
 						//
-						result = result.push(e0).push(e1).push(e2);
+						result = result.append(e0).append(e1).append(e2);
 					}
 				}
 				else
 				{
 					//
-					// else we don't have enough for a push of node size, so do a series of push of 1
+					// else we don't have enough for a append of node size, so do a series of append of 1
 					//
-					result = result.push(e0).push(e1);
+					result = result.append(e0).append(e1);
 				}
 			}
 			else
 			{
 				//
-				// else we don't have enough for a push of node size, so do a series of push of 1
+				// else we don't have enough for a append of node size, so do a series of append of 1
 				//
-				result = result.push(e0);
+				result = result.append(e0);
 			}
 		}
 
@@ -245,7 +245,7 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> filter(final Vector<T> vector, Predicate<T> predicate)
 	{
-		return Vectors.pushAll(Vector.empty, new FilteredIterator(vector.iterator(), predicate));
+		return Vectors.appendAll(Vector.empty, new FilteredIterator(vector.iterator(), predicate));
 	}
 
 	/**
@@ -258,7 +258,7 @@ public final class Vectors
 	 */
 	public static final <T> Vector<T> filter(final Vector<T> vector, final Iterable<T> iterable, Predicate<T> predicate)
 	{
-		return Vectors.pushAll(vector, new FilteredIterator(iterable.iterator(), predicate));
+		return Vectors.appendAll(vector, new FilteredIterator(iterable.iterator(), predicate));
 	}
 
 	/**
@@ -279,7 +279,7 @@ public final class Vectors
 		int index = 0;
 		while(index <= (vector.size() - Vector.VECTOR_NODE_SIZE))
 		{
-			result = result.push(
+			result = result.append(
 				mapper.apply(vector.get(index + 0)), 	mapper.apply(vector.get(index + 1)), 	mapper.apply(vector.get(index + 2)), 	mapper.apply(vector.get(index + 3)), 
 				mapper.apply(vector.get(index + 4)), 	mapper.apply(vector.get(index + 5)), 	mapper.apply(vector.get(index + 6)), 	mapper.apply(vector.get(index + 7)), 
 				mapper.apply(vector.get(index + 8)), 	mapper.apply(vector.get(index + 9)), 	mapper.apply(vector.get(index + 10)), 	mapper.apply(vector.get(index + 11)), 
@@ -288,11 +288,11 @@ public final class Vectors
 		}
 
 		//
-		// handle the rest with simple push
+		// handle the rest with simple append
 		//
 		while(index < vector.size())
 		{
-			result = result.push(mapper.apply(vector.get(index)));
+			result = result.append(mapper.apply(vector.get(index)));
 			index += 1;
 		}
 
@@ -315,7 +315,7 @@ public final class Vectors
 		Vector<R> result = Vector.empty;
 		for(T element : vector)
 		{
-			result = result.pushAll(mapper.apply(element));
+			result = result.appendAll(mapper.apply(element));
 		}
 
 		return result;
