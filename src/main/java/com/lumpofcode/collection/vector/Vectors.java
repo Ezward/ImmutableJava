@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 public final class Vectors
 {
 	/**
-	 * Push all elements in the Iterable into the end of the Vector
+	 * Push all elements in the Iterable onto the end of the Vector
 	 *
 	 * @param vector Vector to be appended to
 	 * @param iterable Iterable with elements to append
@@ -33,7 +33,7 @@ public final class Vectors
 	}
 
 	/**
-	 * Push all elements in the Iterator into the end of the Vector
+	 * Push all elements in the Iterator onto the end of the Vector
 	 *
 	 * @param vector Vector to be appended to
 	 * @param it Iterator with elements to append
@@ -241,7 +241,6 @@ public final class Vectors
 	 * composed of those that pass the filter
 	 *
 	 * @param vector Vector to be filtered
-	 * @param <T> type of elements in the Vector
 	 * @return a new Vector with elements that pass the predicate filter.
 	 */
 	public static final <T> Vector<T> filter(final Vector<T> vector, Predicate<T> predicate)

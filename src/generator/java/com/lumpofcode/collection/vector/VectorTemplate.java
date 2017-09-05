@@ -167,7 +167,7 @@ public final class VectorTemplate
 			b.line("/**");
 			b.line(" * Append a value to the end of the Vector.");
 			b.line(" *");
-			b.line(" * @param value the value to append");
+			b.line(" * @param value the value to append to this vector");
 			b.line(" * @return a new Vector with the value appended");
 			b.line(" */");
 			b.line("Vector<T> push(final T value);").eol();
@@ -183,7 +183,7 @@ public final class VectorTemplate
 			b.line(" *");
 			for(int i = 0; i < nodeSize; i += 1)
 			{
-				b.with("i", i).line(" * @param e{{i}} element to push");
+				b.with("i", i).line(" * @param e{{i}} value to append to this vector");
 			}
 			b.line(" * @return a new Vector with {{nodesize}} addition elements");
 			b.line(" */");
@@ -1172,7 +1172,7 @@ public final class VectorTemplate
 		b.block();
 		{
 			b.line("/**");
-			b.line(" * Push all elements in the Iterable into the end of the Vector");
+			b.line(" * Push all elements in the Iterable onto the end of the Vector");
 			b.line(" *");
 			b.line(" * @param vector Vector to be appended to");
 			b.line(" * @param iterable Iterable with elements to append");
@@ -1188,7 +1188,7 @@ public final class VectorTemplate
 			
 			
 			b.line("/**");
-			b.line(" * Push all elements in the Iterator into the end of the Vector");
+			b.line(" * Push all elements in the Iterator onto the end of the Vector");
 			b.line(" *");
 			b.line(" * @param vector Vector to be appended to");
 			b.line(" * @param it Iterator with elements to append");
@@ -1278,7 +1278,6 @@ public final class VectorTemplate
 			b.line(" * composed of those that pass the filter");
 			b.line(" *");
 			b.line(" * @param vector Vector to be filtered");
-			b.line(" * @param <T> type of elements in the Vector");
 			b.line(" * @return a new Vector with elements that pass the predicate filter.");
 			b.line(" */");
 			b.line("public static final <T> Vector<T> filter(final Vector<T> vector, Predicate<T> predicate)");

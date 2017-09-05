@@ -384,7 +384,7 @@ public interface Vector<T> extends Iterable<T>
 	/**
 	 * Append a value to the end of the Vector.
 	 *
-	 * @param value the value to append
+	 * @param value the value to append to this vector
 	 * @return a new Vector with the value appended
 	 */
 	Vector<T> push(final T value);
@@ -395,22 +395,22 @@ public interface Vector<T> extends Iterable<T>
 	 * efficient way to build up the vector, provided that
 	 * elements are always added in chunks of Vector.VECTOR_NODE_SIZE.
 	 *
-	 * @param e0 element to push
-	 * @param e1 element to push
-	 * @param e2 element to push
-	 * @param e3 element to push
-	 * @param e4 element to push
-	 * @param e5 element to push
-	 * @param e6 element to push
-	 * @param e7 element to push
-	 * @param e8 element to push
-	 * @param e9 element to push
-	 * @param e10 element to push
-	 * @param e11 element to push
-	 * @param e12 element to push
-	 * @param e13 element to push
-	 * @param e14 element to push
-	 * @param e15 element to push
+	 * @param e0 value to append to this vector
+	 * @param e1 value to append to this vector
+	 * @param e2 value to append to this vector
+	 * @param e3 value to append to this vector
+	 * @param e4 value to append to this vector
+	 * @param e5 value to append to this vector
+	 * @param e6 value to append to this vector
+	 * @param e7 value to append to this vector
+	 * @param e8 value to append to this vector
+	 * @param e9 value to append to this vector
+	 * @param e10 value to append to this vector
+	 * @param e11 value to append to this vector
+	 * @param e12 value to append to this vector
+	 * @param e13 value to append to this vector
+	 * @param e14 value to append to this vector
+	 * @param e15 value to append to this vector
 	 * @return a new Vector with 16 addition elements
 	 */
 	public Vector<T> push(final T e0, final T e1, final T e2, final T e3, final T e4, final T e5, final T e6, final T e7, final T e8, final T e9, final T e10, final T e11, final T e12, final T e13, final T e14, final T e15);
